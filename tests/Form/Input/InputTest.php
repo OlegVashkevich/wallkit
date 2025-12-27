@@ -16,7 +16,6 @@ class InputTest extends TestCase
     {
         $input = new Input(
             name: 'username',
-            label: 'Имя пользователя',
             placeholder: 'Введите имя',
             value: 'JohnDoe',
             type: 'text',
@@ -24,7 +23,6 @@ class InputTest extends TestCase
         );
 
         $this->assertEquals('username', $input->name);
-        $this->assertEquals('Имя пользователя', $input->label);
         $this->assertEquals('Введите имя', $input->placeholder);
         $this->assertEquals('JohnDoe', $input->value);
         $this->assertEquals('text', $input->type);
@@ -38,7 +36,6 @@ class InputTest extends TestCase
         $input = new Input(name: 'email');
 
         $this->assertEquals('email', $input->name);
-        $this->assertNull($input->label);
         $this->assertNull($input->placeholder);
         $this->assertNull($input->value);
         $this->assertEquals('text', $input->type);
@@ -84,30 +81,19 @@ class InputTest extends TestCase
 
     // ==================== ТЕСТЫ МЕТОДОВ КЛАССА ====================
 
-    public function testGetBaseClasses(): void
+    public function testGetInputClasses(): void
     {
         // Базовый класс
         $input = new Input(name: 'test');
-        $classes = $input->getBaseClasses();
+        $classes = $input->getInputClasses();
 
-        $this->assertContains('wallkit-input', $classes);
-
-        // С ошибкой
-        $inputWithError = new Input(name: 'test', error: 'Обязательное поле');
-        $errorClasses = $inputWithError->getBaseClasses();
-
-        $this->assertContains('wallkit-input--error', $errorClasses);
-
-        // Отключенный
-        $inputDisabled = new Input(name: 'test', disabled: true);
-        $disabledClasses = $inputDisabled->getBaseClasses();
-
-        $this->assertContains('wallkit-input--disabled', $disabledClasses);
+        $this->assertContains('wallkit-input__field', $classes);
 
         // С дополнительными классами
         $inputWithCustom = new Input(name: 'test', classes: ['custom-class', 'another-class']);
-        $customClasses = $inputWithCustom->getBaseClasses();
+        $customClasses = $inputWithCustom->getInputClasses();
 
+        $this->assertContains('wallkit-input__field', $customClasses);
         $this->assertContains('custom-class', $customClasses);
         $this->assertContains('another-class', $customClasses);
     }
@@ -163,14 +149,13 @@ class InputTest extends TestCase
         $input = new Input(
             name: 'password',
             type: 'password',
-            withPasswordToggle: true,
         );
 
         $attributes = $input->getInputAttributes();
 
         $this->assertEquals('password', $attributes['type']);
-        $this->assertArrayHasKey('data-name', $attributes);
-        $this->assertEquals('password', $attributes['data-name']);
+        $this->assertArrayHasKey('class', $attributes);
+        $this->assertStringContainsString('wallkit-input__field', $attributes['class']);
     }
 
     public function testGetInputAttributesFiltersNullValues(): void
@@ -178,7 +163,7 @@ class InputTest extends TestCase
         $input = new Input(name: 'test');
 
         $attributes = $input->getInputAttributes();
-        echo $input;
+
         $this->assertArrayNotHasKey('id', $attributes);
         $this->assertArrayNotHasKey('placeholder', $attributes);
         $this->assertArrayNotHasKey('value', $attributes);
@@ -211,24 +196,6 @@ class InputTest extends TestCase
         $this->assertNull($input->id);
     }
 
-    public function testPasswordToggleEnabledByDefault(): void
-    {
-        $input = new Input(name: 'password', type: 'password');
-
-        $this->assertTrue($input->withPasswordToggle);
-    }
-
-    public function testCanDisablePasswordToggle(): void
-    {
-        $input = new Input(
-            name: 'password',
-            type: 'password',
-            withPasswordToggle: false,
-        );
-
-        $this->assertFalse($input->withPasswordToggle);
-    }
-
     public function testSpellcheckDisabledByDefault(): void
     {
         $input = new Input(name: 'test');
@@ -258,12 +225,12 @@ class InputTest extends TestCase
 
         $input = new Input(
             name: 'xss',
-            label: 'Test <b>bold</b>',
+            placeholder: 'Test <b>bold</b>',
             value: $specialValue,
         );
 
         $this->assertEquals($specialValue, $input->value);
-        $this->assertEquals('Test <b>bold</b>', $input->label);
+        $this->assertEquals('Test <b>bold</b>', $input->placeholder);
     }
 
     // ==================== ТЕСТЫ НА НЕГАТИВНЫЕ СЦЕНАРИИ ====================
@@ -271,20 +238,26 @@ class InputTest extends TestCase
     public function testEmptyNameThrowsException(): void
     {
         $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Имя поля обязательно и не может состоять только из пробелов');
 
         new Input(name: '');
+    }
+
+    public function testOnlySpacesNameThrowsException(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Имя поля обязательно и не может состоять только из пробелов');
+
+        new Input(name: '   ');
     }
 
     public function testNullValuesAreAllowed(): void
     {
         $input = new Input(
             name: 'test',
-            label: null,
             placeholder: null,
             value: null,
             id: null,
-            helpText: null,
-            error: null,
             pattern: null,
             min: null,
             max: null,
@@ -292,16 +265,79 @@ class InputTest extends TestCase
             autocomplete: null,
         );
 
-        $this->assertNull($input->label);
         $this->assertNull($input->placeholder);
         $this->assertNull($input->value);
         $this->assertNull($input->id);
-        $this->assertNull($input->helpText);
-        $this->assertNull($input->error);
         $this->assertNull($input->pattern);
         $this->assertNull($input->min);
         $this->assertNull($input->max);
         $this->assertNull($input->step);
         $this->assertNull($input->autocomplete);
+    }
+
+    // ==================== ТЕСТЫ РЕНДЕРИНГА ====================
+
+    public function testRendersBasicInput(): void
+    {
+        $input = new Input(name: 'test');
+
+        $html = (string)$input;
+
+        $this->assertStringStartsWith('<input', $html);
+        $this->assertStringContainsString('name="test"', $html);
+        $this->assertStringContainsString('type="text"', $html);
+        $this->assertStringContainsString('wallkit-input__field', $html);
+        $this->assertStringEndsWith('>', $html);
+    }
+
+    public function testRendersInputWithAllAttributes(): void
+    {
+        $input = new Input(
+            name: 'email',
+            placeholder: 'Enter email',
+            value: 'test@example.com',
+            type: 'email',
+            required: true,
+            id: 'email-field',
+            maxLength: 255,
+            classes: ['custom-class'],
+            attributes: ['data-test' => 'value'],
+        );
+
+        $html = (string)$input;
+
+        $this->assertStringContainsString('name="email"', $html);
+        $this->assertStringContainsString('type="email"', $html);
+        $this->assertStringContainsString('placeholder="Enter email"', $html);
+        $this->assertStringContainsString('value="test@example.com"', $html);
+        $this->assertStringContainsString('id="email-field"', $html);
+        $this->assertStringContainsString('required', $html);
+        $this->assertStringContainsString('maxlength="255"', $html);
+        $this->assertStringContainsString('custom-class', $html);
+        $this->assertStringContainsString('data-test="value"', $html);
+    }
+
+    public function testEscapesSpecialCharacters(): void
+    {
+        $input = new Input(
+            name: 'xss',
+            placeholder: '" onclick="alert(\'xss\')',
+            value: '"><img src=x onerror=alert(1)>',
+            attributes: [
+                'data-xss' => '"><script>alert(1)</script>',
+            ],
+        );
+
+        $html = (string)$input;
+
+        // Проверяем экранирование
+        $this->assertStringContainsString('&quot; onclick=&quot;alert(&apos;xss&apos;)', $html);
+        $this->assertStringContainsString('&quot;&gt;&lt;img src=x onerror=alert(1)&gt;', $html);
+        $this->assertStringContainsString(
+            'data-xss="&quot;&gt;&lt;script&gt;alert(1)&lt;/script&gt;"',
+            $html,
+        );
+        $this->assertStringNotContainsString('<script>', $html);
+        $this->assertStringNotContainsString('<img', $html);
     }
 }

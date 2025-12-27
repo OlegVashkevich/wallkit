@@ -1,3 +1,12 @@
+<?php
+
+require __DIR__.'/../../vendor/autoload.php';
+
+use OlegV\BrickManager;
+use OlegV\WallKit\Form\Field\Field;
+use OlegV\WallKit\Form\Input\Input;
+
+?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -12,7 +21,7 @@
         }
 
         body {
-            font-family: var(--wk-font-family);
+            font-family: var(--wk-font-family), serif;
             line-height: 1.6;
             color: var(--wk-color-gray-900);
             background: var(--wk-color-gray-50);
@@ -214,21 +223,13 @@
     </div>
 
     <div class="content">
-        <?php
-        require __DIR__.'/../../vendor/autoload.php';
-
-        use OlegV\BrickManager;
-        use OlegV\WallKit\Form\Input\Input;
-
-        // Секция: Основные примеры
-        ?>
         <div class="section">
             <h2 class="section-title">Базовые поля</h2>
 
             <div class="example-grid">
-                <!-- Пример 1: Простое поле -->
+                <!-- Пример 1: Чистый Input -->
                 <div class="example-box">
-                    <div class="example-title">1. Простой поиск</div>
+                    <div class="example-title">1. Чистый Input (без обёртки)</div>
                     <?php
                     $simpleInput = new Input(
                         name: 'search',
@@ -247,27 +248,35 @@
                     </div>
                 </div>
 
-                <!-- Пример 2: Поле с меткой -->
+                <!-- Пример 2: Field с Input внутри -->
                 <div class="example-box">
-                    <div class="example-title">2. Имя пользователя</div>
+                    <div class="example-title">2. Field с меткой и Input</div>
                     <?php
-                    $username = new Input(
-                        name: 'username',
+                    $field = new Field(
+                        input: new Input(
+                            name: 'username',
+                            placeholder: 'Введите имя пользователя',
+                            required: true,
+                            id: 'username-field',
+                        ),
                         label: 'Имя пользователя',
-                        required: true,
-                        id: 'username-field',
+                        helpText: 'Обязательное поле',
                     );
-                    echo $username;
+                    echo $field;
                     ?>
                     <div class="example-description">
-                        Обязательное поле с меткой и ID
+                        Поле с обёрткой, меткой и подсказкой
                     </div>
                     <div class="code-block">
-                        new Input(<br>
-                        &nbsp;&nbsp;name: 'username',<br>
+                        new Field(<br>
+                        &nbsp;&nbsp;input: new Input(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;name: 'username',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;placeholder: 'Введите имя пользователя',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;required: true,<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;id: 'username-field'<br>
+                        &nbsp;&nbsp;),<br>
                         &nbsp;&nbsp;label: 'Имя пользователя',<br>
-                        &nbsp;&nbsp;required: true,<br>
-                        &nbsp;&nbsp;id: 'username-field'<br>
+                        &nbsp;&nbsp;helpText: 'Обязательное поле'<br>
                         )
                     </div>
                 </div>
@@ -279,58 +288,68 @@
             <h2 class="section-title">Валидация и ошибки</h2>
 
             <div class="example-grid">
-                <!-- Пример 3: Поле с ошибкой -->
+                <!-- Пример 3: Field с ошибкой -->
                 <div class="example-box">
-                    <div class="example-title">3. Email с ошибкой</div>
+                    <div class="example-title">3. Field с ошибкой</div>
                     <?php
-                    $email = new Input(
-                        name: 'email',
+                    $emailField = new Field(
+                        input: new Input(
+                            name: 'email',
+                            value: 'неправильный email',
+                            type: 'email',
+                            id: 'email-input',
+                        ),
                         label: 'Email',
-                        value: 'неправильный email',
-                        type: 'email',
-                        id: 'email-input',
                         error: 'Введите корректный email',
                     );
-                    echo $email;
+                    echo $emailField;
                     ?>
                     <div class="example-description">
                         Поле типа email с сообщением об ошибке
                     </div>
                     <div class="code-block">
-                        new Input(<br>
-                        &nbsp;&nbsp;name: 'email',<br>
+                        new Field(<br>
+                        &nbsp;&nbsp;input: new Input(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;name: 'email',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;value: 'неправильный email',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;type: 'email',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;id: 'email-input'<br>
+                        &nbsp;&nbsp;),<br>
                         &nbsp;&nbsp;label: 'Email',<br>
-                        &nbsp;&nbsp;value: 'неправильный email',<br>
-                        &nbsp;&nbsp;type: 'email',<br>
-                        &nbsp;&nbsp;id: 'email-input',<br>
                         &nbsp;&nbsp;error: 'Введите корректный email'<br>
                         )
                     </div>
                 </div>
 
-                <!-- Пример 4: Поле пароля -->
+                <!-- Пример 4: Field с паролем -->
                 <div class="example-box">
-                    <div class="example-title">4. Поле пароля</div>
+                    <div class="example-title">4. Field пароля с toggle</div>
                     <?php
-                    $password = new Input(
-                        name: 'password',
+                    $passwordField = new Field(
+                        input: new Input(
+                            name: 'password',
+                            type: 'password',
+                            id: 'password-input',
+                        ),
                         label: 'Пароль',
-                        type: 'password',
-                        id: 'password-input',
                         helpText: 'Минимум 8 символов',
+                        withPasswordToggle: true,
                     );
-                    echo $password;
+                    echo $passwordField;
                     ?>
                     <div class="example-description">
-                        Поле пароля с подсказкой и кнопкой показа/скрытия
+                        Поле пароля с кнопкой показа/скрытия
                     </div>
                     <div class="code-block">
-                        new Input(<br>
-                        &nbsp;&nbsp;name: 'password',<br>
+                        new Field(<br>
+                        &nbsp;&nbsp;input: new Input(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;name: 'password',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;type: 'password',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;id: 'password-input'<br>
+                        &nbsp;&nbsp;),<br>
                         &nbsp;&nbsp;label: 'Пароль',<br>
-                        &nbsp;&nbsp;type: 'password',<br>
-                        &nbsp;&nbsp;id: 'password-input',<br>
-                        &nbsp;&nbsp;helpText: 'Минимум 8 символов'<br>
+                        &nbsp;&nbsp;helpText: 'Минимум 8 символов',<br>
+                        &nbsp;&nbsp;withPasswordToggle: true<br>
                         )
                     </div>
                 </div>
@@ -342,29 +361,33 @@
             <h2 class="section-title">Разные типы полей</h2>
 
             <div class="example-grid">
-                <!-- Пример 5: Поле пароля без toggle -->
+                <!-- Пример 5: Field без toggle -->
                 <div class="example-box">
-                    <div class="example-title">5. Пароль без переключения</div>
+                    <div class="example-title">5. Field пароля без toggle</div>
                     <?php
-                    $password2 = new Input(
-                        name: 'password2',
+                    $passwordFieldNoToggle = new Field(
+                        input: new Input(
+                            name: 'password2',
+                            type: 'password',
+                            id: 'password-input2',
+                        ),
                         label: 'Пароль2',
-                        type: 'password',
-                        id: 'password-input2',
                         helpText: 'Минимум 8 символов',
                         withPasswordToggle: false,
                     );
-                    echo $password2;
+                    echo $passwordFieldNoToggle;
                     ?>
                     <div class="example-description">
                         Поле пароля без кнопки показа/скрытия
                     </div>
                     <div class="code-block">
-                        new Input(<br>
-                        &nbsp;&nbsp;name: 'password2',<br>
+                        new Field(<br>
+                        &nbsp;&nbsp;input: new Input(<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;name: 'password2',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;type: 'password',<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;id: 'password-input2'<br>
+                        &nbsp;&nbsp;),<br>
                         &nbsp;&nbsp;label: 'Пароль2',<br>
-                        &nbsp;&nbsp;type: 'password',<br>
-                        &nbsp;&nbsp;id: 'password-input2',<br>
                         &nbsp;&nbsp;helpText: 'Минимум 8 символов',<br>
                         &nbsp;&nbsp;withPasswordToggle: false<br>
                         )
@@ -376,24 +399,28 @@
                     <div class="example-title">6. Разные типы полей</div>
                     <?php
                     // Телефон
-                    $phone = new Input(
-                        name: 'phone',
+                    $phoneField = new Field(
+                        input: new Input(
+                            name: 'phone',
+                            type: 'tel',
+                            placeholder: '+7 (___) ___-__-__',
+                            id: 'phone-input',
+                        ),
                         label: 'Телефон',
-                        type: 'tel',
-                        placeholder: '+7 (___) ___-__-__',
-                        id: 'phone-input',
                     );
-                    echo $phone;
+                    echo $phoneField;
                     echo '<div style="margin-top: var(--wk-spacing-3);"></div>';
 
                     // Дата
-                    $date = new Input(
-                        name: 'birthday',
+                    $dateField = new Field(
+                        input: new Input(
+                            name: 'birthday',
+                            type: 'date',
+                            id: 'date-input',
+                        ),
                         label: 'Дата рождения',
-                        type: 'date',
-                        id: 'date-input',
                     );
-                    echo $date;
+                    echo $dateField;
                     ?>
                     <div class="example-description">
                         Примеры разных типов полей: телефон и дата
@@ -401,6 +428,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- Секция: Демо форма -->
         <div class="section">
@@ -412,34 +440,42 @@
                 <?php
                 // Демо форма с разными типами полей
                 $formFields = [
-                    new Input(
-                        name: 'full_name',
+                    new Field(
+                        input: new Input(
+                            name: 'full_name',
+                            placeholder: 'Иванов Иван Иванович',
+                            required: true,
+                            id: 'full-name',
+                        ),
                         label: 'ФИО',
-                        placeholder: 'Иванов Иван Иванович',
-                        required: true,
-                        id: 'full-name',
                     ),
-                    new Input(
-                        name: 'user_email',
+                    new Field(
+                        input: new Input(
+                            name: 'user_email',
+                            type: 'email',
+                            placeholder: 'example@domain.com',
+                            required: true,
+                            id: 'user-email',
+                        ),
                         label: 'Email',
-                        type: 'email',
-                        placeholder: 'example@domain.com',
-                        required: true,
-                        id: 'user-email',
                     ),
-                    new Input(
-                        name: 'user_phone',
+                    new Field(
+                        input: new Input(
+                            name: 'user_phone',
+                            type: 'tel',
+                            placeholder: '+7 (999) 123-45-67',
+                            id: 'user-phone',
+                        ),
                         label: 'Телефон',
-                        type: 'tel',
-                        placeholder: '+7 (999) 123-45-67',
-                        id: 'user-phone',
                     ),
-                    new Input(
-                        name: 'user_password',
+                    new Field(
+                        input: new Input(
+                            name: 'user_password',
+                            type: 'password',
+                            required: true,
+                            id: 'user-password',
+                        ),
                         label: 'Пароль',
-                        type: 'password',
-                        required: true,
-                        id: 'user-password',
                         helpText: 'Минимум 8 символов',
                     ),
                 ];

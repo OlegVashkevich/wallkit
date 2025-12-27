@@ -11,12 +11,11 @@ use OlegV\Traits\WithStrictHelpers;
 use OlegV\WallKit\Base\Base;
 
 /**
- * Компонент Input - поле формы
+ * Чистый компонент Input - базовое поле ввода без обёртки
  *
  * @example
  * $input = new Input(
  *     name: 'username',
- *     label: 'Имя пользователя',
  *     placeholder: 'Введите ваше имя'
  * );
  */
@@ -26,10 +25,8 @@ readonly class Input extends Base
     use WithStrictHelpers;
     use WithInheritance;
 
-
     /**
      * @param  string  $name  Название поля (атрибут name)
-     * @param  string|null  $label  Текст метки поля
      * @param  string|null  $placeholder  Плейсхолдер
      * @param  string|null  $value  Текущее значение
      * @param  string  $type  Тип поля (text, email, password и т.д.)
@@ -39,8 +36,6 @@ readonly class Input extends Base
      * @param  string|null  $id  ID поля (автогенерируется если не указан)
      * @param  array<string>  $classes  Дополнительные CSS классы
      * @param  array<string, string|int|bool|null>  $attributes  Дополнительные HTML атрибуты
-     * @param  string|null  $helpText  Подсказка под полем
-     * @param  string|null  $error  Сообщение об ошибке
      * @param  bool  $autoFocus  Автофокус при загрузке
      * @param  string|null  $pattern  Регулярное выражение для валидации
      * @param  string|null  $min  Минимальное значение (для number/date)
@@ -48,14 +43,12 @@ readonly class Input extends Base
      * @param  int|null  $maxLength  Максимальная длина
      * @param  int|null  $minLength  Минимальная длина
      * @param  string|null  $step  Шаг для числовых полей
-     * @param  bool  $withPasswordToggle  Показывать кнопку toggle для паролей
      * @param  string|null  $autocomplete  Значение атрибута autocomplete
      *                                    (например: "on", "off", "name", "email", "username")
-     * @param  bool  $spellcheck  Включить/выключить проверку орфографии
+     * @param  bool|null  $spellcheck  Включить/выключить проверку орфографии
      */
     public function __construct(
         public string $name,
-        public ?string $label = null,
         public ?string $placeholder = null,
         public ?string $value = null,
         public string $type = 'text',
@@ -65,8 +58,6 @@ readonly class Input extends Base
         public ?string $id = null,
         public array $classes = [],
         public array $attributes = [],
-        public ?string $helpText = null,
-        public ?string $error = null,
         public bool $autoFocus = false,
         public ?string $pattern = null,
         public ?string $min = null,
@@ -74,7 +65,6 @@ readonly class Input extends Base
         public ?int $maxLength = null,
         public ?int $minLength = null,
         public ?string $step = null,
-        public bool $withPasswordToggle = true,
         public ?string $autocomplete = null,
         public ?bool $spellcheck = null,
     ) {
@@ -90,21 +80,12 @@ readonly class Input extends Base
     }
 
     /**
-     * Получить базовые CSS классы
+     * Получить CSS классы для input
      * @return array<string>
      */
-    public function getBaseClasses(): array
+    public function getInputClasses(): array
     {
-        $classes = ['wallkit-input'];
-
-        if ($this->hasString($this->error)) {
-            $classes[] = 'wallkit-input--error';
-        }
-
-        if ($this->disabled) {
-            $classes[] = 'wallkit-input--disabled';
-        }
-
+        $classes = ['wallkit-input__field'];
         return array_merge($classes, $this->classes);
     }
 
@@ -118,10 +99,9 @@ readonly class Input extends Base
             'id' => $this->id,
             'name' => $this->name,
             'type' => $this->type,
-            'class' => 'wallkit-input__field',
+            'class' => $this->classList($this->getInputClasses()),
             'placeholder' => $this->placeholder,
             'value' => $this->value,
-            'data-name' => $this->name,
             'autocomplete' => $this->autocomplete,
         ], $this->attributes);
 

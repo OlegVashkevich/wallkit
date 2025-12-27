@@ -1,6 +1,6 @@
-# Компонент Input
+# Компонент Input (обновлённый)
 
-Компонент `Input` предоставляет поле ввода формы с поддержкой различных типов, валидации, доступности и кастомизации.
+Компонент `Input` предоставляет чистое поле ввода формы с поддержкой различных типов, валидации и кастомизации, без дополнительных обёрток.
 
 ## Базовое использование
 
@@ -12,11 +12,7 @@ echo new Input(name: 'username');
 ```
 
 ```html
-<div class="wallkit-input">
-    <div class="wallkit-input__wrapper">
-        <input type="text" name="username" class="wallkit-input__field" data-name="username">
-    </div>
-</div>
+<input type="text" name="username" class="wallkit-input__field" data-name="username">
 ```
 
 ## Параметры конструктора
@@ -31,7 +27,6 @@ echo new Input(name: 'username');
 
 | Параметр | Тип | По умолчанию | Описание |
 |----------|-----|--------------|----------|
-| `label` | `?string` | `null` | Текст метки поля |
 | `placeholder` | `?string` | `null` | Текст плейсхолдера |
 | `value` | `?string` | `null` | Текущее значение поля |
 | `type` | `string` | `'text'` | Тип поля ввода |
@@ -39,8 +34,6 @@ echo new Input(name: 'username');
 | `disabled` | `bool` | `false` | Заблокировано ли поле |
 | `readonly` | `bool` | `false` | Только для чтения |
 | `id` | `?string` | `null` | ID поля (автогенерируется если не указан) |
-| `helpText` | `?string` | `null` | Подсказка под полем |
-| `error` | `?string` | `null` | Сообщение об ошибке |
 
 ### Параметры валидации
 
@@ -58,9 +51,8 @@ echo new Input(name: 'username');
 | Параметр | Тип | По умолчанию | Описание |
 |----------|-----|--------------|----------|
 | `classes` | `array<string>` | `[]` | Дополнительные CSS классы |
-| `attributes` | `array` | `[]` | Дополнительные HTML атрибуты |
+| `attributes` | `array<string, string\|int\|bool\|null>` | `[]` | Дополнительные HTML атрибуты |
 | `autoFocus` | `bool` | `false` | Автофокус при загрузке |
-| `withPasswordToggle` | `bool` | `true` | Показывать кнопку toggle для паролей |
 | `autocomplete` | `?string` | `null` | Значение атрибута autocomplete |
 | `spellcheck` | `?bool` | `null` | Включить/выключить проверку орфографии |
 
@@ -87,99 +79,42 @@ echo new Input(name: 'username');
 
 ## Примеры использования
 
-### Форма входа
-
-```php
-$loginForm = [
-    new Input(
-        name: 'username',
-        label: 'Имя пользователя',
-        placeholder: 'Введите ваш логин',
-        required: true,
-        autoFocus: true,
-        autocomplete: 'username'
-    ),
-    new Input(
-        name: 'password',
-        label: 'Пароль',
-        type: 'password',
-        required: true,
-        helpText: 'Минимум 8 символов',
-        autocomplete: 'current-password'
-    )
-];
-
-foreach ($loginForm as $input) {
-    echo $input;
-}
-```
-
-### Форма регистрации
-
-```php
-$registrationForm = [
-    new Input(
-        name: 'email',
-        label: 'Email',
-        placeholder: 'example@domain.com',
-        type: 'email',
-        required: true,
-        helpText: 'На этот email придет письмо для подтверждения'
-    ),
-    new Input(
-        name: 'phone',
-        label: 'Телефон',
-        type: 'tel',
-        helpText: 'В формате +7 (XXX) XXX-XX-XX',
-        pattern: '^\+7\s?\(?\d{3}\)?\s?\d{3}-\d{2}-\d{2}$'
-    ),
-    new Input(
-        name: 'birth_date',
-        label: 'Дата рождения',
-        type: 'date',
-        helpText: 'Вы должны быть старше 18 лет',
-        max: date('Y-m-d')
-    )
-];
-```
-
-### Поиск с доступностью
+### Чистое поле ввода
 
 ```php
 $searchInput = new Input(
-    name: 'q',
+    name: 'search',
     placeholder: 'Поиск...',
     type: 'search',
-    attributes: [
-        'aria-label' => 'Поиск по сайту',
-        'role' => 'searchbox'
-    ],
-    autoFocus: true,
-    spellcheck: true
+    autoFocus: true
 );
+echo $searchInput;
 ```
 
-### Обработка ошибок
+### Поле с валидацией
 
 ```php
-// При валидации формы
 $emailInput = new Input(
     name: 'email',
-    label: 'Email',
-    value: $_POST['email'] ?? null,
     type: 'email',
+    placeholder: 'example@domain.com',
     required: true,
-    error: $validationErrors['email'] ?? null
+    pattern: '[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$'
 );
+echo $emailInput;
+```
 
+### Поле пароля
+
+```php
 $passwordInput = new Input(
     name: 'password',
-    label: 'Пароль',
     type: 'password',
-    required: true,
     minLength: 8,
-    error: $validationErrors['password'] ?? null
+    required: true,
+    autocomplete: 'current-password'
 );
+echo $passwordInput;
 ```
 
 ## CSS классы
@@ -188,16 +123,24 @@ $passwordInput = new Input(
 
 | Класс | Назначение |
 |-------|------------|
-| `.wallkit-input` | Основной контейнер |
-| `.wallkit-input--error` | Контейнер с ошибкой |
-| `.wallkit-input--disabled` | Контейнер отключенного поля |
-| `.wallkit-input__label` | Метка поля |
-| `.wallkit-input__required` | Звездочка обязательного поля |
-| `.wallkit-input__wrapper` | Обертка поля ввода |
-| `.wallkit-input__field` | Само поле ввода |
-| `.wallkit-input__toggle-password` | Кнопка показа/скрытия пароля |
-| `.wallkit-input__help` | Блок с подсказкой |
-| `.wallkit-input__error` | Блок с ошибкой |
+| `.wallkit-input__field` | Основной класс поля ввода |
+| `.wallkit-input__field--error` | Поле с ошибкой |
+| `.wallkit-input__field--disabled` | Отключенное поле |
+| `.wallkit-input__field--sm` | Маленький размер |
+| `.wallkit-input__field--lg` | Большой размер |
+| `.wallkit-input__field--outline` | Вариант с рамкой |
+| `.wallkit-input__field--filled` | Заполненный вариант |
+
+## Методы
+
+### `getInputClasses(): array`
+Возвращает массив CSS классов для элемента `<input>`.
+
+### `getInputAttributes(): array`
+Возвращает атрибуты для элемента `<input>`.
+
+### `isValidType(string $type): bool`
+Проверяет, поддерживается ли указанный тип поля.
 
 ## Особенности
 
@@ -205,12 +148,6 @@ $passwordInput = new Input(
 - Автоматическое экранирование HTML-специальных символов
 - Фильтрация опасных атрибутов (onclick, onerror и т.д.)
 - Защита от XSS-атак в значениях и атрибутах
-
-### Доступность
-- Автоматическая связь label с полем через `for`/`id`
-- Поддержка ARIA атрибутов
-- Корректная семантика обязательных полей
-- Кнопка переключения видимости пароля с aria-label
 
 ### Производительность
 - Кэширование на уровне компонента
@@ -223,33 +160,25 @@ $passwordInput = new Input(
 - Безопасность в многопоточной среде
 - Простое тестирование
 
-## Методы
-
-### `getBaseClasses(): array`
-Возвращает массив CSS классов для контейнера.
-
-### `getInputAttributes(): array`
-Возвращает атрибуты для элемента `<input>`.
-
-### `isValidType(string $type): bool`
-Проверяет, поддерживается ли указанный тип поля.
-
 ## Наследование
 
 Компонент наследует:
 - `OlegV\WallKit\Base\Base` (который наследует `OlegV\Brick`)
 - Трейты: `WithHelpers`, `WithStrictHelpers`, `WithInheritance`
 
-## Тестирование
+## Когда использовать чистый Input
 
-Компонент включает полный набор тестов:
-- Юнит-тесты (`InputTest.php`)
-- Тесты рендеринга (`InputRenderingTest.php`)
-- Интеграционные тесты (`InputIntegrationTest.php`)
-- Тесты реальных сценариев (`InputRealWorldTest.php`)
+Используйте чистый `Input` когда:
+1. Нужно встроить поле ввода в кастомную разметку
+2. Требуется максимальная производительность
+3. Обёртка (label, help, error) не нужна
+4. Создаётся кастомный компонент формы
 
-## Зависимости
+## Когда использовать с компонентом Field
 
-- PHP 8.1+
-- Brick (базовая библиотека компонентов)
-- Дополнительные трейты для вспомогательных методов
+Для большинства случаев используйте компонент `Field`, который оборачивает `Input` и добавляет:
+- Метку (label)
+- Подсказки (help text)
+- Ошибки (error messages)
+- Кнопку переключения пароля
+- Обёртку для стилизации

@@ -46,6 +46,7 @@ echo BrickManager::getInstance()->renderAssets();
 
 ### Form Components
 - **[Input](/docs/form/input.md)** — Поле ввода формы
+- **[Field](/docs/form/field.md)** — Обёртка для поля ввода с label, help, error
 - *Button* — Кнопка (в разработке)
 - *Checkbox* — Чекбокс (в разработке)
 - *Select* — Выпадающий список (в разработке)
@@ -124,6 +125,7 @@ composer run stan
 ## 📄 Документация
 
 - [📘 Input Component](/docs/form/input.md)
+- [📘 Field Component](/docs/form/field.md)
 
 ## 🤝 Вклад в проект
 

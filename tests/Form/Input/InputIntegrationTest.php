@@ -27,12 +27,12 @@ class InputIntegrationTest extends TestCase
         $manager = BrickManager::getInstance();
         $stats = $manager->getStats();
 
-        // Один тип компонента должны быть закэширован
+        // Один тип компонента должен быть закэширован
         $this->assertEquals(1, $stats['cached_classes']);
 
         // Проверяем наличие CSS и JS ассетов
-        $this->assertGreaterThan(0, $stats['css_assets']);
-        $this->assertGreaterThan(0, $stats['js_assets']);
+        $this->assertEquals(1, $stats['css_assets']);
+        $this->assertEquals(0, $stats['js_assets']);
     }
 
     public function testRendersAssetsThroughManager(): void
@@ -44,9 +44,9 @@ class InputIntegrationTest extends TestCase
 
         $this->assertStringContainsString('<style>', $assets);
         $this->assertStringContainsString('</style>', $assets);
-        $this->assertStringContainsString('<script>', $assets);
-        $this->assertStringContainsString('</script>', $assets);
-        $this->assertStringContainsString('wallkit-input', $assets);
+        $this->assertStringNotContainsString('<script>', $assets);
+        $this->assertStringNotContainsString('</script>', $assets);
+        $this->assertStringContainsString('wallkit-input__field', $assets);
     }
 
     public function testSeparateCssAndJsRendering(): void
@@ -61,8 +61,8 @@ class InputIntegrationTest extends TestCase
         $this->assertStringContainsString('</style>', $css);
         $this->assertStringNotContainsString('<script>', $css);
 
-        $this->assertStringContainsString('<script>', $js);
-        $this->assertStringContainsString('</script>', $js);
+        $this->assertStringNotContainsString('<script>', $js);
+        $this->assertStringNotContainsString('</script>', $js);
         $this->assertStringNotContainsString('<style>', $js);
     }
 
@@ -147,32 +147,47 @@ class InputIntegrationTest extends TestCase
 
     public function testPropertiesAreImmutable(): void
     {
-        $input = new Input(name: 'original');
+        $input = new Input(
+            name: 'original',
+            placeholder: 'Введите значение',
+            value: 'test value',
+            type: 'email',
+            required: true,
+            disabled: false,
+            readonly: false,
+            id: 'test-id',
+            autoFocus: true,
+            pattern: '[a-z]+',
+            min: '1',
+            max: '100',
+            maxLength: 50,
+            minLength: 2,
+            step: '1',
+            autocomplete: 'email',
+            spellcheck: true,
+        );
 
         // Все свойства должны быть публичными и readonly
         $this->assertIsString($input->name);
-        $this->assertNull($input->label);
-        $this->assertNull($input->placeholder);
-        $this->assertNull($input->value);
-        $this->assertEquals('text', $input->type);
-        $this->assertFalse($input->required);
+        $this->assertEquals('original', $input->name);
+        $this->assertEquals('Введите значение', $input->placeholder);
+        $this->assertEquals('test value', $input->value);
+        $this->assertEquals('email', $input->type);
+        $this->assertTrue($input->required);
         $this->assertFalse($input->disabled);
         $this->assertFalse($input->readonly);
-        $this->assertNull($input->id);
+        $this->assertEquals('test-id', $input->id);
         $this->assertIsArray($input->classes);
         $this->assertIsArray($input->attributes);
-        $this->assertNull($input->helpText);
-        $this->assertNull($input->error);
-        $this->assertFalse($input->autoFocus);
-        $this->assertNull($input->pattern);
-        $this->assertNull($input->min);
-        $this->assertNull($input->max);
-        $this->assertNull($input->maxLength);
-        $this->assertNull($input->minLength);
-        $this->assertNull($input->step);
-        $this->assertTrue($input->withPasswordToggle);
-        $this->assertNull($input->autocomplete);
-        $this->assertNull($input->spellcheck);
+        $this->assertTrue($input->autoFocus);
+        $this->assertEquals('[a-z]+', $input->pattern);
+        $this->assertEquals('1', $input->min);
+        $this->assertEquals('100', $input->max);
+        $this->assertEquals(50, $input->maxLength);
+        $this->assertEquals(2, $input->minLength);
+        $this->assertEquals('1', $input->step);
+        $this->assertEquals('email', $input->autocomplete);
+        $this->assertTrue($input->spellcheck);
     }
 
     // ==================== ТЕСТЫ ПРОИЗВОДИТЕЛЬНОСТИ ====================
@@ -185,7 +200,6 @@ class InputIntegrationTest extends TestCase
         for ($i = 0; $i < 100; $i++) {
             $input = new Input(
                 name: "field_$i",
-                label: "Поле $i",
                 value: "Значение $i",
             );
             $result = (string)$input;

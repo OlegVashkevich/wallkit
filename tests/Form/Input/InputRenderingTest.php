@@ -15,25 +15,23 @@ class InputRenderingTest extends TestCase
     {
         $input = new Input(
             name: 'username',
-            label: 'Имя пользователя',
             id: 'username-field',
         );
 
         $html = (string)$input;
 
-        $this->assertStringContainsString('wallkit-input', $html);
+        $this->assertStringStartsWith('<input', $html);
         $this->assertStringContainsString('name="username"', $html);
-        $this->assertStringContainsString('Имя пользователя', $html);
         $this->assertStringContainsString('id="username-field"', $html);
-        $this->assertStringContainsString('wallkit-input__label', $html);
         $this->assertStringContainsString('wallkit-input__field', $html);
+        $this->assertStringContainsString('type="text"', $html);
+        $this->assertStringEndsWith('>', $html);
     }
 
     public function testRendersRequiredInput(): void
     {
         $input = new Input(
             name: 'email',
-            label: 'Email',
             required: true,
             id: 'email-field',
         );
@@ -41,118 +39,33 @@ class InputRenderingTest extends TestCase
         $html = (string)$input;
 
         $this->assertStringContainsString('required', $html);
-        $this->assertStringContainsString('wallkit-input__required', $html);
-        $this->assertStringContainsString('*', $html);
-    }
-
-    public function testRendersInputWithError(): void
-    {
-        $input = new Input(
-            name: 'password',
-            label: 'Пароль',
-            error: 'Пароль слишком короткий',
-        );
-
-        $html = (string)$input;
-
-        $this->assertStringContainsString('wallkit-input--error', $html);
-        $this->assertStringContainsString('wallkit-input__error', $html);
-        $this->assertStringContainsString('Пароль слишком короткий', $html);
-        $this->assertStringContainsString('⚠️', $html);
-    }
-
-    public function testRendersInputWithHelpText(): void
-    {
-        $input = new Input(
-            name: 'phone',
-            label: 'Телефон',
-            helpText: 'В формате +7 (XXX) XXX-XX-XX',
-        );
-
-        $html = (string)$input;
-
-        $this->assertStringContainsString('wallkit-input__help', $html);
-        $this->assertStringContainsString('В формате +7 (XXX) XXX-XX-XX', $html);
-    }
-
-    public function testRendersInputWithoutLabel(): void
-    {
-        $input = new Input(name: 'search');
-
-        $html = (string)$input;
-
-        $this->assertStringNotContainsString('wallkit-input__label', $html);
-        $this->assertStringContainsString('wallkit-input__field', $html);
-    }
-
-    public function testRendersInputWithoutIdButWithLabel(): void
-    {
-        $input = new Input(
-            name: 'comment',
-            label: 'Комментарий',
-        );
-
-        $html = (string)$input;
-
-        // Должен использовать div вместо label[for]
-        $this->assertStringContainsString('<div class="wallkit-input__label"', $html);
-        $this->assertStringNotContainsString('for="', $html);
-    }
-
-    public function testRendersPasswordInputWithToggle(): void
-    {
-        $input = new Input(
-            name: 'password',
-            type: 'password',
-            withPasswordToggle: true,
-        );
-
-        $html = (string)$input;
-
-        $this->assertStringContainsString('type="password"', $html);
-        $this->assertStringContainsString('wallkit-input__toggle-password', $html);
-        $this->assertStringContainsString('Показать/скрыть пароль', $html);
-    }
-
-    public function testRendersPasswordInputWithoutToggle(): void
-    {
-        $input = new Input(
-            name: 'password',
-            type: 'password',
-            withPasswordToggle: false,
-        );
-
-        $html = (string)$input;
-
-        $this->assertStringContainsString('type="password"', $html);
-        $this->assertStringNotContainsString('wallkit-input__toggle-password', $html);
+        $this->assertStringContainsString('name="email"', $html);
     }
 
     public function testRendersDisabledInput(): void
     {
         $input = new Input(
             name: 'disabled-field',
-            label: 'Неактивное поле',
             disabled: true,
         );
 
         $html = (string)$input;
 
         $this->assertStringContainsString('disabled', $html);
-        $this->assertStringContainsString('wallkit-input--disabled', $html);
+        $this->assertStringContainsString('name="disabled-field"', $html);
     }
 
     public function testRendersReadonlyInput(): void
     {
         $input = new Input(
             name: 'readonly-field',
-            label: 'Только чтение',
             readonly: true,
         );
 
         $html = (string)$input;
 
         $this->assertStringContainsString('readonly', $html);
+        $this->assertStringContainsString('name="readonly-field"', $html);
     }
 
     public function testRendersInputWithAutoFocus(): void
@@ -165,6 +78,31 @@ class InputRenderingTest extends TestCase
         $html = (string)$input;
 
         $this->assertStringContainsString('autofocus', $html);
+        $this->assertStringContainsString('name="search"', $html);
+    }
+
+    public function testRendersInputWithPlaceholder(): void
+    {
+        $input = new Input(
+            name: 'search',
+            placeholder: 'Поиск...',
+        );
+
+        $html = (string)$input;
+
+        $this->assertStringContainsString('placeholder="Поиск..."', $html);
+    }
+
+    public function testRendersInputWithValue(): void
+    {
+        $input = new Input(
+            name: 'username',
+            value: 'JohnDoe',
+        );
+
+        $html = (string)$input;
+
+        $this->assertStringContainsString('value="JohnDoe"', $html);
     }
 
     public function testRendersInputWithCustomAttributes(): void
@@ -197,6 +135,7 @@ class InputRenderingTest extends TestCase
         $this->assertStringContainsString('custom-class', $html);
         $this->assertStringContainsString('another-class', $html);
         $this->assertStringContainsString('mb-3', $html);
+        $this->assertStringContainsString('wallkit-input__field', $html);
     }
 
     // ==================== ТЕСТЫ БЕЗОПАСНОСТИ ====================
@@ -205,45 +144,27 @@ class InputRenderingTest extends TestCase
     {
         $input = new Input(
             name: 'xss',
-            label: '<script>alert("xss")</script>',
             placeholder: '" onclick="alert(\'xss\')',
             value: '"><img src=x onerror=alert(1)>',
-            helpText: '<b>bold</b> & "quotes"</div><script>alert(1)</script>',
+            attributes: [
+                'data-xss' => '<script>alert("xss")</script>',
+            ],
         );
 
         $html = (string)$input;
 
-        // Проверяем, что HTML специальные символы экранированы
+        // Проверяем экранирование в значениях
+        $this->assertStringContainsString('&quot; onclick=&quot;alert(&apos;xss&apos;)', $html);
+        $this->assertStringContainsString('&quot;&gt;&lt;img src=x onerror=alert(1)&gt;', $html);
+        $this->assertStringContainsString(
+            'data-xss="&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;"',
+            $html,
+        );
+
+        // Проверяем, что опасные теги экранированы
         $this->assertStringNotContainsString('<script>', $html);
         $this->assertStringNotContainsString('</script>', $html);
-        $this->assertStringNotContainsString('<b>', $html);
         $this->assertStringNotContainsString('<img', $html);
-
-        // Проверяем, что они экранированы правильно
-        $this->assertStringContainsString('&lt;script&gt;', $html);
-        $this->assertStringContainsString('&lt;/script&gt;', $html);
-        $this->assertStringContainsString('&lt;b&gt;', $html);
-        $this->assertStringContainsString('&lt;/div&gt;', $html);
-        $this->assertStringContainsString('&lt;img', $html);
-
-        // Проверяем экранирование кавычек
-        $this->assertStringContainsString('&quot;', $html);
-        $this->assertStringContainsString('&apos;', $html); // для одинарных кавычек
-
-        // Проверяем экранирование амперсанда
-        $this->assertStringContainsString('&amp;', $html);
-
-        // Текст "onerror=" остаётся как есть, потому что это не специальный символ
-        // Но он безопасен, потому что находится внутри экранированного значения атрибута
-        $this->assertStringContainsString('onerror=', $html);
-
-        // Проверяем, что текст "onerror=" находится внутри экранированного контекста
-        // Он должен быть после &lt;img и перед &gt;
-        $this->assertMatchesRegularExpression(
-            '/&lt;img src=x onerror=alert\(1\)&gt;/',
-            $html,
-            'XSS вектор должен быть полностью экранирован как текст, а не как HTML',
-        );
     }
 
     public function testPreventsXssInAttributes(): void
@@ -251,17 +172,44 @@ class InputRenderingTest extends TestCase
         $input = new Input(
             name: 'test',
             attributes: [
-                'data-xss' => '"><script>alert(1)</script>',
                 'onclick' => 'alert("xss")',
+                'onerror' => 'alert(1)',
+                'onload' => 'alert(2)',
                 'style' => 'background: url(javascript:alert(1))',
             ],
         );
 
         $html = (string)$input;
 
-        $this->assertStringNotContainsString('"><script>', $html);
+        // Проверяем, что опасные атрибуты фильтруются
         $this->assertStringNotContainsString('onclick=', $html);
-        $this->assertStringContainsString('&quot;&gt;&lt;script&gt;', $html);
+        $this->assertStringNotContainsString('onerror=', $html);
+        $this->assertStringNotContainsString('onload=', $html);
+
+        // Проверяем, что style не фильтруется (он безопасен в контексте экранирования)
+        $this->assertStringContainsString('style=', $html);
+    }
+
+    public function testPreventsJavascriptInUrlAttributes(): void
+    {
+        $input = new Input(
+            name: 'test',
+            attributes: [
+                'href' => 'javascript:alert(1)',
+                'src' => 'javascript:alert(2)',
+                'action' => 'javascript:alert(3)',
+                'formaction' => 'javascript:alert(4)',
+            ],
+        );
+
+        $html = (string)$input;
+
+        // Проверяем, что javascript: URL фильтруются
+        $this->assertStringNotContainsString('javascript:', $html);
+        $this->assertStringNotContainsString('href=', $html); // Атрибут должен быть удален полностью
+        $this->assertStringNotContainsString('src=', $html);
+        $this->assertStringNotContainsString('action=', $html);
+        $this->assertStringNotContainsString('formaction=', $html);
     }
 
     // ==================== ТЕСТЫ РАЗНЫХ ТИПОВ ПОЛЕЙ ====================
@@ -269,19 +217,23 @@ class InputRenderingTest extends TestCase
     public function testRendersDifferentInputTypes(): void
     {
         $types = [
-            'email' => 'Email',
-            'number' => 'Число',
-            'tel' => 'Телефон',
-            'url' => 'URL',
-            'search' => 'Поиск',
-            'date' => 'Дата',
-            'color' => 'Цвет',
+            'email' => 'email@example.com',
+            'number' => '42',
+            'tel' => '+79991234567',
+            'url' => 'https://example.com',
+            'search' => 'query',
+            'date' => '2024-01-01',
+            'color' => '#ff0000',
+            'password' => 'secret',
+            'range' => '50',
+            'file' => '',
+            'hidden' => 'hidden-value',
         ];
 
-        foreach ($types as $type => $label) {
+        foreach ($types as $type => $testValue) {
             $input = new Input(
                 name: $type,
-                label: $label,
+                value: $testValue !== '' ? $testValue : null,
                 type: $type,
             );
 
@@ -292,118 +244,185 @@ class InputRenderingTest extends TestCase
                 $html,
                 "Failed for type: $type",
             );
-            $this->assertStringContainsString($label, $html);
+
+            if ($testValue !== '' && $type !== 'file') {
+                $this->assertStringContainsString(
+                    'value="'.$testValue.'"',
+                    $html,
+                    "Failed to render value for type: $type",
+                );
+            }
         }
+    }
+
+    public function testRendersInputWithValidationAttributes(): void
+    {
+        $input = new Input(
+            name: 'user',
+            pattern: '[A-Za-z]{3,}',
+            min: '1',
+            max: '100',
+            maxLength: 50,
+            minLength: 3,
+            step: '0.5',
+        );
+
+        $html = (string)$input;
+
+        $this->assertStringContainsString('pattern="[A-Za-z]{3,}"', $html);
+        $this->assertStringContainsString('min="1"', $html);
+        $this->assertStringContainsString('max="100"', $html);
+        $this->assertStringContainsString('maxlength="50"', $html);
+        $this->assertStringContainsString('minlength="3"', $html);
+        $this->assertStringContainsString('step="0.5"', $html);
+    }
+
+    public function testRendersInputWithAutocompleteAndSpellcheck(): void
+    {
+        $input = new Input(
+            name: 'email',
+            autocomplete: 'email',
+            spellcheck: true,
+        );
+
+        $html = (string)$input;
+
+        $this->assertStringContainsString('autocomplete="email"', $html);
+        $this->assertStringContainsString('spellcheck="true"', $html);
     }
 
     // ==================== ТЕСТЫ HTML СТРУКТУРЫ ====================
 
-    public function testHtmlStructureIsValid(): void
+    public function testRendersOnlyInputElement(): void
     {
-        // Тест БЕЗ ошибки, чтобы helpText показывался
+        $input = new Input(name: 'test');
+
+        $html = (string)$input;
+
+        // Должен быть только один input элемент
+        $this->assertStringStartsWith('<input', $html);
+        $this->assertStringEndsWith('>', $html);
+        $this->assertDoesNotMatchRegularExpression('/<div/', $html);
+        $this->assertDoesNotMatchRegularExpression('/<\/div>/', $html);
+        $this->assertDoesNotMatchRegularExpression('/<label/', $html);
+        $this->assertDoesNotMatchRegularExpression('/<\/label>/', $html);
+        $this->assertDoesNotMatchRegularExpression('/<span/', $html);
+        $this->assertDoesNotMatchRegularExpression('/<\/span>/', $html);
+    }
+
+    public function testDoesNotRenderEmptyAttributes(): void
+    {
+        $input = new Input(name: 'test');
+
+        $html = (string)$input;
+
+        // Проверяем, что null атрибуты не рендерятся
+        $this->assertStringNotContainsString('id="', $html);
+        $this->assertStringNotContainsString('placeholder="', $html);
+        $this->assertStringNotContainsString('value="', $html);
+        $this->assertStringNotContainsString('autocomplete="', $html);
+        $this->assertStringNotContainsString('spellcheck="', $html);
+        $this->assertStringNotContainsString('pattern="', $html);
+        $this->assertStringNotContainsString('min="', $html);
+        $this->assertStringNotContainsString('max="', $html);
+        $this->assertStringNotContainsString('maxlength="', $html);
+        $this->assertStringNotContainsString('minlength="', $html);
+        $this->assertStringNotContainsString('step="', $html);
+        $this->assertStringNotContainsString('required', $html);
+        $this->assertStringNotContainsString('disabled', $html);
+        $this->assertStringNotContainsString('readonly', $html);
+        $this->assertStringNotContainsString('autofocus', $html);
+    }
+
+    public function testRendersAllAttributesWhenProvided(): void
+    {
         $input = new Input(
             name: 'test',
-            label: 'Test Label',
+            placeholder: 'Enter value',
+            value: 'Test value',
+            required: true,
+            disabled: true,
+            readonly: true,
             id: 'test-id',
-            helpText: 'Help text',
-        // БЕЗ error!
+            autoFocus: true,
+            pattern: '.*',
+            min: '0',
+            max: '100',
+            maxLength: 10,
+            minLength: 1,
+            step: '1',
+            autocomplete: 'on',
+            spellcheck: false,
         );
 
         $html = (string)$input;
 
-        // Проверяем базовую структуру
-        $this->assertStringStartsWith('<div class="wallkit-input', $html);
-        $this->assertStringEndsWith('</div>', $html);
-
-        // Проверяем наличие всех секций (кроме error)
-        $this->assertStringContainsString('<label', $html);
-        $this->assertStringContainsString('<input', $html);
-        $this->assertStringContainsString('wallkit-input__help', $html);
-        $this->assertStringNotContainsString('wallkit-input__error', $html); // Не должно быть ошибки
-        $this->assertStringNotContainsString('wallkit-input--error', $html); // И класса ошибки тоже
-
-        // Проверяем порядок элементов
-        $labelPos = strpos($html, 'wallkit-input__label');
-        $inputPos = strpos($html, 'wallkit-input__field');
-        $helpPos = strpos($html, 'wallkit-input__help');
-
-        $this->assertLessThan($inputPos, $labelPos, 'Label should come before input');
-        $this->assertLessThan($helpPos, $inputPos, 'Input should come before help');
+        // Проверяем, что все атрибуты рендерятся
+        $this->assertStringContainsString('id="test-id"', $html);
+        $this->assertStringContainsString('placeholder="Enter value"', $html);
+        $this->assertStringContainsString('value="Test value"', $html);
+        $this->assertStringContainsString('autocomplete="on"', $html);
+        $this->assertStringContainsString('spellcheck="false"', $html);
+        $this->assertStringContainsString('pattern=".*"', $html);
+        $this->assertStringContainsString('min="0"', $html);
+        $this->assertStringContainsString('max="100"', $html);
+        $this->assertStringContainsString('maxlength="10"', $html);
+        $this->assertStringContainsString('minlength="1"', $html);
+        $this->assertStringContainsString('step="1"', $html);
+        $this->assertStringContainsString('required', $html);
+        $this->assertStringContainsString('disabled', $html);
+        $this->assertStringContainsString('readonly', $html);
+        $this->assertStringContainsString('autofocus', $html);
     }
 
-    public function testHtmlStructureWithError(): void
+    // ==================== ТЕСТЫ КОМБИНАЦИЙ ====================
+
+    public function testCombinesDefaultAndCustomClasses(): void
     {
-        // Отдельный тест для случая с ошибкой
         $input = new Input(
             name: 'test',
-            label: 'Test Label',
-            id: 'test-id',
-            helpText: 'Help text',
-            error: 'Error message', // С ошибкой!
+            classes: ['additional-class'],
         );
 
         $html = (string)$input;
 
-        // Проверяем базовую структуру
-        $this->assertStringStartsWith('<div class="wallkit-input wallkit-input--error', $html);
-        $this->assertStringEndsWith('</div>', $html);
-
-        // Когда есть ошибка, helpText не должен показываться
-        $this->assertStringContainsString('<label', $html);
-        $this->assertStringContainsString('<input', $html);
-        $this->assertStringContainsString('wallkit-input__error', $html);
-        $this->assertStringContainsString('wallkit-input--error', $html);
-        $this->assertStringNotContainsString('wallkit-input__help', $html); // Help не должен быть!
-        $this->assertStringContainsString('Error message', $html);
-        $this->assertStringContainsString('⚠️', $html);
-
-        // Проверяем порядок элементов
-        $labelPos = strpos($html, 'wallkit-input__label');
-        $inputPos = strpos($html, 'wallkit-input__field');
-        $errorPos = strpos($html, 'wallkit-input__error');
-
-        $this->assertLessThan($inputPos, $labelPos, 'Label should come before input');
-        $this->assertLessThan($errorPos, $inputPos, 'Input should come before error');
-    }
-
-    public function testHtmlStructureWithoutHelpOrError(): void
-    {
-        // Тест без helpText и error
-        $input = new Input(
-            name: 'test',
-            label: 'Test Label',
-            id: 'test-id',
-        // Без helpText и error
-        );
-
-        $html = (string)$input;
-
-        // Должны быть только label и input
-        $this->assertStringContainsString('<label', $html);
-        $this->assertStringContainsString('<input', $html);
-        $this->assertStringNotContainsString('wallkit-input__help', $html);
-        $this->assertStringNotContainsString('wallkit-input__error', $html);
-        $this->assertStringNotContainsString('wallkit-input--error', $html);
-    }
-
-    public function testDoesNotRenderEmptySections(): void
-    {
-        // Без label, helpText и error
-        $input = new Input(name: 'minimal');
-
-        $html = (string)$input;
-
-        $this->assertStringNotContainsString('wallkit-input__label', $html);
-        $this->assertStringNotContainsString('wallkit-input__help', $html);
-        $this->assertStringNotContainsString('wallkit-input__error', $html);
-        $this->assertStringNotContainsString('wallkit-input__required', $html);
-        $this->assertStringNotContainsString('wallkit-input__toggle-password', $html);
-
-        // Должен содержать только wrapper и input
-        $this->assertStringContainsString('wallkit-input', $html);
-        $this->assertStringContainsString('wallkit-input__wrapper', $html);
         $this->assertStringContainsString('wallkit-input__field', $html);
+        $this->assertStringContainsString('additional-class', $html);
+        // Проверяем, что классы объединены в один атрибут class
+        $this->assertMatchesRegularExpression('/class="[^"]*wallkit-input__field[^"]*additional-class[^"]*"/', $html);
+    }
+
+    public function testMergesDefaultAndCustomAttributes(): void
+    {
+        $input = new Input(
+            name: 'test',
+            attributes: [
+                'data-custom' => 'value',
+                'aria-label' => 'Custom',
+            ],
+        );
+
+        $html = (string)$input;
+
+        $this->assertStringContainsString('data-custom="value"', $html);
+        $this->assertStringContainsString('aria-label="Custom"', $html);
+        $this->assertStringContainsString('name="test"', $html);
         $this->assertStringContainsString('type="text"', $html);
-        $this->assertStringContainsString('name="minimal"', $html);
+    }
+
+    public function testCustomAttributesOverrideDefaults(): void
+    {
+        $input = new Input(
+            name: 'test',
+            type: 'email',
+            attributes: [
+                'type' => 'tel', // Должен переопределить type="email" на type="tel"
+            ],
+        );
+
+        $html = (string)$input;
+
+        $this->assertStringContainsString('type="tel"', $html);
+        $this->assertStringNotContainsString('type="email"', $html);
     }
 }
