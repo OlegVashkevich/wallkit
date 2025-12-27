@@ -1,0 +1,43 @@
+:root {
+    /* Цветовая палитра */
+    --wk-color-gray-50: #f9fafb;
+    --wk-color-gray-100: #f3f4f6;
+    --wk-color-gray-200: #e5e7eb;
+    --wk-color-gray-300: #d1d5db;
+    --wk-color-gray-400: #9ca3af;
+    --wk-color-gray-500: #6b7280;
+    --wk-color-gray-700: #374151;
+    --wk-color-gray-900: #111827;
+
+    --wk-color-blue-500: #3b82f6;
+    --wk-color-blue-100: rgba(59, 130, 246, 0.1);
+
+    --wk-color-red-600: #dc2626;
+    --wk-color-red-100: rgba(220, 38, 38, 0.1);
+
+    /* Типографика */
+    --wk-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+    --wk-font-size-xs: 0.75rem;
+    --wk-font-size-sm: 0.875rem;
+    --wk-font-size-base: 1rem;
+    --wk-line-height-sm: 1.25rem;
+    --wk-font-weight-medium: 500;
+
+    /* Размеры и отступы */
+    --wk-spacing-1: 0.25rem;
+    --wk-spacing-2: 0.5rem;
+    --wk-spacing-2-5: 0.625rem;
+    --wk-spacing-3: 0.75rem;
+    --wk-spacing-4: 1rem;
+
+    /* Радиусы */
+    --wk-radius-md: 0.05rem;
+
+    /* Тени */
+    --wk-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --wk-shadow-outline-blue: 0 0 0 3px var(--wk-color-blue-100);
+    --wk-shadow-outline-red: 0 0 0 3px var(--wk-color-red-100);
+
+    /* Анимации */
+    --wk-transition-default: all 0.15s ease;
+}

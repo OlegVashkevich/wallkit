@@ -1,0 +1,123 @@
+/* Базовые стили Input */
+.wallkit-input {
+    margin-bottom: var(--wk-spacing-4);
+    font-family: var(--wk-font-family), serif;
+}
+
+.wallkit-input__label {
+    display: block;
+    margin-bottom: var(--wk-spacing-2);
+    font-weight: var(--wk-font-weight-medium);
+    color: var(--wk-color-gray-700);
+    font-size: var(--wk-font-size-sm);
+}
+
+.wallkit-input__required {
+    color: var(--wk-color-red-600);
+    margin-left: var(--wk-spacing-1);
+}
+
+.wallkit-input__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.wallkit-input__field {
+    width: 100%;
+    padding: var(--wk-spacing-2-5) var(--wk-spacing-3);
+    font-family: var(--wk-font-family), serif;
+    font-size: var(--wk-font-size-sm);
+    line-height: var(--wk-line-height-sm);
+    border: 1px solid var(--wk-color-gray-300);
+    border-radius: var(--wk-radius-md);
+    background-color: white;
+    color: var(--wk-color-gray-900);
+    transition: var(--wk-transition-default);
+    box-shadow: var(--wk-shadow-sm);
+}
+
+.wallkit-input__field:focus {
+    outline: none;
+    border-color: var(--wk-color-blue-500);
+    box-shadow: var(--wk-shadow-outline-blue);
+}
+
+.wallkit-input__field::placeholder {
+    color: var(--wk-color-gray-400);
+}
+
+/* Состояния */
+.wallkit-input--error .wallkit-input__field {
+    border-color: var(--wk-color-red-600);
+}
+
+.wallkit-input--error .wallkit-input__field:focus {
+    border-color: var(--wk-color-red-600);
+    box-shadow: var(--wk-shadow-outline-red);
+}
+
+.wallkit-input--disabled .wallkit-input__field {
+    background-color: var(--wk-color-gray-100);
+    color: var(--wk-color-gray-400);
+    cursor: not-allowed;
+}
+
+/* Кнопка показа пароля */
+.wallkit-input__toggle-password {
+    position: absolute;
+    right: var(--wk-spacing-3);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--wk-spacing-1);
+    font-size: var(--wk-font-size-base);
+    color: var(--wk-color-gray-500);
+    transition: color 0.15s;
+}
+
+.wallkit-input__toggle-password:hover {
+    color: var(--wk-color-gray-700);
+}
+
+/* Подсказки и ошибки */
+.wallkit-input__help {
+    margin-top: var(--wk-spacing-1);
+    font-size: var(--wk-font-size-xs);
+    color: var(--wk-color-gray-500);
+}
+
+.wallkit-input__error {
+    margin-top: var(--wk-spacing-1);
+    font-size: var(--wk-font-size-xs);
+    color: var(--wk-color-red-600);
+    display: flex;
+    align-items: center;
+    gap: var(--wk-spacing-1);
+}
+
+/* Размеры */
+.wallkit-input--sm .wallkit-input__field {
+    padding: var(--wk-spacing-2) var(--wk-spacing-2-5);
+    font-size: var(--wk-font-size-xs);
+}
+
+.wallkit-input--lg .wallkit-input__field {
+    padding: var(--wk-spacing-3) var(--wk-spacing-4);
+    font-size: var(--wk-font-size-base);
+}
+
+/* Варианты */
+.wallkit-input--outline .wallkit-input__field {
+    border: 2px solid var(--wk-color-gray-300);
+}
+
+.wallkit-input--filled .wallkit-input__field {
+    background-color: var(--wk-color-gray-50);
+    border: 1px solid transparent;
+}
+
+.wallkit-input--filled .wallkit-input__field:focus {
+    background-color: white;
+    border-color: var(--wk-color-blue-500);
+}
