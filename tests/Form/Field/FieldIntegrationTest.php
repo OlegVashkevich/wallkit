@@ -29,8 +29,8 @@ class FieldIntegrationTest extends TestCase
         $manager = BrickManager::getInstance();
         $stats = $manager->getStats();
 
-        // Два типа компонентов должны быть закэшированы (Input и Field)
-        $this->assertEquals(2, $stats['cached_classes']);
+        // Три типа компонентов должны быть закэшированы (Input и Field) и родитель - Base
+        $this->assertEquals(3, $stats['cached_classes']);
 
         // Проверяем наличие CSS и JS ассетов
         $this->assertGreaterThan(0, $stats['css_assets']);
@@ -48,6 +48,6 @@ class FieldIntegrationTest extends TestCase
 
         // Все должны использовать кэш
         $stats = $manager->getStats();
-        $this->assertEquals(2, $stats['cached_classes']); // Input и Field
+        $this->assertEquals(3, $stats['cached_classes']); // Input и Field
     }
 }

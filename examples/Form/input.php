@@ -452,8 +452,8 @@ use OlegV\WallKit\Form\Input\Input;
                     new Field(
                         input: new Input(
                             name: 'user_email',
-                            type: 'email',
                             placeholder: 'example@domain.com',
+                            type: 'email',
                             required: true,
                             id: 'user-email',
                         ),
@@ -462,8 +462,8 @@ use OlegV\WallKit\Form\Input\Input;
                     new Field(
                         input: new Input(
                             name: 'user_phone',
-                            type: 'tel',
                             placeholder: '+7 (999) 123-45-67',
+                            type: 'tel',
                             id: 'user-phone',
                         ),
                         label: 'Телефон',

@@ -27,11 +27,11 @@ class InputIntegrationTest extends TestCase
         $manager = BrickManager::getInstance();
         $stats = $manager->getStats();
 
-        // Один тип компонента должен быть закэширован
-        $this->assertEquals(1, $stats['cached_classes']);
+        // Два класса компонента должен быть зарегистрированы - Input+родитель Base
+        $this->assertEquals(2, $stats['cached_classes']);
 
         // Проверяем наличие CSS и JS ассетов
-        $this->assertEquals(1, $stats['css_assets']);
+        $this->assertEquals(2, $stats['css_assets']);
         $this->assertEquals(0, $stats['js_assets']);
     }
 
@@ -74,13 +74,13 @@ class InputIntegrationTest extends TestCase
         $manager = BrickManager::getInstance();
 
         // Первый экземпляр должен закэшировать компонент
-        $this->assertFalse($manager->isComponentCached($className));
+        $this->assertFalse($manager->isComponentMemoized($className));
 
         new Input(name: 'test');
 
-        $this->assertTrue($manager->isComponentCached($className));
+        $this->assertTrue($manager->isComponentMemoized($className));
 
-        $cached = $manager->getCachedComponent($className);
+        $cached = $manager->getMemoizedComponent($className);
         $this->assertIsArray($cached);
         $this->assertArrayHasKey('dir', $cached);
         $this->assertArrayHasKey('templatePath', $cached);
@@ -99,9 +99,9 @@ class InputIntegrationTest extends TestCase
         $input2 = new Input(name: 'second');
         $input3 = new Input(name: 'third');
 
-        // Все должны использовать один кэш
+        // Все должны быть зарегистрированы два компонента Input и родитель - Base
         $stats = $manager->getStats();
-        $this->assertEquals(1, $stats['cached_classes']); // Один класс компонента
+        $this->assertEquals(2, $stats['cached_classes']); // Один класс компонента
     }
 
     // ==================== ТЕСТЫ НАСЛЕДОВАНИЯ ТРЕЙТОВ ====================
