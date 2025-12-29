@@ -1,50 +1,106 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 :root {
-    /* Цветовая палитра */
-    --wk-color-gray-50: #f9fafb;
-    --wk-color-gray-100: #f3f4f6;
-    --wk-color-gray-200: #e5e7eb;
-    --wk-color-gray-300: #d1d5db;
-    --wk-color-gray-400: #9ca3af;
-    --wk-color-gray-500: #6b7280;
-    --wk-color-gray-700: #374151;
-    --wk-color-gray-900: #111827;
+    /* Цветовая палитра в стиле index3.html */
+    --wk-black: #000000;
+    --wk-dark-gray: #333333;
+    --wk-medium-gray: #666666;
+    --wk-light-gray: #f5f5f5;
+    --wk-white: #ffffff;
+    --wk-border: #e0e0e0;
+    --wk-accent: #4a6fa5;
+    --wk-vis-accent: #8a4baf;
+    --wk-nav-accent: #2e7d32;
+    --wk-form-accent: #d84315;
+    --wk-control-accent: #0277bd;
+    --wk-feedback-accent: #6d4c41;
+    --wk-error-color: #d32f2f;
+    --wk-success-color: #2e7d32;
+    --wk-warning-color: #ed6c02;
+    --wk-info-color: #0288d1;
 
-    --wk-color-blue-500: #3b82f6;
-    --wk-color-blue-100: rgba(59, 130, 246, 0.1);
+    /* Серые оттенки для компонентов */
+    --wk-color-gray-50: var(--wk-light-gray);
+    --wk-color-gray-100: #eeeeee;
+    --wk-color-gray-200: var(--wk-border);
+    --wk-color-gray-300: #bdbdbd;
+    --wk-color-gray-400: var(--wk-medium-gray);
+    --wk-color-gray-500: #757575;
+    --wk-color-gray-700: #424242;
+    --wk-color-gray-900: var(--wk-dark-gray);
 
-    --wk-color-red-600: #dc2626;
-    --wk-color-red-100: rgba(220, 38, 38, 0.1);
+    /* Акцентные цвета для компонентов */
+    --wk-color-blue-500: var(--wk-accent);
+    --wk-color-blue-100: rgba(74, 111, 165, 0.1);
+
+    --wk-color-red-600: var(--wk-error-color);
+    --wk-color-red-100: rgba(211, 47, 47, 0.1);
+
+    --wk-color-green-500: var(--wk-nav-accent);
+    --wk-color-green-100: rgba(46, 125, 50, 0.1);
+
+    --wk-color-purple-500: var(--wk-vis-accent);
+    --wk-color-purple-100: rgba(138, 75, 175, 0.1);
+
+    --wk-color-orange-500: var(--wk-form-accent);
+    --wk-color-orange-100: rgba(216, 67, 21, 0.1);
+
+    --wk-color-teal-500: #008080;
+    --wk-color-teal-100: rgba(0, 128, 128, 0.1);
+
+    --wk-color-yellow-500: var(--wk-warning-color);
+    --wk-color-yellow-100: rgba(237, 108, 2, 0.1);
 
     /* Типографика */
-    --wk-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto;
+    --wk-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --wk-font-size-xs: 0.75rem; /* 12px */
+    --wk-font-size-sm: 0.875rem; /* 14px */
+    --wk-font-size-base: 1rem; /* 16px */
+    --wk-font-size-lg: 1.125rem; /* 18px */
+    --wk-font-size-xl: 1.25rem; /* 20px */
+    --wk-font-size-2xl: 1.5rem; /* 24px */
+    --wk-font-size-3xl: 2rem; /* 32px */
 
-    /* Размеры */
-    --wk-font-size-2xs: 0.6875rem;  /* 11px */
-    --wk-font-size-xs: 0.75rem;     /* 12px */
-    --wk-font-size-sm: 0.875rem;    /* 14px */
-    --wk-font-size-base: 1rem;      /* 16px */
+    /* Дополнительные размеры для компонентов */
+    --wk-font-size-2xs: 0.6875rem; /* 11px */
 
+    /* Веса шрифтов */
+    --wk-font-weight-light: 300;
+    --wk-font-weight-normal: 350;
+    --wk-font-weight-medium: 400;
+    --wk-font-weight-semibold: 500;
 
-    --wk-line-height-sm: 1.25rem;
+    /* Высота строки */
+    --wk-line-height-sm: 1.25rem; /* 20px */
+    --wk-line-height-base: 1.6;
 
-    --wk-font-weight-medium: 500;
-    --wk-font-weight-semibold: 600;
+    /* Отступы */
+    --wk-spacing-1: 0.25rem; /* 4px */
+    --wk-spacing-2: 0.5rem; /* 8px */
+    --wk-spacing-2-5: 0.625rem; /* 10px */
+    --wk-spacing-3: 0.75rem; /* 12px */
+    --wk-spacing-4: 1rem; /* 16px */
+    --wk-spacing-6: 1.5rem; /* 24px */
+    --wk-spacing-8: 2rem; /* 32px */
+    --wk-spacing-12: 3rem; /* 48px */
 
-    /* Размеры и отступы */
-    --wk-spacing-1: 0.25rem;
-    --wk-spacing-2: 0.5rem;
-    --wk-spacing-2-5: 0.625rem;
-    --wk-spacing-3: 0.75rem;
-    --wk-spacing-4: 1rem;
-
-    /* Радиусы */
-    --wk-radius-md: 0.05rem;
+    /* Радиусы скругления */
+    --wk-radius-sm: 2px;
+    --wk-radius-md: 4px;
+    --wk-radius-lg: 8px;
 
     /* Тени */
-    --wk-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --wk-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --wk-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
+    --wk-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+    --wk-shadow-outline: 0 0 0 3px rgba(74, 111, 165, 0.1);
+
+    /* Тени для компонентов */
     --wk-shadow-outline-blue: 0 0 0 3px var(--wk-color-blue-100);
     --wk-shadow-outline-red: 0 0 0 3px var(--wk-color-red-100);
+    --wk-shadow-outline-green: 0 0 0 3px var(--wk-color-green-100);
 
     /* Анимации */
-    --wk-transition-default: all 0.15s ease;
+    --wk-transition-fast: 0.15s ease;
+    --wk-transition-base: 0.3s ease;
+    --wk-transition-default: var(--wk-transition-fast);
 }
