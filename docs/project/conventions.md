@@ -204,9 +204,8 @@ throw new \RuntimeException(
 ### Структура тестов
 ```
 tests/
-├── Unit/
-│   └── Components/
-│       └── ButtonTest.php
+└── Components/
+│   └── ButtonTest.php
 └── bootstrap.php
 ```
 

@@ -1,0 +1,23 @@
+.wallkit-textarea__field {
+    width: 100%;
+    padding: var(--wk-spacing-2-5) var(--wk-spacing-3);
+    font-family: var(--wk-font-family), serif;
+    font-size: var(--wk-font-size-sm);
+    line-height: var(--wk-line-height-base);
+    border: 1px solid var(--wk-color-gray-300);
+    border-radius: var(--wk-radius-sm);
+    background-color: white;
+    color: var(--wk-color-gray-900);
+    resize: vertical;
+    min-height: calc(var(--wk-font-size-sm) * var(--wk-line-height-base) * 4);
+}
+
+.wallkit-textarea__field:focus {
+    outline: none;
+    border-color: var(--wk-color-blue-500);
+    box-shadow: var(--wk-shadow-outline-blue);
+}
+
+.wallkit-textarea__field::placeholder {
+    color: var(--wk-color-gray-400);
+}
