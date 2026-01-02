@@ -1,0 +1,30 @@
+.wallkit-demo-layout {
+    display: grid;
+    gap: var(--wk-spacing-8);
+    margin-bottom: var(--wk-spacing-12);
+    align-items: start;
+}
+
+.wallkit-demo-layout__sidebar {
+    position: sticky;
+    top: var(--wk-spacing-8);
+    height: fit-content;
+}
+
+.wallkit-demo-layout__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wk-spacing-12);
+}
+
+@media (max-width: 1024px) {
+    .wallkit-demo-layout {
+        grid-template-columns: 1fr !important;
+        gap: var(--wk-spacing-6);
+    }
+
+    .wallkit-demo-layout__sidebar {
+        position: static;
+        margin-bottom: var(--wk-spacing-6);
+    }
+}

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OlegVashkevich/brick.git",
-                "reference": "f82809d47cce398c0703808499b65c3529727a9f"
+                "reference": "20d7e0b325d8456f3ee7149dbd676d1e2696451c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OlegVashkevich/brick/zipball/f82809d47cce398c0703808499b65c3529727a9f",
-                "reference": "f82809d47cce398c0703808499b65c3529727a9f",
+                "url": "https://api.github.com/repos/OlegVashkevich/brick/zipball/20d7e0b325d8456f3ee7149dbd676d1e2696451c",
+                "reference": "20d7e0b325d8456f3ee7149dbd676d1e2696451c",
                 "shasum": ""
             },
             "require": {
@@ -61,7 +61,7 @@
                 "issues": "https://github.com/OlegVashkevich/brick/issues",
                 "source": "https://github.com/OlegVashkevich/brick/tree/master"
             },
-            "time": "2025-12-30T15:44:29+00:00"
+            "time": "2025-12-31T15:30:19+00:00"
         },
         {
             "name": "psr/simple-cache",

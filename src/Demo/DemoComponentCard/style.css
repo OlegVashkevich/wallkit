@@ -1,0 +1,110 @@
+.wallkit-demo-component-card {
+    border: 1px solid var(--wk-border);
+    background: var(--wk-white);
+    padding: var(--wk-spacing-6);
+    border-radius: var(--wk-radius-md);
+    transition: all var(--wk-transition-base);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.wallkit-demo-component-card:hover {
+    box-shadow: var(--wk-shadow-md);
+}
+
+.wallkit-demo-component-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--wk-spacing-4);
+}
+
+.wallkit-demo-component-card__title {
+    font-weight: var(--wk-font-weight-medium);
+    color: var(--wk-dark-gray);
+    font-size: var(--wk-font-size-base);
+    margin: 0;
+}
+
+.wallkit-demo-component-card__badge {
+    display: inline-block;
+    padding: var(--wk-spacing-1) var(--wk-spacing-3);
+    font-size: var(--wk-font-size-xs);
+    font-weight: var(--wk-font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--wk-radius-sm);
+}
+
+.wallkit-demo-component-card__badge--input {
+    background: rgba(74, 111, 165, 0.1);
+    color: var(--wk-accent);
+}
+
+.wallkit-demo-component-card__badge--textarea {
+    background: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
+}
+
+.wallkit-demo-component-card__badge--field {
+    background: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+}
+
+.wallkit-demo-component-card__badge--required {
+    background: rgba(211, 47, 47, 0.1);
+    color: #d32f2f;
+}
+
+.wallkit-demo-component-card__badge--help {
+    background: rgba(2, 136, 209, 0.1);
+    color: #0288d1;
+}
+
+.wallkit-demo-component-card__preview {
+    min-height: 150px;
+    padding: var(--wk-spacing-6);
+    background: var(--wk-light-gray);
+    border-radius: var(--wk-radius-sm);
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: var(--wk-spacing-4);
+    border: 1px solid var(--wk-border);
+}
+
+.wallkit-demo-component-card__description {
+    color: var(--wk-medium-gray);
+    font-size: var(--wk-font-size-sm);
+    line-height: 1.6;
+    margin-bottom: var(--wk-spacing-4);
+    flex-grow: 1;
+}
+
+.wallkit-demo-component-card__note {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ff9800;
+    padding: var(--wk-spacing-3);
+    border-radius: var(--wk-radius-sm);
+    font-size: var(--wk-font-size-sm);
+    margin-bottom: var(--wk-spacing-4);
+    display: flex;
+    align-items: center;
+    gap: var(--wk-spacing-2);
+}
+
+.wallkit-demo-component-card__code {
+    background: var(--wk-dark-gray);
+    color: var(--wk-light-gray);
+    padding: var(--wk-spacing-4);
+    border-radius: var(--wk-radius-sm);
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: var(--wk-font-size-xs);
+    overflow-x: auto;
+    margin: 0;
+}
+
+.wallkit-demo-component-card__code code {
+    font-family: inherit;
+    white-space: pre;
+}

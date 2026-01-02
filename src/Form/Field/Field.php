@@ -9,6 +9,7 @@ use OlegV\Traits\WithInheritance;
 use OlegV\Traits\WithStrictHelpers;
 use OlegV\WallKit\Base\Base;
 use OlegV\WallKit\Form\Input\Input;
+use OlegV\WallKit\Form\Textarea\Textarea;
 
 /**
  * Компонент Field - обёртка для поля ввода с label, help, error и toggle
@@ -27,7 +28,7 @@ readonly class Field extends Base
     use WithInheritance;
 
     /**
-     * @param  Input  $input  Объект Input для рендеринга
+     * @param  Input|Textarea  $input  Объект Input для рендеринга
      * @param  string|null  $label  Текст метки поля
      * @param  string|null  $helpText  Подсказка под полем
      * @param  string|null  $error  Сообщение об ошибке
@@ -35,7 +36,7 @@ readonly class Field extends Base
      * @param  array<string>  $wrapperClasses  Дополнительные CSS классы для обёртки
      */
     public function __construct(
-        public Input $input,
+        public Input|Textarea $input,
         public ?string $label = null,
         public ?string $helpText = null,
         public ?string $error = null,

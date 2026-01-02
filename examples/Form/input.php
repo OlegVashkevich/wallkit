@@ -204,7 +204,7 @@ use OlegV\WallKit\Form\Input\Input;
         /* Сетка компонентов */
         .components-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: var(--wk-spacing-6);
             margin-top: var(--wk-spacing-6);
         }

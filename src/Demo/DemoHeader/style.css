@@ -1,0 +1,29 @@
+.wallkit-demo-header {
+    text-align: center;
+    margin: var(--wk-spacing-12) 0;
+    padding-top: var(--wk-spacing-8);
+}
+
+.wallkit-demo-header__title {
+    font-size: 2.5rem;
+    font-weight: var(--wk-font-weight-normal);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--wk-spacing-4);
+    color: var(--wk-dark-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--wk-spacing-3);
+}
+
+.wallkit-demo-header__icon {
+    font-size: 2.2rem;
+}
+
+.wallkit-demo-header__subtitle {
+    font-size: var(--wk-font-size-lg);
+    color: var(--wk-medium-gray);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}

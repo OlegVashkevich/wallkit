@@ -1,0 +1,66 @@
+{
+  "components": [
+    {
+      "name": "Input",
+      "group": "Forms",
+      "description": "Текстовое поле ввода",
+      "icon": "⌨️",
+      "demoFile": "Form/InputDemo.php",
+      "badge": "input",
+      "status": "stable",
+      "since": "1.0.0"
+    },
+    {
+      "name": "Textarea",
+      "group": "Forms",
+      "description": "Многострочное текстовое поле",
+      "icon": "📝",
+      "demoFile": "Form/TextareaDemo.php",
+      "badge": "textarea",
+      "status": "stable",
+      "since": "1.0.0"
+    },
+    {
+      "name": "Field",
+      "group": "Forms",
+      "description": "Обёртка для полей с label и валидацией",
+      "icon": "🏷️",
+      "demoFile": "Form/FieldDemo.php",
+      "badge": "field",
+      "status": "stable",
+      "since": "1.0.0"
+    },
+    {
+      "name": "Button",
+      "group": "Forms",
+      "description": "Кнопка разных вариантов и размеров",
+      "icon": "🔘",
+      "demoFile": "Form/ButtonDemo.php",
+      "badge": "button",
+      "status": "planned",
+      "since": null
+    }
+  ],
+  "groups": [
+    {
+      "name": "Forms",
+      "description": "Компоненты для ввода данных и форм",
+      "icon": "📋",
+      "color": "#3b82f6"
+    },
+    {
+      "name": "Navigation",
+      "description": "Навигационные элементы интерфейса",
+      "icon": "🧭",
+      "color": "#10b981",
+      "status": "planned"
+    },
+    {
+      "name": "Data",
+      "description": "Отображение данных и контента",
+      "icon": "📊",
+      "color": "#8b5cf6",
+      "status": "planned"
+    }
+  ]
+}
