@@ -44,7 +44,6 @@
     color: var(--wk-medium-gray);
     font-size: var(--wk-font-size-sm);
     padding: var(--wk-spacing-1) var(--wk-spacing-3);
-    border-radius: var(--wk-radius-full);
     margin-left: auto;
 }
 
@@ -166,40 +165,136 @@
     margin-top: auto;
 }
 
-.wallkit-demo-component-grid__item-badge {
+.wallkit-demo-component-grid__item-tag {
     display: inline-block;
     padding: var(--wk-spacing-1) var(--wk-spacing-3);
-    font-size: var(--wk-font-size-xs);
+    font-size: var(--wk-font-size-3xs);
     font-weight: var(--wk-font-weight-medium);
     border-radius: var(--wk-radius-sm);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.wallkit-demo-component-grid__item-badge--input {
+    letter-spacing: 0.01em;
     background: rgba(74, 111, 165, 0.1);
     color: var(--wk-accent);
-}
-
-.wallkit-demo-component-grid__item-badge--textarea {
-    background: rgba(156, 39, 176, 0.1);
-    color: #9c27b0;
-}
-
-.wallkit-demo-component-grid__item-badge--field {
-    background: rgba(46, 125, 50, 0.1);
-    color: #2e7d32;
-}
-
-.wallkit-demo-component-grid__item-badge--button {
-    background: rgba(255, 152, 0, 0.1);
-    color: #ff9800;
 }
 
 .wallkit-demo-component-grid__item-version {
     font-size: var(--wk-font-size-xs);
     color: var(--wk-medium-gray);
     font-family: 'Monaco', 'Menlo', monospace;
+}
+
+
+/* Облако тегов */
+.wallkit-demo-component-grid__tags-cloud {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--wk-border);
+}
+
+.wallkit-demo-component-grid__tags-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--wk-text-color, #374151);
+}
+
+.wallkit-demo-component-grid__tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.wallkit-demo-component-grid__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.375rem 0.75rem;
+    background-color: var(--wk-bg-secondary, #f3f4f6);
+    color: var(--wk-text-secondary, #6b7280);
+    text-decoration: none;
+    border-radius: var(--wk-border-radius, 0.375rem);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.wallkit-demo-component-grid__tag:hover {
+    background-color: var(--wk-bg-primary, #3b82f6);
+    color: white;
+    border-color: var(--wk-color-primary, #3b82f6);
+    transform: translateY(-1px);
+}
+
+/* Размеры тегов */
+.wallkit-demo-component-grid__tag--sm {
+    font-size: 0.875rem;
+    font-weight: 400;
+}
+
+.wallkit-demo-component-grid__tag--md {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.wallkit-demo-component-grid__tag--lg {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.wallkit-demo-component-grid__tag--xl {
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.wallkit-demo-component-grid__tag-count {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: inherit;
+    font-size: 0.75rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 9999px;
+    font-weight: 600;
+}
+/* Кнопка сброса фильтра */
+.wallkit-demo-component-grid__reset-filter {
+    display: none;
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--wk-color-danger, #ef4444);
+    color: white;
+    border: none;
+    border-radius: var(--wk-border-radius, 0.375rem);
+    cursor: pointer;
+    font-size: 0.875rem;
+    transition: background-color 0.2s ease;
+}
+
+.wallkit-demo-component-grid__reset-filter:hover {
+    background-color: var(--wk-color-danger-dark, #dc2626);
+}
+
+/* Сообщение "нет результатов" */
+.wallkit-demo-component-grid__no-results {
+    display: none;
+    padding: 1.5rem;
+    background-color: var(--wk-bg-secondary, #f3f4f6);
+    border-radius: var(--wk-border-radius, 0.375rem);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--wk-color-warning, #f59e0b);
+}
+
+.wallkit-demo-component-grid__no-results p {
+    margin: 0 0 1rem 0;
+    color: var(--wk-text-secondary, #6b7280);
+}
+
+.wallkit-demo-component-grid__no-results button {
+    padding: 0.375rem 0.75rem;
+    background-color: var(--wk-color-primary, #3b82f6);
+    color: white;
+    border: none;
+    border-radius: var(--wk-border-radius, 0.375rem);
+    cursor: pointer;
+    font-size: 0.875rem;
 }
 
 @media (max-width: 768px) {

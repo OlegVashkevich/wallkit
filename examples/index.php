@@ -28,17 +28,31 @@ $header = new DemoHeader(
     subtitle: 'Библиотека готовых UI компонентов на PHP с SSR-подходом, строгой типизацией и иммутабельностью.',
     icon: '🧩',
 );
-
 // 3. Боковая панель
 $sidebar = new DemoSidebar(
-    navItems: [
+    navItems: array_merge([
         ['title' => 'Все компоненты', 'href' => '#components', 'icon' => '🧩', 'active' => true],
-        ['title' => 'Формы', 'href' => '#forms', 'icon' => '📋', 'active' => false],
-        ['title' => 'Навигация', 'href' => '#navigation', 'icon' => '🧭', 'active' => false],
-        ['title' => 'Данные', 'href' => '#data', 'icon' => '📊', 'active' => false],
-        ['title' => 'Документация', 'href' => 'https://github.com/olegv/wallkit', 'icon' => '📚', 'active' => false],
-        ['title' => 'GitHub', 'href' => 'https://github.com/olegv/wallkit', 'icon' => '🐙', 'active' => false],
-    ],
+        ...array_map(function ($item) {
+            return [
+                'title' => $item['title'],
+                'href' => '#'.strtolower($item['name']),
+                'icon' => $item['icon'],
+                'active' => false,
+            ];
+        }, $componentsData['groups']),
+        [
+            'title' => 'Документация',
+            'href' => 'https://github.com/OlegVashkevich/wallkit/tree/master/docs',
+            'icon' => '📚',
+            'active' => false,
+        ],
+        [
+            'title' => 'GitHub',
+            'href' => 'https://github.com/OlegVashkevich/wallkit',
+            'icon' => '🐙',
+            'active' => false,
+        ],
+    ]),
     infoCards: [
         [
             'title' => 'Установка',
@@ -57,6 +71,7 @@ $sidebar = new DemoSidebar(
 // 4. Сетка компонентов
 $componentGrid = new DemoComponentGrid(
     components: $componentsData['components'],
+    groups: $componentsData['groups'],
     showGroups: true,
     showStatus: true,
 );

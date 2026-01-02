@@ -83,3 +83,77 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('.demo-filter[data-filter="all"]').setAttribute('data-active', '');
     }
 })
+
+// Функция для фильтрации компонентов по тегу
+function filterByTag(tag) {
+    const items = document.querySelectorAll('.wallkit-demo-component-grid__item');
+
+    // Фильтруем элементы
+    let hasVisibleItems = false;
+
+    items.forEach(item => {
+        // Получаем теги из data-атрибута (нужно добавить в шаблоне)
+        const tags = item.getAttribute('data-tags') || '';
+        const tagList = tags.split(',').map(t => t.trim());
+
+        if (tagList.includes(tag)) {
+            item.style.display = 'block';
+            item.style.opacity = '1';
+            hasVisibleItems = true;
+        } else {
+            item.style.display = 'none';
+            item.style.opacity = '0.3';
+        }
+    });
+
+    // Обновляем URL без перезагрузки
+    history.pushState(null, null, `#tag=${encodeURIComponent(tag)}`);
+
+    // Если ничего не найдено, показываем сообщение
+    showNoResultsMessage(!hasVisibleItems, tag);
+}
+
+// Функция сброса фильтра
+function resetFilter() {
+    const items = document.querySelectorAll('.wallkit-demo-component-grid__item');
+    const noResultsMsg = document.getElementById('wallkit-no-results');
+
+    // Сбрасываем все элементы
+    items.forEach(item => {
+        item.style.display = 'block';
+        item.style.opacity = '1';
+    });
+
+    // Скрываем сообщение "нет результатов"
+    if (noResultsMsg) {
+        noResultsMsg.style.display = 'none';
+    }
+
+    // Сбрасываем URL
+    history.pushState(null, null, window.location.pathname);
+}
+
+// Функция показа сообщения "нет результатов"
+function showNoResultsMessage(show, tag) {
+    let noResultsMsg = document.getElementById('wallkit-no-results');
+
+    if (show && !noResultsMsg) {
+        noResultsMsg = document.createElement('div');
+        noResultsMsg.id = 'wallkit-no-results';
+        noResultsMsg.className = 'wallkit-demo-component-grid__no-results';
+        noResultsMsg.innerHTML = `
+            <p>По тегу "<strong>${tag}</strong>" не найдено компонентов.</p>
+            <button onclick="resetFilter()">Показать все компоненты</button>
+        `;
+
+        const grid = document.querySelector('.wallkit-demo-component-grid');
+        if (grid) {
+            grid.insertBefore(noResultsMsg, grid.firstChild);
+        }
+    } else if (noResultsMsg) {
+        noResultsMsg.style.display = show ? 'block' : 'none';
+        if (show) {
+            noResultsMsg.querySelector('strong').textContent = tag;
+        }
+    }
+}
