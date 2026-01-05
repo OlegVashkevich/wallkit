@@ -1,0 +1,19 @@
+.wallkit-code {
+    font-family: 'Consolas', 'Monaco', monospace;
+    background-color: var(--wk-code-bg, #f5f5f5);
+    border-radius: var(--wk-radius-sm);
+    overflow-x: auto;
+}
+
+.wallkit-code--block {
+    padding: var(--wk-spacing-3);
+    border: 1px solid var(--wk-border-color, #ddd);
+    margin-bottom: var(--wk-spacing-6);
+}
+
+.wallkit-code--inline {
+    padding: 0.2em 0.4em;
+    background-color: var(--wk-code-inline-bg, #f0f0f0);
+    border-radius: 0.25em;
+    font-size: 0.9em;
+}

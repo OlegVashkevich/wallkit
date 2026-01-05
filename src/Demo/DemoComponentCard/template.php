@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use OlegV\WallKit\Content\Code\Code;
 use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
 
 /** @var DemoComponentCard $this */
@@ -30,9 +31,11 @@ use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
             💡 <?= $this->e($this->note) ?>
         </div>
     <?php
-    endif; ?>
-
-    <pre class="wallkit-demo-component-card__code">
-        <code><?= htmlspecialchars($this->code) ?></code>
-    </pre>
+    endif;
+    //можно пробросить через полноценное свойство, но пока пусть так будет?>
+    <?= new Code(
+        content: $this->code,
+        language: 'php',
+        showLineNumbers: true,
+    ); ?>
 </div>

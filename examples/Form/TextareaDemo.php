@@ -64,7 +64,7 @@ $basicCards = [
 
 $basicSection = new DemoSection(
     id: 'basic',
-    title: '📝 Базовые примеры',
+    title: 'Базовые примеры',
     description: 'Простые варианты использования компонента Textarea',
     icon: '📝',
     componentCards: $basicCards,
@@ -92,7 +92,7 @@ $sizesCards = [
 
 $sizesSection = new DemoSection(
     id: 'sizes',
-    title: '📏 Размеры и строки',
+    title: 'Размеры и строки',
     description: 'Управление размерами и количеством строк',
     icon: '📏',
     componentCards: $sizesCards,
@@ -125,7 +125,7 @@ $formExample = new DemoFormExample(
 
 $realWorldSection = new DemoSection(
     id: 'real-world',
-    title: '🌍 Реальные примеры',
+    title: 'Реальные примеры',
     description: 'Примеры использования в реальных сценариях',
     icon: '🌍',
     extraContent: (string)$formExample,

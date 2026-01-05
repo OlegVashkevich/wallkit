@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OlegVashkevich/brick.git",
-                "reference": "20d7e0b325d8456f3ee7149dbd676d1e2696451c"
+                "reference": "28e7c98c2bad6db1381853bacbbcf9cdbed57d9e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OlegVashkevich/brick/zipball/20d7e0b325d8456f3ee7149dbd676d1e2696451c",
-                "reference": "20d7e0b325d8456f3ee7149dbd676d1e2696451c",
+                "url": "https://api.github.com/repos/OlegVashkevich/brick/zipball/28e7c98c2bad6db1381853bacbbcf9cdbed57d9e",
+                "reference": "28e7c98c2bad6db1381853bacbbcf9cdbed57d9e",
                 "shasum": ""
             },
             "require": {
@@ -31,6 +31,9 @@
                 "phpunit/phpunit": "^11.5"
             },
             "default-branch": true,
+            "bin": [
+                "bin/brick"
+            ],
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -59,9 +62,9 @@
             ],
             "support": {
                 "issues": "https://github.com/OlegVashkevich/brick/issues",
-                "source": "https://github.com/OlegVashkevich/brick/tree/master"
+                "source": "https://github.com/OlegVashkevich/brick/tree/v1.0.1"
             },
-            "time": "2025-12-31T15:30:19+00:00"
+            "time": "2026-01-05T08:36:39+00:00"
         },
         {
             "name": "psr/simple-cache",

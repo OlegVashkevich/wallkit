@@ -3,6 +3,7 @@
 require __DIR__.'/../../vendor/autoload.php';
 
 use OlegV\BrickManager;
+use OlegV\WallKit\Content\Code\Code;
 use OlegV\WallKit\Form\Field\Field;
 use OlegV\WallKit\Form\Input\Input;
 
@@ -687,6 +688,22 @@ use OlegV\WallKit\Form\Input\Input;
                         <p class="component-description">
                             Поле с сообщением об ошибке и стилизацией
                         </p>
+                        <?= new Code(
+                            content: <<<HTML
+                                new Field(
+                                    input: new Input(
+                                        name: 'phone',
+                                        value: '123',
+                                        type: 'tel',
+                                        id: 'phone-error'
+                                    ),
+                                    label: 'Телефон',
+                                    error: 'Неверный формат номера'
+                                )
+                                HTML,
+                            language: 'php',
+                            showLineNumbers: false,
+                        ); ?>
                         <pre class="component-code"><code>new Field(
     input: new Input(
         name: 'phone',
@@ -1013,7 +1030,7 @@ echo BrickManager::getInstance()->renderAssets(); ?>
         });
     });
 </script>
-<link href="./prism.css" rel="stylesheet"/>
-<script src="./prism.js"></script>
+<!--link href="./prism.css" rel="stylesheet"/-->
+<!--script src="./prism.js"></script-->
 </body>
 </html>
