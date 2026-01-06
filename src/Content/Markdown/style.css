@@ -1,0 +1,125 @@
+/* src/Content/Markdown/style.css */
+
+.wallkit-markdown {
+    font-family: var(--wk-font-family), serif;
+    line-height: 1.6;
+    color: var(--wk-color-text);
+}
+
+.wallkit-markdown h1,
+.wallkit-markdown h2,
+.wallkit-markdown h3,
+.wallkit-markdown h4,
+.wallkit-markdown h5,
+.wallkit-markdown h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.wallkit-markdown h1 { font-size: 2em; }
+.wallkit-markdown h2 { font-size: 1.5em; }
+.wallkit-markdown h3 { font-size: 1.25em; }
+.wallkit-markdown h4 { font-size: 1em; }
+.wallkit-markdown h5 { font-size: 0.875em; }
+.wallkit-markdown h6 { font-size: 0.85em; color: var(--wk-color-secondary); }
+
+.wallkit-markdown p {
+    margin: 0 0 1em;
+}
+
+.wallkit-markdown strong {
+    font-weight: 600;
+}
+
+.wallkit-markdown em {
+    font-style: italic;
+}
+
+.wallkit-markdown a {
+    color: var(--wk-color-primary);
+    text-decoration: none;
+}
+
+.wallkit-markdown a:hover {
+    text-decoration: underline;
+}
+
+.wallkit-markdown code {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.9em;
+    padding: 0.2em 0.4em;
+    background-color: var(--wk-color-bg-secondary);
+    border-radius: var(--wk-border-radius-sm);
+}
+
+.wallkit-markdown pre {
+    background-color: var(--wk-color-bg-secondary);
+    border-radius: var(--wk-border-radius);
+    padding: 1em;
+    overflow: auto;
+    margin: 1em 0;
+}
+
+.wallkit-markdown pre code {
+    background: none;
+    padding: 0;
+    font-size: 0.95em;
+}
+
+.wallkit-markdown ul,
+.wallkit-markdown ol {
+    margin: 1em 0;
+    padding-left: 2em;
+}
+
+.wallkit-markdown li {
+    margin: 0.5em 0;
+}
+
+.wallkit-markdown blockquote {
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left: 4px solid var(--wk-color-border);
+    color: var(--wk-color-secondary);
+}
+
+.wallkit-markdown hr {
+    border: none;
+    border-top: 1px solid var(--wk-color-border);
+    margin: 2em 0;
+}
+
+.wallkit-markdown img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--wk-border-radius);
+}
+
+.wallkit-markdown table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+.wallkit-markdown th,
+.wallkit-markdown td {
+    padding: 0.75em;
+    border: 1px solid var(--wk-color-border);
+}
+
+.wallkit-markdown th {
+    background-color: var(--wk-color-bg-secondary);
+    font-weight: 600;
+    text-align: left;
+}
+
+.wallkit-markdown tr:nth-child(even) {
+    background-color: var(--wk-color-bg-secondary);
+}
+
+.wallkit-markdown del {
+    text-decoration: line-through;
+    color: var(--wk-color-secondary);
+}
