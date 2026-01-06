@@ -11,6 +11,7 @@ use OlegV\WallKit\Demo\DemoLayout\DemoLayout;
 use OlegV\WallKit\Demo\DemoSection\DemoSection;
 use OlegV\WallKit\Demo\DemoSidebar\DemoSidebar;
 use OlegV\WallKit\Form\Field\Field;
+use OlegV\WallKit\Form\Input\Input;
 use OlegV\WallKit\Form\Textarea\Textarea;
 
 // 1. Заголовок
@@ -43,20 +44,18 @@ $sidebar = new DemoSidebar(
 $basicCards = [
     new DemoComponentCard(
         title: 'Минимальный Textarea',
-        componentHtml: (string)new Textarea(name: 'minimal'),
+        component: new Textarea(name: 'minimal'),
         description: 'Самый простой вариант без дополнительных параметров. Подходит для быстрого прототипирования.',
-        code: "new Textarea(\n    name: 'minimal'\n)",
         badgeText: 'Textarea',
         badgeType: 'textarea',
     ),
     new DemoComponentCard(
         title: 'С плейсхолдером',
-        componentHtml: (string)new Textarea(
+        component: new Textarea(
             name: 'description',
             placeholder: 'Опишите вашу идею...',
         ),
         description: 'Текстовое поле с подсказкой внутри. Помогает пользователю понять, что нужно вводить.',
-        code: "new Textarea(\n    name: 'description',\n    placeholder: 'Опишите вашу идею...'\n)",
         badgeText: 'Textarea',
         badgeType: 'textarea',
     ),
@@ -74,19 +73,31 @@ $basicSection = new DemoSection(
 $sizesCards = [
     new DemoComponentCard(
         title: 'Маленькое поле (2 строки)',
-        componentHtml: (string)new Textarea(name: 'short', placeholder: 'Короткий ответ...', rows: 2),
+        component: new Textarea(name: 'short', placeholder: 'Короткий ответ...', rows: 2),
         description: 'Компактное поле для кратких ответов',
-        code: "new Textarea(\n    name: 'short',\n    rows: 2,\n    placeholder: 'Короткий ответ...'\n)",
         badgeText: 'rows=2',
         badgeType: 'textarea',
     ),
     new DemoComponentCard(
         title: 'Большое поле (10 строк)',
-        componentHtml: (string)new Textarea(name: 'large', placeholder: 'Подробное описание...', rows: 10),
+        component: new Textarea(name: 'large', placeholder: 'Подробное описание...', rows: 10),
         description: 'Для длинных текстов, статей, описаний',
-        code: "new Textarea(\n    name: 'large',\n    rows: 10,\n    placeholder: 'Подробное описание...'\n)",
         badgeText: 'rows=10',
         badgeType: 'textarea',
+    ),
+    new DemoComponentCard(
+        title: 'test',
+        component: new Field(
+            input: new Input(
+                name: 'username',
+                value: 'john_doe',
+                id: 'user-field',
+            ),
+            label: 'Имя пользователя',
+        ),
+        description: 'test',
+        badgeText: 'test',
+        badgeType: 'test',
     ),
 ];
 

@@ -518,7 +518,7 @@
       "icon": "☁️",
       "demoFile": "Content/TagCloudDemo.php",
       "badge": "tagcloud",
-      "status": "planned",
+      "status": "beta",
       "since": null,
       "tags": [
         "filter",
@@ -527,6 +527,27 @@
         "tags",
         "interactive",
         "cloud"
+      ]
+    },
+    {
+      "name": "Code",
+      "group": "Content",
+      "description": "Компонент для отображения блоков кода с подсветкой синтаксиса и нумерацией строк",
+      "icon": "💻",
+      "demoFile": "Content/CodeDemo.php",
+      "badge": "code",
+      "status": "beta",
+      "since": null,
+      "tags": [
+        "code",
+        "syntax",
+        "highlight",
+        "programming",
+        "developer",
+        "documentation",
+        "technical",
+        "copy",
+        "clipboard"
       ]
     },
     {

@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/OlegVashkevich/brick.git",
-                "reference": "28e7c98c2bad6db1381853bacbbcf9cdbed57d9e"
+                "reference": "9b77e6a86fd0f1dba68e930312e6eeee148fc8ff"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/OlegVashkevich/brick/zipball/28e7c98c2bad6db1381853bacbbcf9cdbed57d9e",
-                "reference": "28e7c98c2bad6db1381853bacbbcf9cdbed57d9e",
+                "url": "https://api.github.com/repos/OlegVashkevich/brick/zipball/9b77e6a86fd0f1dba68e930312e6eeee148fc8ff",
+                "reference": "9b77e6a86fd0f1dba68e930312e6eeee148fc8ff",
                 "shasum": ""
             },
             "require": {
@@ -50,7 +50,7 @@
                     "email": "ugluk@tut.by"
                 }
             ],
-            "description": "Простая библиотека для создания ui-компонентов на PHP с типизацией и композицией",
+            "description": "Инструмент для создания строго типизированных UI-компонентов на PHP",
             "homepage": "https://github.com/OlegVashkevich/brick",
             "keywords": [
                 "brick",
@@ -62,9 +62,9 @@
             ],
             "support": {
                 "issues": "https://github.com/OlegVashkevich/brick/issues",
-                "source": "https://github.com/OlegVashkevich/brick/tree/v1.0.1"
+                "source": "https://github.com/OlegVashkevich/brick/tree/master"
             },
-            "time": "2026-01-05T08:36:39+00:00"
+            "time": "2026-01-06T10:19:16+00:00"
         },
         {
             "name": "psr/simple-cache",
