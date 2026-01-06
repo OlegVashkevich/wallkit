@@ -103,6 +103,7 @@ echo BrickManager::getInstance()->renderAssets();
 - *Search* — Поиск по данным (запланировано)
 - *Sorting* — Сортировка данных (запланировано)
 - *Layout* — Компоненты макета (Container, Row, Col) (запланировано)
+- **[ApiResponse](/docs/utilities/apiresponse.md)** - JSON-ответ для API с фильтрацией конфиденциальных данных
 
 ---
 

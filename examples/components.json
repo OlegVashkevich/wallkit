@@ -641,6 +641,22 @@
       ]
     },
     {
+      "name": "ApiResponse",
+      "group": "Utilities",
+      "description": "Быстрый JSON-ответ для API с фильтрацией конфиденциальных данных",
+      "icon": "📡",
+      "demoFile": "Utility/ApiResponseDemo.php",
+      "badge": "api",
+      "status": "planned",
+      "since": null,
+      "tags": [
+        "api",
+        "json",
+        "response",
+        "rest"
+      ]
+    },
+    {
       "name": "Filters",
       "group": "Utilities",
       "description": "Фильтрация данных (чекбоксы, диапазоны, сброс)",
