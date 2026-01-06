@@ -7,24 +7,27 @@ namespace OlegV\WallKit\Utilities\ApiResponse;
 use InvalidArgumentException;
 use OlegV\WallKit\Base\Base;
 use ReflectionClass;
+use ReflectionProperty;
 use RuntimeException;
 
 /**
- * Компонент для быстрого формирования JSON-ответов API
- *
- * @property bool $success Успешность операции
- * @property mixed $data Основные данные ответа
- * @property string|null $error Сообщение об ошибке (если success = false)
- * @property array $meta Метаданные (пагинация, фильтры и т.д.)
- * @property array $exclude Список свойств для исключения из сериализации
- * @property int $jsonOptions Опции для json_encode
- * @property int $jsonDepth Максимальная глубина вложенности
+ * Компонент для формирования JSON-ответов API
  */
 readonly class ApiResponse extends Base
 {
+    /**
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     * @param  bool  $success  Успешность операции
+     * @param  array<mixed>|object|null  $data  Основные данные ответа
+     * @param  string|null  $error  Сообщение об ошибке (если success = false)
+     * @param  array<string, mixed>  $meta  Метаданные
+     * @param  array<string>  $exclude  Список свойств для исключения
+     * @param  int  $jsonOptions  Опции для json_encode
+     * @param  int<1, max>  $jsonDepth  Максимальная глубина вложенности
+     */
     public function __construct(
         public bool $success,
-        public mixed $data,
+        public array|object|null $data,
         public ?string $error = null,
         public array $meta = [],
         public array $exclude = [],
@@ -79,8 +82,12 @@ readonly class ApiResponse extends Base
 
     /**
      * Создает успешный ответ
+     *
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     * @param  array<mixed>|object|null  $data  Основные данные
+     * @param  array<string, mixed>  $meta  Метаданные
      */
-    public static function success(mixed $data = null, array $meta = []): self
+    public static function success(array|object|null $data = null, array $meta = []): self
     {
         return new self(
             success: true,
@@ -91,6 +98,9 @@ readonly class ApiResponse extends Base
 
     /**
      * Создает ответ с ошибкой
+     *
+     * @param  string  $error  Сообщение об ошибке
+     * @param  array<string, mixed>  $meta  Метаданные
      */
     public static function error(string $error, array $meta = []): self
     {
@@ -104,10 +114,14 @@ readonly class ApiResponse extends Base
 
     /**
      * Фильтрует данные, исключая конфиденциальные поля
+     *
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     * @param  array<mixed>|object|null  $data  Данные для фильтрации
+     * @return array<mixed>|object|null Отфильтрованные данные
      */
-    private function filterData(mixed $data): mixed
+    private function filterData(array|object|null $data): array|object|null
     {
-        if (empty($this->exclude)) {
+        if ($data === null || $this->exclude === []) {
             return $data;
         }
 
@@ -115,24 +129,23 @@ readonly class ApiResponse extends Base
             return $this->filterArray($data);
         }
 
-        if (is_object($data) && method_exists($data, 'toArray')) {
-            $array = $data->toArray();
-            return $this->filterArray($array);
-        }
-
-        if (is_object($data)) {
-            return $this->filterObject($data);
-        }
-
-        return $data;
+        // Для объектов используем рефлексию
+        return $this->filterObject($data);
     }
 
+    /**
+     * Фильтрует массив, исключая указанные ключи
+     *
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     * @param  array<mixed>  $array  Массив для фильтрации
+     * @return array<mixed> Отфильтрованный массив
+     */
     private function filterArray(array $array): array
     {
         $filtered = [];
 
         foreach ($array as $key => $value) {
-            if (in_array($key, $this->exclude, true)) {
+            if (is_string($key) && in_array($key, $this->exclude, true)) {
                 continue;
             }
 
@@ -146,24 +159,31 @@ readonly class ApiResponse extends Base
         return $filtered;
     }
 
+    /**
+     * Фильтрует объект, исключая указанные свойства
+     *
+     * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
+     * @param  object  $object  Объект для фильтрации
+     * @return array<mixed> Массив свойств объекта
+     */
     private function filterObject(object $object): array
     {
         $result = [];
         $reflection = new ReflectionClass($object);
 
-        foreach ($reflection->getProperties() as $property) {
-            $propertyName = $property->getName();
+        foreach ($reflection->getProperties(ReflectionProperty::IS_PUBLIC) as $property) {
+            $name = $property->getName();
 
-            if (in_array($propertyName, $this->exclude, true)) {
+            if (in_array($name, $this->exclude, true)) {
                 continue;
             }
 
             $value = $property->getValue($object);
 
             if (is_array($value) || is_object($value)) {
-                $result[$propertyName] = $this->filterData($value);
+                $result[$name] = $this->filterData($value);
             } else {
-                $result[$propertyName] = $value;
+                $result[$name] = $value;
             }
         }
 
