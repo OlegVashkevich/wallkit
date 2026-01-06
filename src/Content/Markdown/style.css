@@ -1,11 +1,10 @@
-/* src/Content/Markdown/style.css */
-
 .wallkit-markdown {
     font-family: var(--wk-font-family), serif;
     line-height: 1.6;
-    color: var(--wk-color-text);
+    color: var(--wk-black);
 }
 
+/* Стилизация вывода Parsedown */
 .wallkit-markdown h1,
 .wallkit-markdown h2,
 .wallkit-markdown h3,
@@ -18,12 +17,25 @@
     line-height: 1.25;
 }
 
-.wallkit-markdown h1 { font-size: 2em; }
-.wallkit-markdown h2 { font-size: 1.5em; }
+.wallkit-markdown h1 {
+    font-size: 2em;
+    border-bottom: 2px solid var(--wk-border);
+    padding-bottom: 0.3em;
+}
+
+.wallkit-markdown h2 {
+    font-size: 1.5em;
+    border-bottom: 1px solid var(--wk-border);
+    padding-bottom: 0.3em;
+}
+
 .wallkit-markdown h3 { font-size: 1.25em; }
 .wallkit-markdown h4 { font-size: 1em; }
 .wallkit-markdown h5 { font-size: 0.875em; }
-.wallkit-markdown h6 { font-size: 0.85em; color: var(--wk-color-secondary); }
+.wallkit-markdown h6 {
+    font-size: 0.85em;
+    color: var(--wk-vis-accent);
+}
 
 .wallkit-markdown p {
     margin: 0 0 1em;
@@ -38,7 +50,7 @@
 }
 
 .wallkit-markdown a {
-    color: var(--wk-color-primary);
+    color: var(--wk-accent);
     text-decoration: none;
 }
 
@@ -50,13 +62,14 @@
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     font-size: 0.9em;
     padding: 0.2em 0.4em;
-    background-color: var(--wk-color-bg-secondary);
-    border-radius: var(--wk-border-radius-sm);
+    background-color: var(--wk-color-gray-200);
+    border-radius: var(--wk-radius-md);
+    color: var(--wk-black);
 }
 
 .wallkit-markdown pre {
-    background-color: var(--wk-color-bg-secondary);
-    border-radius: var(--wk-border-radius);
+    background-color: var(--wk-color-gray-200);
+    border-radius: var(--wk-radius-md);
     padding: 1em;
     overflow: auto;
     margin: 1em 0;
@@ -66,6 +79,7 @@
     background: none;
     padding: 0;
     font-size: 0.95em;
+    color: inherit;
 }
 
 .wallkit-markdown ul,
@@ -78,48 +92,70 @@
     margin: 0.5em 0;
 }
 
+.wallkit-markdown li > p {
+    margin: 0;
+}
+
 .wallkit-markdown blockquote {
     margin: 1em 0;
-    padding-left: 1em;
-    border-left: 4px solid var(--wk-color-border);
-    color: var(--wk-color-secondary);
+    padding: 0 1em;
+    border-left: 4px solid var(--wk-border);
+    color: var(--wk-vis-accent);
+    background-color: var(--wk-color-gray-200);
+    border-radius: 0 var(--wk-radius-md) var(--wk-radius-md) 0;
 }
 
 .wallkit-markdown hr {
     border: none;
-    border-top: 1px solid var(--wk-color-border);
+    border-top: 2px solid var(--wk-border);
     margin: 2em 0;
 }
 
 .wallkit-markdown img {
     max-width: 100%;
     height: auto;
-    border-radius: var(--wk-border-radius);
+    border-radius: var(--wk-radius-md);
 }
 
 .wallkit-markdown table {
     width: 100%;
     border-collapse: collapse;
     margin: 1em 0;
+    border: 1px solid var(--wk-border);
 }
 
 .wallkit-markdown th,
 .wallkit-markdown td {
     padding: 0.75em;
-    border: 1px solid var(--wk-color-border);
+    border: 1px solid var(--wk-border);
 }
 
 .wallkit-markdown th {
-    background-color: var(--wk-color-bg-secondary);
+    background-color: var(--wk-color-gray-200);
     font-weight: 600;
     text-align: left;
 }
 
 .wallkit-markdown tr:nth-child(even) {
-    background-color: var(--wk-color-bg-secondary);
+    background-color: var(--wk-color-gray-200);
 }
 
 .wallkit-markdown del {
     text-decoration: line-through;
-    color: var(--wk-color-secondary);
+    color: var(--wk-vis-accent);
+}
+
+/* Для ParsedownExtra */
+.wallkit-markdown .footnote-ref,
+.wallkit-markdown .footnote-backref {
+    color: var(--wk-accent);
+    text-decoration: none;
+}
+
+.wallkit-markdown .footnotes {
+    margin-top: 2em;
+    padding-top: 1em;
+    border-top: 1px solid var(--wk-border);
+    font-size: 0.9em;
+    color: var(--wk-vis-accent);
 }

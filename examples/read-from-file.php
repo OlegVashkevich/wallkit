@@ -17,7 +17,7 @@ function renderMarkdownFile(string $filePath): string
     $content = file_get_contents($filePath);
 
     // Автоматическое определение расширений по содержимому
-    $extensions = ['headers', 'bold', 'italic', 'links', 'lists', 'code'];
+    /*$extensions = ['headers', 'bold', 'italic', 'links', 'lists', 'code'];
 
     if (str_contains($content, '---')) {
         $extensions[] = 'tables';
@@ -29,13 +29,13 @@ function renderMarkdownFile(string $filePath): string
 
     if (str_contains($content, '> ')) {
         $extensions[] = 'blockquotes';
-    }
+    }*/
 
     // Создаем Markdown компонент
     $markdown = new Markdown(
         content: $content,
         safeMode: false, // Всегда безопасно для внешних файлов
-        extensions: $extensions,
+    //extensions: $extensions,
     );
 
     return (string)$markdown;
@@ -55,7 +55,6 @@ $readmeContent = renderMarkdownFile(__DIR__.'/../README.md');
 </head>
 <body>
 <div style="max-width: 800px; margin: 0 auto; padding: 2rem;">
-    <h1>📄 Содержимое README.md</h1>
     <?= $readmeContent ?>
 </div>
 <!-- Подключение стилей и скриптов компонента -->

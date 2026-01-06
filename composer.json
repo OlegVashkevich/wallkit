@@ -12,7 +12,8 @@
     "require": {
         "php": ">=8.2",
         "ext-mbstring": "*",
-        "olegv/brick": "dev-master"
+        "olegv/brick": "dev-master",
+        "erusev/parsedown": "^1.7"
     },
     "require-dev": {
         "phpstan/phpstan": "^2.1.33",
