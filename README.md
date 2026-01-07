@@ -91,6 +91,7 @@ echo BrickManager::getInstance()->renderAssets();
 ### Контент (Content)
 - **[TagCloud](/docs/content/tagcloud.md)** — Облако тегов для фильтрации и навигации ⚠️
 - **[Code](/docs/content/code.md)** — Блок кода с подсветкой синтаксиса ⚠️
+- **[Markdown](/docs/content/markdown.md)** — Markdown в HTML с использованием Parsedown ⚠️
 - *Avatar* — Аватар пользователя (запланировано)
 - *Icon* — Иконка (SVG, спрайты) (запланировано)
 - *Image* — Изображение (lazy loading) (запланировано)

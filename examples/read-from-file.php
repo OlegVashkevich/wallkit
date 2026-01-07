@@ -34,8 +34,7 @@ function renderMarkdownFile(string $filePath): string
     // Создаем Markdown компонент
     $markdown = new Markdown(
         content: $content,
-        safeMode: false, // Всегда безопасно для внешних файлов
-    //extensions: $extensions,
+        safeMode: true, // Всегда безопасно для внешних файлов
     );
 
     return (string)$markdown;

@@ -1,19 +1,148 @@
 .wallkit-code {
-    font-family: 'Consolas', 'Monaco', monospace;
-    background-color: var(--wk-code-bg, #f5f5f5);
-    border-radius: var(--wk-radius-sm);
+    background-color: var(--wk-dark-gray);
+    border: 1px solid var(--wk-color-gray-700);
+    border-radius: var(--wk-radius-md, 0.375rem);
+    font-family: var(--wk-font-family-mono, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace), serif;
+    font-size: var(--wk-font-size-sm, 0.875rem);
+    margin: var(--wk-spacing-3, 1rem) 0;
+    overflow: hidden;
+}
+
+.wallkit-code__header {
+    background-color: var(--wk-black);
+    border-bottom: 1px solid var(--wk-color-gray-700);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-3, 1rem);
+}
+
+.wallkit-code__language {
+    color: var(--wk-medium-gray, #6b7280);
+    font-weight: 500;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+}
+
+.wallkit-code__copy-button {
+    background: none;
+    border: 1px solid var(--wk-color-gray-700, #e1e4e8);
+    border-radius: var(--wk-radius-md, 0.25rem);
+    color: var(--wk-medium-gray, #6b7280);
+    cursor: pointer;
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.wallkit-code__copy-button:hover {
+    background-color: var( --wk-accent, #3b82f6);
+    border-color: var( --wk-accent, #3b82f6);
+    color: white;
+}
+
+.wallkit-code__content {
+    display: flex;
     overflow-x: auto;
 }
 
-.wallkit-code--block {
-    padding: var(--wk-spacing-3);
-    border: 1px solid var(--wk-border-color, #ddd);
-    margin-bottom: var(--wk-spacing-6);
+.wallkit-code__lines {
+    background-color: var(--wk-dark-gray, #fafafa);
+    border-right: 1px solid var(--wk-color-gray-700, #e1e4e8);
+    color: var(--wk-light-gray, #6b7280);
+    font-size: var(--wk-font-size-sm, 0.875rem);
+    padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-3, 1rem);
+    text-align: right;
+    user-select: none;
+    min-width: 3rem;
+    padding-top: 1.2rem;
 }
 
-.wallkit-code--inline {
-    padding: 0.2em 0.4em;
-    background-color: var(--wk-code-inline-bg, #f0f0f0);
-    border-radius: 0.25em;
-    font-size: 0.9em;
+.wallkit-code__line-number {
+    display: block;
+    line-height: 1.5;
+}
+
+.wallkit-code__content pre {
+    margin: 0;
+    padding: var(--wk-spacing-3, 0.5rem) var(--wk-spacing-3, 1rem);
+    flex: 1;
+}
+
+.wallkit-code__content code {
+    background: none;
+    color: var(--wk-color-gray-300);
+    display: block;
+    line-height: 1.5;
+    tab-size: 4;
+}
+
+.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #abb2bf;
+    background: #282c34;
+}
+.hljs-keyword, .hljs-operator {
+    color: #F92672;
+}
+.hljs-pattern-match {
+    color: #F92672;
+}
+.hljs-pattern-match .hljs-constructor {
+    color: #61aeee;
+}
+.hljs-function {
+    color: #61aeee;
+}
+.hljs-function .hljs-params {
+    color: #A6E22E;
+}
+.hljs-function .hljs-params .hljs-typing {
+    color: #FD971F;
+}
+.hljs-module-access .hljs-module {
+    color: #7e57c2;
+}
+.hljs-constructor {
+    color: #e2b93d;
+}
+.hljs-constructor .hljs-string {
+    color: #9CCC65;
+}
+.hljs-comment, .hljs-quote {
+    color: #b18eb1;
+    font-style: italic;
+}
+.hljs-doctag, .hljs-formula {
+    color: #c678dd;
+}
+.hljs-section, .hljs-name, .hljs-selector-tag, .hljs-deletion, .hljs-subst {
+    color: #e06c75;
+}
+.hljs-literal {
+    color: #56b6c2;
+}
+.hljs-string, .hljs-regexp, .hljs-addition, .hljs-attribute, .hljs-meta-string {
+    color: #98c379;
+}
+.hljs-built_in, .hljs-class .hljs-title {
+    color: #e6c07b;
+}
+.hljs-attr, .hljs-variable, .hljs-template-variable, .hljs-type, .hljs-selector-class, .hljs-selector-attr, .hljs-selector-pseudo, .hljs-number {
+    color: #d19a66;
+}
+.hljs-symbol, .hljs-bullet, .hljs-link, .hljs-meta, .hljs-selector-id, .hljs-title {
+    color: #61aeee;
+}
+.hljs-emphasis {
+    font-style: italic;
+}
+.hljs-strong {
+    font-weight: bold;
+}
+.hljs-link {
+    text-decoration: underline;
 }

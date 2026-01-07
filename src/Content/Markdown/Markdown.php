@@ -1,5 +1,4 @@
 <?php
-// src/Content/Markdown/Markdown.php
 
 declare(strict_types=1);
 
@@ -23,7 +22,7 @@ readonly class Markdown extends Base
 {
     use WithInheritance;
 
-    private Parsedown $parser;
+    private ParsedownEx $parser;
 
     public function __construct(
         public string $content,
@@ -50,9 +49,9 @@ readonly class Markdown extends Base
     /**
      * Создать и настроить парсер Parsedown
      */
-    private function createParser(): Parsedown
+    private function createParser(): ParsedownEx
     {
-        $parser = new Parsedown();
+        $parser = new ParsedownEx();
 
         // Настройка безопасного режима
         if ($this->safeMode) {
@@ -68,7 +67,7 @@ readonly class Markdown extends Base
     /**
      * Применить дополнительные опции к парсеру
      */
-    private function applyOptions(Parsedown $parser): void
+    private function applyOptions(ParsedownEx $parser): void
     {
         foreach ($this->options as $option => $value) {
             if (method_exists($parser, $option)) {
