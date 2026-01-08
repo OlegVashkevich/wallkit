@@ -6,6 +6,7 @@ namespace OlegV\WallKit\Content\Code;
 
 use Exception;
 use Highlight\Highlighter;
+use InvalidArgumentException;
 use OlegV\WallKit\Base\Base;
 
 /**
@@ -27,7 +28,10 @@ readonly class Code extends Base
         public bool $lineNumbers = false,
         public bool $copyButton = false,
         public bool $showLanguage = false,
-    ) {
+    ) {}
+
+    protected function prepare(): void
+    {
         // Валидация языка (только для подсветки)
         if ($this->highlight && !in_array($this->language, ['plaintext', 'text'])) {
             $this->ensureHighlightLibrary();
@@ -40,7 +44,6 @@ readonly class Code extends Base
                 'Установите: composer require scrivo/highlight.php',
                 E_USER_WARNING,
             );
-            //$this->highlight = false;
         }
     }
 
@@ -60,10 +63,9 @@ readonly class Code extends Base
             }
 
             if (!in_array($this->language, $highlighter::listBundledLanguages())) {
-                trigger_error(
+                throw new InvalidArgumentException(
                     "Язык '$this->language' не поддерживается библиотекой highlight.php. ".
                     "Используйте один из: ".implode(', ', $highlighter::listBundledLanguages()),
-                    E_USER_WARNING,
                 );
             }
         }

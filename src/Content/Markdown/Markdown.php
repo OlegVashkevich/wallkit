@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace OlegV\WallKit\Content\Markdown;
 
 use Exception;
+use InvalidArgumentException;
 use OlegV\Traits\WithInheritance;
 use OlegV\WallKit\Base\Base;
 use Parsedown;
+use RuntimeException;
 
 /**
  * Компонент для рендеринга Markdown в HTML с использованием Parsedown
@@ -26,12 +28,18 @@ readonly class Markdown extends Base
         public string $content,
         public bool $safeMode = true,
         public array $options = [],
-    ) {
+    ) {}
+
+    protected function prepare(): void
+    {
+        if (empty(trim($this->content))) {
+            throw new InvalidArgumentException('Markdown content cannot be empty');
+        }
+
         // Проверяем наличие библиотеки Parsedown
         if (!class_exists(Parsedown::class)) {
-            trigger_error(
-                "Parsedown library is required. Install it with: composer require erusev/parsedown",
-                E_USER_WARNING,
+            throw new RuntimeException(
+                'Parsedown library is required. Install it with: composer require erusev/parsedown',
             );
         }
 

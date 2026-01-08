@@ -41,13 +41,13 @@ readonly class TagCloud extends Base
         public string $variant = 'cloud',
     ) {
         // Если нужно включить тег "Все", добавляем его в начало
-        if ($includeAllTag && !empty($tags) && !isset($tags[$allTagText])) {
+        if ($this->includeAllTag && !empty($tags) && !isset($tags[$this->allTagText])) {
             $totalItems = array_sum($tags);
-            $this->tags = [$allTagText => $totalItems] + $this->tags;
+            $this->tags = [$this->allTagText => $totalItems] + $tags;
         }
 
         // Устанавливаем тег "Все" активным по умолчанию, если нет активного
-        if ($activeTag === null && $includeAllTag && !empty($tags)) {
+        if ($activeTag === null && $this->includeAllTag && !empty($tags)) {
             $this->activeTag = $allTagText;
         }
     }

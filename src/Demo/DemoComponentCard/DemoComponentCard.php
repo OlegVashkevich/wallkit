@@ -17,9 +17,6 @@ readonly class DemoComponentCard extends Base
     use WithStrictHelpers;
     use WithInheritance;
 
-    public string $code;
-    public string $componentHtml;
-
     public function __construct(
         public string $title,
         public Brick $component,
@@ -27,10 +24,11 @@ readonly class DemoComponentCard extends Base
         public string $badgeText,
         public string $badgeType = 'default',
         public ?string $note = null,
-    ) {
-        $this->componentHtml = (string)$component;
-        //рекурсивное воссоздание конструктора через рефлексию с защитой от циклических ссылок
-        $this->code = $this->objectToConstructorStringNonDefaults($component);
+    ) {}
+
+    private function getHtml(): string
+    {
+        return (string)$this->component;
     }
 
     public function getBadgeClasses(): array

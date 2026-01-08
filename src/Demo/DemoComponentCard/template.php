@@ -18,7 +18,7 @@ use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
     </div>
 
     <div class="wallkit-demo-component-card__preview">
-        <?= $this->componentHtml ?>
+        <?= $this->getHtml() ?>
     </div>
 
     <p class="wallkit-demo-component-card__description">
@@ -34,8 +34,8 @@ use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
     endif;
     //можно пробросить через полноценное свойство, но пока пусть так будет?>
     <?= new Code(
-        content: $this->code,
+        content: $this->objectToConstructorStringNonDefaults($this->component),
         language: 'php',
-        showLineNumbers: true,
+        lineNumbers: true,
     ); ?>
 </div>

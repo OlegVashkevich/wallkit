@@ -42,7 +42,7 @@ class ParsedownEx extends Parsedown
                     $language = substr($class, 9);
                 }
             }
-            var_dump($language);
+
             // Используем ваш компонент Code
             $codeComponent = new Code(
                 content: $code,

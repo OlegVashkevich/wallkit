@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OlegV\WallKit\Form\Textarea;
 
+use InvalidArgumentException;
 use OlegV\Traits\WithHelpers;
 use OlegV\Traits\WithInheritance;
 use OlegV\Traits\WithStrictHelpers;
@@ -48,9 +49,12 @@ readonly class Textarea extends Base
         public bool $autoFocus = false,
         public ?string $autocomplete = null,
         public ?bool $spellcheck = null,
-    ) {
+    ) {}
+
+    protected function prepare(): void
+    {
         if (!$this->hasString(trim($this->name))) {
-            trigger_error('Имя поля Textarea обязательно', E_USER_WARNING);
+            throw new InvalidArgumentException("Имя поля обязательно");
         }
     }
 

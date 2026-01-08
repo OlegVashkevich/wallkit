@@ -7,6 +7,7 @@ require_once __DIR__.'/../vendor/autoload.php';
 use OlegV\BrickManager;
 use OlegV\WallKit\Content\Markdown\Markdown;
 
+BrickManager::enableDebug();
 // Чтение Markdown из файла
 function renderMarkdownFile(string $filePath): string
 {
