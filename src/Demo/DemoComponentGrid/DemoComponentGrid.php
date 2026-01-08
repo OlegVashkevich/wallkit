@@ -39,9 +39,7 @@ readonly class DemoComponentGrid extends Base
         public array $groups = [],
         public bool $showGroups = true,
         public bool $showStatus = true,
-    ) {
-        parent::__construct();
-    }
+    ) {}
 
     public function getComponentsByGroup(): array
     {

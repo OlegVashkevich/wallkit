@@ -31,7 +31,6 @@ readonly class DemoComponentCard extends Base
         $this->componentHtml = (string)$component;
         //рекурсивное воссоздание конструктора через рефлексию с защитой от циклических ссылок
         $this->code = $this->objectToConstructorStringNonDefaults($component);
-        parent::__construct();
     }
 
     public function getBadgeClasses(): array

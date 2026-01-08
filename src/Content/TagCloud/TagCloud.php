@@ -50,8 +50,6 @@ readonly class TagCloud extends Base
         if ($activeTag === null && $includeAllTag && !empty($tags)) {
             $this->activeTag = $allTagText;
         }
-
-        parent::__construct();
     }
 
     /**

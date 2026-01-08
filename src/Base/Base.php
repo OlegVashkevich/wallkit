@@ -9,10 +9,4 @@ use OlegV\Brick;
 /**
  * Базовый компонент библиотеки WallKit
  */
-readonly class Base extends Brick
-{
-    public function __construct()
-    {
-        parent::__construct();
-    }
-}
+readonly class Base extends Brick {}

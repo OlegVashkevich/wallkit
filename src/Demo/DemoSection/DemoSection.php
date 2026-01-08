@@ -22,7 +22,5 @@ readonly class DemoSection extends Base
         public string $icon,
         public array $componentCards = [], // массив DemoComponentCard или HTML
         public ?string $extraContent = null,
-    ) {
-        parent::__construct();
-    }
+    ) {}
 }

@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace OlegV\WallKit\Content\Markdown;
 
 use Exception;
-use InvalidArgumentException;
 use OlegV\Traits\WithInheritance;
 use OlegV\WallKit\Base\Base;
 use Parsedown;
-use RuntimeException;
 
 /**
  * Компонент для рендеринга Markdown в HTML с использованием Parsedown
@@ -29,21 +27,16 @@ readonly class Markdown extends Base
         public bool $safeMode = true,
         public array $options = [],
     ) {
-        if (empty(trim($this->content))) {
-            throw new InvalidArgumentException('Markdown content cannot be empty');
-        }
-
         // Проверяем наличие библиотеки Parsedown
         if (!class_exists(Parsedown::class)) {
-            throw new RuntimeException(
-                'Parsedown library is required. Install it with: composer require erusev/parsedown',
+            trigger_error(
+                "Parsedown library is required. Install it with: composer require erusev/parsedown",
+                E_USER_WARNING,
             );
         }
 
         // Создаем парсер
         $this->parser = $this->createParser();
-
-        parent::__construct();
     }
 
     /**
@@ -88,16 +81,9 @@ readonly class Markdown extends Base
         try {
             return $this->parser->text($this->content);
         } catch (Exception $e) {
+            trigger_error("Failed to parse inline Markdown: ".$e->getMessage(), E_USER_WARNING);
             // В случае ошибки парсинга возвращаем экранированный контент
-            if ($this->safeMode) {
-                return htmlspecialchars($this->content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            }
-
-            throw new RuntimeException(
-                'Failed to parse Markdown: '.$e->getMessage(),
-                0,
-                $e,
-            );
+            return htmlspecialchars($this->content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         }
     }
 
@@ -109,15 +95,8 @@ readonly class Markdown extends Base
         try {
             return $this->parser->line($this->content);
         } catch (Exception $e) {
-            if ($this->safeMode) {
-                return htmlspecialchars($this->content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-            }
-
-            throw new RuntimeException(
-                'Failed to parse inline Markdown: '.$e->getMessage(),
-                0,
-                $e,
-            );
+            trigger_error("Failed to parse inline Markdown: ".$e->getMessage(), E_USER_WARNING);
+            return htmlspecialchars($this->content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         }
     }
 }

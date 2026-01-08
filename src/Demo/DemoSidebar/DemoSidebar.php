@@ -23,9 +23,7 @@ readonly class DemoSidebar extends Base
         public array $navItems = [],
         public array $infoCards = [],
         public ?string $title = 'Навигация',
-    ) {
-        parent::__construct();
-    }
+    ) {}
 
     /**
      * @return array<array{classes: string[], attrs: array<string, string>}>

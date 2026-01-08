@@ -19,7 +19,5 @@ readonly class DemoHeader extends Base
         public string $title,
         public string $subtitle,
         public ?string $icon = null,
-    ) {
-        parent::__construct();
-    }
+    ) {}
 }

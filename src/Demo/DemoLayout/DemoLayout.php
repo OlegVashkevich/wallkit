@@ -20,9 +20,7 @@ readonly class DemoLayout extends Base
         public string $content,
         public bool $sidebarLeft = true,
         public string $sidebarWidth = '280px',
-    ) {
-        parent::__construct();
-    }
+    ) {}
 
     public function getGridTemplate(): string
     {

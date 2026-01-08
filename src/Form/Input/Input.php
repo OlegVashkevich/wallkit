@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OlegV\WallKit\Form\Input;
 
-use InvalidArgumentException;
 use OlegV\Traits\WithHelpers;
 use OlegV\Traits\WithInheritance;
 use OlegV\Traits\WithStrictHelpers;
@@ -69,14 +68,11 @@ readonly class Input extends Base
         public ?bool $spellcheck = null,
     ) {
         if (!$this->isValidType($this->type)) {
-            throw new InvalidArgumentException("Неподдерживаемый тип: $this->type");
+            trigger_error("Неподдерживаемый тип: $this->type", E_USER_WARNING);
         }
         if (!$this->hasString(trim($this->name))) {
-            throw new InvalidArgumentException(
-                "Имя поля обязательно и не может состоять только из пробелов",
-            );
+            trigger_error('Имя поля Input обязательно и не может состоять только из пробелов', E_USER_WARNING);
         }
-        parent::__construct();
     }
 
     /**

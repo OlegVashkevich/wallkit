@@ -42,9 +42,7 @@ readonly class Field extends Base
         public ?string $error = null,
         public bool $withPasswordToggle = true,
         public array $wrapperClasses = [],
-    ) {
-        parent::__construct();
-    }
+    ) {}
 
     /**
      * Получить CSS классы для обёртки поля

@@ -6,7 +6,6 @@ namespace OlegV\WallKit\Content\Code;
 
 use Exception;
 use Highlight\Highlighter;
-use InvalidArgumentException;
 use OlegV\WallKit\Base\Base;
 
 /**
@@ -43,7 +42,6 @@ readonly class Code extends Base
             );
             //$this->highlight = false;
         }
-        parent::__construct();
     }
 
     /**
@@ -62,9 +60,10 @@ readonly class Code extends Base
             }
 
             if (!in_array($this->language, $highlighter::listBundledLanguages())) {
-                throw new InvalidArgumentException(
+                trigger_error(
                     "Язык '$this->language' не поддерживается библиотекой highlight.php. ".
                     "Используйте один из: ".implode(', ', $highlighter::listBundledLanguages()),
+                    E_USER_WARNING,
                 );
             }
         }

@@ -21,9 +21,7 @@ readonly class DemoStats extends Base
         public int $plannedComponents,
         public int $demoPages,
         public string $latestVersion = '1.0.0',
-    ) {
-        parent::__construct();
-    }
+    ) {}
 
     public function getProgress(): float
     {

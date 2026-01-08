@@ -28,9 +28,7 @@ readonly class DemoFormExample extends Base
         public string $formHtml,
         public array $actions = [],
         public array $notes = [],
-    ) {
-        parent::__construct();
-    }
+    ) {}
 
     /**
      * @return array<string, string>

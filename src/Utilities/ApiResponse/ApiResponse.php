@@ -4,11 +4,9 @@ declare(strict_types=1);
 
 namespace OlegV\WallKit\Utilities\ApiResponse;
 
-use InvalidArgumentException;
 use OlegV\WallKit\Base\Base;
 use ReflectionClass;
 use ReflectionProperty;
-use RuntimeException;
 
 /**
  * Компонент для формирования JSON-ответов API
@@ -36,15 +34,13 @@ readonly class ApiResponse extends Base
     ) {
         // Валидация: если ошибка есть, но success = true
         if ($success && $error !== null) {
-            throw new InvalidArgumentException('При success = true ошибка должна быть null');
+            trigger_error('При success = true ошибка должна быть null', E_USER_WARNING);
         }
 
         // Валидация: если ошибки нет, но success = false
         if (!$success && $error === null) {
-            throw new InvalidArgumentException('При success = false должна быть указана ошибка');
+            trigger_error('При success = false должна быть указана ошибка', E_USER_WARNING);
         }
-
-        parent::__construct();
     }
 
     /**
@@ -66,7 +62,8 @@ readonly class ApiResponse extends Base
         $json = json_encode($result, $this->jsonOptions, $this->jsonDepth);
 
         if ($json === false) {
-            throw new RuntimeException('Ошибка кодирования JSON: '.json_last_error_msg());
+            trigger_error('Ошибка кодирования JSON: '.json_last_error_msg(), E_USER_WARNING);
+            $json = '';
         }
 
         return $json;
