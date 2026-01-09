@@ -103,18 +103,30 @@ $sizesCards = [
     ),
     new DemoComponentCard(
         title: 'Чекбокс согласия',
-        component: new Field(
-            input: new Input(
-                name: 'terms',
-                value: 'agree',
-                type: 'checkbox',
-                required: true,
-                /*checked: true,*/
-                id: 'terms-checkbox',
+        component: [
+            new Field(
+                input: new Input(
+                    name: 'terms',
+                    value: 'yes',
+                    type: 'checkbox',
+                    required: true,
+                    checked: true,
+                ),
+                label: 'Я согласен с условиями использования',
+                helpText: 'Обязательно для регистрации',
             ),
-            label: 'Я согласен с условиями использования',
-            helpText: 'Обязательно для регистрации',
-        ),
+            new Field(
+                input: new Input(
+                    name: 'terms',
+                    value: 'no',
+                    type: 'checkbox',
+                    required: true,
+                /*checked: true,*/
+                ),
+                label: 'Я согласен с условиями использования',
+                helpText: 'Обязательно для регистрации',
+            ),
+        ],
         description: 'Обязательный чекбокс с предварительным выбором',
         badgeText: 'required',
         badgeType: 'danger',
