@@ -2,9 +2,45 @@
 
 declare(strict_types=1);
 
+/**
+ * Шаблон для компонента Code
+ *
+ * Этот шаблон рендерит HTML-блок для отображения исходного кода с поддержкой:
+ * - Подсветки синтаксиса через highlight.php
+ * - Нумерации строк
+ * - Кнопки копирования кода в буфер обмена
+ * - Метки с названием языка программирования
+ *
+ * @var Code $this Экземпляр компонента Code
+ * @see Code::getHighlightedContent() Для получения подсвеченного содержимого кода
+ * @see \OlegV\Traits\WithHelpers::e() Для безопасного вывода строк в HTML
+ *
+ * @package OlegV\WallKit\Content\Code
+ * @author OlegV
+ * @version 1.0.0
+ *
+ * @example
+ * Простой блок кода:
+ * <div class="wallkit-code" data-language="javascript">
+ *   <pre><code class="hljs language-javascript">console.log("Hello")</code></pre>
+ * </div>
+ *
+ * @example
+ * Полный блок с заголовком и номерами строк:
+ * <div class="wallkit-code" data-language="php">
+ *   <div class="wallkit-code__header">
+ *     <span class="wallkit-code__language">php</span>
+ *     <button class="wallkit-code__copy-button">Копировать</button>
+ *   </div>
+ *   <div class="wallkit-code__content">
+ *     <div class="wallkit-code__lines">1 2 3</div>
+ *     <pre><code class="hljs language-php">&lt;?php echo "Hello" ?&gt;</code></pre>
+ *   </div>
+ * </div>
+ */
+
 use OlegV\WallKit\Content\Code\Code;
 
-/** @var Code $this */
 ?>
 <div class="wallkit-code" data-language="<?= $this->e($this->language) ?>">
     <?php
