@@ -1,0 +1,71 @@
+/*
+ * Стили для компонента Select
+ *
+ * Базовые стили аналогичны Input, с адаптацией для <select>.
+ */
+
+.wallkit-select__field {
+  width: 100%;
+  padding: var(--wk-spacing-3) var(--wk-spacing-4);
+  padding-right: calc(var(--wk-spacing-4) * 2); /* Для стрелки */
+  font-family: var(--wk-font-family), serif;
+  font-size: var(--wk-font-size-base);
+  line-height: var(--wk-line-height-base);
+  border: var(--wk-border-width) solid var(--wk-color-gray-300);
+  border-radius: var(--wk-border-radius);
+  background-color: white;
+  color: var(--wk-color-gray-900);
+  transition: var(--wk-transition);
+  box-shadow: var(--wk-shadow-sm);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--wk-spacing-3) center;
+  background-size: 1.25rem;
+}
+
+.wallkit-select__field:focus {
+  outline: none;
+  border-color: var(--wk-color-primary);
+  box-shadow: var(--wk-shadow-outline);
+}
+
+.wallkit-select__field--multiple {
+  background-image: none;
+  padding-right: var(--wk-spacing-4);
+  height: auto;
+  min-height: calc(var(--wk-spacing-8) * 2);
+}
+
+.wallkit-select__field:disabled {
+  background-color: var(--wk-color-gray-100);
+  color: var(--wk-color-gray-400);
+  cursor: not-allowed;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%239ca3af' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+}
+
+/* Размеры */
+.wallkit-select__field--sm {
+  padding: var(--wk-spacing-2) var(--wk-spacing-3);
+  padding-right: calc(var(--wk-spacing-3) * 2);
+  font-size: var(--wk-font-size-sm);
+  background-size: 1rem;
+}
+
+.wallkit-select__field--lg {
+  padding: var(--wk-spacing-4) var(--wk-spacing-6);
+  padding-right: calc(var(--wk-spacing-6) * 2);
+  font-size: var(--wk-font-size-lg);
+  background-size: 1.5rem;
+}
+
+/* Варианты */
+.wallkit-select__field--outline {
+  border-width: 2px;
+}
+
+.wallkit-select__field--filled {
+  background-color: var(--wk-color-gray-50);
+  border-color: transparent;
+}
