@@ -21,7 +21,7 @@ use OlegV\WallKit\Form\Select\Select;
 // @formatter:off
 ?>
 <select <?= $this->attr($this->getSelectAttributes()) ?>>
-    <?php if ($this->placeholder): ?>
+    <?php if ($this->hasString($this->placeholder)): ?>
         <option value="" disabled <?= $this->selected === null ? 'selected' : '' ?>>
             <?= $this->e($this->placeholder) ?>
         </option>
@@ -37,7 +37,7 @@ use OlegV\WallKit\Form\Select\Select;
             <?php endif?>
             <?php $currentGroup = $option['group']?>
         <?php endif?>
-        <option value="<?= $this->e($option['value']) ?>"
+        <option value="<?= $this->e((string)$option['value']) ?>"
             <?= $this->isOptionSelected($option['value']) ? 'selected' : '' ?>>
             <?= $this->e($option['label']) ?>
         </option>

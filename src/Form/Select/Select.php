@@ -74,8 +74,8 @@ readonly class Select extends Base
 
     /**
      * @param  string  $name  Название поля (атрибут name)
-     * @param  array<string|int, string|array>  $options  Опции списка
-     * @param  string|int|array|null  $selected  Выбранное значение
+     * @param  array<string|int, string|array<string|int, string>>  $options  Опции списка
+     * @param  string|int|array<string|int>|null  $selected  Выбранное значение
      * @param  bool  $multiple  Множественный выбор
      * @param  bool  $required  Обязательное поле
      * @param  bool  $disabled  Отключенное состояние
@@ -103,7 +103,7 @@ readonly class Select extends Base
 
     protected function prepare(): void
     {
-        if (empty($this->name)) {
+        if ($this->name === '') {
             throw new InvalidArgumentException('Имя поля обязательно');
         }
 
@@ -116,6 +116,8 @@ readonly class Select extends Base
 
     /**
      * Возвращает массив CSS-классов для элемента select.
+     *
+     * @return array<string> Массив CSS-классов
      */
     public function getSelectClasses(): array
     {
@@ -128,6 +130,8 @@ readonly class Select extends Base
 
     /**
      * Возвращает все HTML-атрибуты для элемента select.
+     *
+     * @return array<string, string|int|bool|null> Ассоциативный массив атрибутов
      */
     public function getSelectAttributes(): array
     {
@@ -171,8 +175,12 @@ readonly class Select extends Base
             return false;
         }
 
-        if ($this->multiple && is_array($this->selected)) {
-            return in_array($value, $this->selected, true);
+        if (is_array($this->selected)) {
+            if ($this->multiple) {
+                return in_array($value, $this->selected, true);
+            }
+            // тут конечно можно взять первый элемент массива, но мне кажется это не правильно
+            return false;
         }
 
         return (string)$this->selected === (string)$value;

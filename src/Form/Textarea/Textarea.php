@@ -113,7 +113,7 @@ readonly class Textarea extends Base
      */
     protected function prepare(): void
     {
-        if (!$this->hasString(trim($this->name))) {
+        if ( !$this->hasString(trim($this->name))) {
             throw new InvalidArgumentException("Имя поля обязательно");
         }
     }
@@ -159,7 +159,7 @@ readonly class Textarea extends Base
         if ($this->autoFocus) {
             $attrs['autofocus'] = true;
         }
-        if ($this->maxLength) {
+        if (is_int($this->maxLength)) {
             $attrs['maxlength'] = $this->maxLength;
         }
         if ($this->spellcheck !== null) {

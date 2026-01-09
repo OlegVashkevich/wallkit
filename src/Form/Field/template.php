@@ -41,14 +41,19 @@
 
 use OlegV\WallKit\Form\Field\Field;
 
-$isRadioOrCheckbox = in_array($this->input->type, ['radio', 'checkbox']);
+$inputType = '';
+if (isset($this->input->type)) {
+    $inputType = $this->input->type;
+}
+
+$isRadioOrCheckbox = in_array($inputType, ['radio', 'checkbox'], true);
 ?>
   <div class="<?= $this->e($this->classList($this->getWrapperClasses())) ?>">
       <?php
       if ($isRadioOrCheckbox): ?>
-        <label class="wallkit-field__label wallkit-field--<?= $this->e($this->input->type) ?>">
+        <label class="wallkit-field__label wallkit-field--<?= $this->e($inputType) ?>">
             <?= $this->input ?>
-          <span class="wallkit-field__<?= $this->e($this->input->type) ?>-visual"></span>
+          <span class="wallkit-field__<?= $this->e($inputType) ?>-visual"></span>
           <span class="wallkit-field__label-text">
                 <?= $this->e($this->label ?? '') ?>
                 <?= $this->input->required ? '<span class="wallkit-field__required">*</span>' : '' ?>
@@ -57,7 +62,7 @@ $isRadioOrCheckbox = in_array($this->input->type, ['radio', 'checkbox']);
       <?php
       else: ?>
           <?php
-          if ($this->label): ?>
+          if ($this->hasString($this->label)): ?>
             <label for="<?= $this->e($this->getLabelId()) ?>" class="wallkit-field__label">
                 <?= $this->e($this->label) ?>
                 <?= $this->input->required ? '<span class="wallkit-field__required">*</span>' : '' ?>
@@ -79,13 +84,13 @@ $isRadioOrCheckbox = in_array($this->input->type, ['radio', 'checkbox']);
       endif; ?>
 
       <?php
-      if ($this->helpText && !$this->error): ?>
+      if ($this->hasString($this->helpText) && !$this->hasString($this->error)): ?>
         <div class="wallkit-field__help"><?= $this->e($this->helpText) ?></div>
       <?php
       endif; ?>
 
       <?php
-      if ($this->error): ?>
+      if ($this->hasString($this->error)): ?>
         <div class="wallkit-field__error">
           <span>⚠️</span><span><?= $this->e($this->error) ?></span>
         </div>

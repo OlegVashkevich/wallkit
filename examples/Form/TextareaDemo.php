@@ -132,6 +132,32 @@ $sizesCards = [
         badgeType: 'danger',
     ),
     new DemoComponentCard(
+        title: 'Чекбокс согласия',
+        component: [
+            new Field(
+                input: new Input(
+                    name: 'terms',
+                    value: 'yes',
+                    type: 'checkbox',
+                    required: true,
+                    checked: true,
+                ),
+                label: 'Я согласен с условиями использования',
+                helpText: 'Обязательно для регистрации',
+            ),
+            new Input(
+                name: 'terms',
+                value: 'no',
+                type: 'checkbox',
+                required: true,
+            /*checked: true,*/
+            ),
+        ],
+        description: 'Обязательный чекбокс с предварительным выбором',
+        badgeText: 'required',
+        badgeType: 'danger',
+    ),
+    new DemoComponentCard(
         title: 'Выбор темы оформления',
         component: [
             new Field(

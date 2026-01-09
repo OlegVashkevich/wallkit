@@ -136,6 +136,9 @@ readonly class Field extends Base
      */
     public function shouldShowPasswordToggle(): bool
     {
-        return $this->input->type === 'password' && $this->withPasswordToggle;
+        if (isset($this->input->type)) {
+            return $this->input->type === 'password' && $this->withPasswordToggle;
+        }
+        return false;
     }
 }
