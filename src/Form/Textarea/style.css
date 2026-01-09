@@ -1,6 +1,28 @@
+/*
+ * Стили для компонента Textarea — многострочное текстовое поле
+ *
+ * Этот файл содержит все стили для текстовой области (textarea).
+ * Все стили используют CSS-переменные из базовой темы WallKit.
+ *
+ * Структура стилей:
+ * 1. Базовые стили Textarea
+ * 2. Состояния Textarea (фокус, плейсхолдер)
+ * 3. Контроль размеров и поведения
+ *
+ * Используемые CSS-переменные:
+ * - Цвета: --wk-color-*, --wk-color-gray-*, --wk-color-blue-*
+ * - Отступы: --wk-spacing-*
+ * - Типографика: --wk-font-*, --wk-line-height-*
+ * - Радиусы: --wk-radius-*
+ * - Тени: --wk-shadow-*
+ *
+ * Компонент: Textarea
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
 .wallkit-textarea__field {
     width: 100%;
-    padding: var(--wk-spacing-2-5) var(--wk-spacing-3);
+    padding: var(--wk-spacing-3) var(--wk-spacing-4);
     font-family: var(--wk-font-family), serif;
     font-size: var(--wk-font-size-sm);
     line-height: var(--wk-line-height-base);
