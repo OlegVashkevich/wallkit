@@ -1,7 +1,33 @@
+/*
+ * Стили для компонента Markdown
+ *
+ * Этот файл содержит стили для рендеринга Markdown-контента в HTML.
+ * Стили применяются ко всем HTML-элементам, сгенерированным парсером Parsedown,
+ * но исключают компоненты Code (которые рендерятся отдельно через компонент Code).
+ *
+ * Особенности:
+ * - Исключение стилей для компонента Code (`.wallkit-code *`)
+ * - Использование CSS-переменных из системы дизайна WallKit
+ * - Поддержка всех элементов Markdown: заголовки, списки, таблицы, код и т.д.
+ * - Совместимость с Parsedown и ParsedownExtra
+ * - Адаптивный дизайн и доступность
+ *
+ * Используемые CSS-переменные:
+ * - Цвета: --wk-color-*, --wk-color-gray-*, --wk-color-blue-*, --wk-color-green-*, --wk-color-yellow-*
+ * - Отступы: --wk-spacing-*
+ * - Типографика: --wk-font-*, --wk-font-size-*, --wk-font-weight-*, --wk-line-height-*
+ * - Радиусы: --wk-radius-*, --wk-border-radius-*
+ * - Тени: --wk-shadow-*
+ * - Анимации: --wk-transition-*
+ *
+ * Компонент: Markdown
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
 .wallkit-markdown {
-    font-family: var(--wk-font-family), serif;
-    line-height: 1.6;
-    color: var(--wk-black);
+    font-family: var(--wk-font-family, system-ui, -apple-system, sans-serif), serif;
+    line-height: var(--wk-line-height-base, 1.5);
+    color: var(--wk-color-gray-800, #1f2937);
 }
 
 /* Стилизация вывода Parsedown */
@@ -11,38 +37,54 @@
 .wallkit-markdown h4,
 .wallkit-markdown h5,
 .wallkit-markdown h6 {
-    margin-top: 1.5em;
-    margin-bottom: 0.5em;
-    font-weight: 600;
-    line-height: 1.25;
+    margin-top: var(--wk-spacing-6, 1.5rem);
+    margin-bottom: var(--wk-spacing-3, 0.75rem);
+    font-weight: var(--wk-font-weight-semibold, 600);
+    line-height: var(--wk-line-height-sm, 1.25);
+    color: var(--wk-color-gray-900, #111827);
 }
 
 .wallkit-markdown h1 {
-    font-size: 2em;
-    border-bottom: 2px solid var(--wk-border);
-    padding-bottom: 0.3em;
+    font-size: var(--wk-font-size-xl, 1.25rem);
+    border-bottom: var(--wk-border-width, 1px) solid var(--wk-color-gray-300, #d1d5db);
+    padding-bottom: var(--wk-spacing-3, 0.75rem);
 }
 
 .wallkit-markdown h2 {
-    font-size: 1.5em;
-    border-bottom: 1px solid var(--wk-border);
-    padding-bottom: 0.3em;
+    font-size: var(--wk-font-size-lg, 1.125rem);
+    border-bottom: var(--wk-border-width, 1px) solid var(--wk-color-gray-200, #e5e7eb);
+    padding-bottom: var(--wk-spacing-2, 0.5rem);
 }
 
-.wallkit-markdown h3 { font-size: 1.25em; }
-.wallkit-markdown h4 { font-size: 1em; }
-.wallkit-markdown h5 { font-size: 0.875em; }
+.wallkit-markdown h3 {
+    font-size: var(--wk-font-size-base, 1rem);
+    font-weight: var(--wk-font-weight-medium, 500);
+}
+
+.wallkit-markdown h4 {
+    font-size: var(--wk-font-size-sm, 0.875rem);
+    font-weight: var(--wk-font-weight-medium, 500);
+}
+
+.wallkit-markdown h5 {
+    font-size: var(--wk-font-size-xs, 0.75rem);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
 .wallkit-markdown h6 {
-    font-size: 0.85em;
-    color: var(--wk-vis-accent);
+    font-size: var(--wk-font-size-2xs, 0.6875rem);
+    color: var(--wk-color-gray-500, #6b7280);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .wallkit-markdown p {
-    margin: 0 0 1em;
+    margin: 0 0 var(--wk-spacing-4, 1rem);
 }
 
 .wallkit-markdown strong {
-    font-weight: 600;
+    font-weight: var(--wk-font-weight-semibold, 600);
 }
 
 .wallkit-markdown em {
@@ -50,29 +92,42 @@
 }
 
 .wallkit-markdown a {
-    color: var(--wk-accent);
+    color: var(--wk-color-blue-600, #2563eb);
     text-decoration: none;
+    transition: color var(--wk-transition-fast, 150ms ease-in-out);
 }
 
 .wallkit-markdown a:hover {
+    color: var(--wk-color-blue-700, #1d4ed8);
     text-decoration: underline;
 }
 
+.wallkit-markdown a:focus-visible {
+    outline: 2px solid var(--wk-color-blue-500);
+    outline-offset: 2px;
+    border-radius: var(--wk-radius-sm, 0.125rem);
+}
+
+/* Инлайн-код (который не является частью компонента Code) */
 .wallkit-markdown code:not(.wallkit-code *) {
     font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     font-size: 0.9em;
     padding: 0.2em 0.4em;
-    background-color: var(--wk-color-gray-200);
-    border-radius: var(--wk-radius-md);
-    color: var(--wk-black);
+    background-color: var(--wk-color-gray-100, #f3f4f6);
+    border: var(--wk-border-width, 1px) solid var(--wk-color-gray-200, #e5e7eb);
+    border-radius: var(--wk-radius-sm, 0.125rem);
+    color: var(--wk-color-gray-800, #1f2937);
 }
 
+/* Пре-форматированный текст (без компонента Code) */
 .wallkit-markdown pre:not(.wallkit-code *) {
-    background-color: var(--wk-color-gray-200);
-    border-radius: var(--wk-radius-md);
-    padding: 1em;
+    background-color: var(--wk-color-gray-100, #f3f4f6);
+    border: var(--wk-border-width, 1px) solid var(--wk-color-gray-200, #e5e7eb);
+    border-radius: var(--wk-radius-md, 0.25rem);
+    padding: var(--wk-spacing-4, 1rem);
     overflow: auto;
-    margin: 1em 0;
+    margin: var(--wk-spacing-4, 1rem) 0;
+    box-shadow: var(--wk-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
 .wallkit-markdown pre:not(.wallkit-code *) code:not(.wallkit-code *) {
@@ -80,16 +135,17 @@
     padding: 0;
     font-size: 0.95em;
     color: inherit;
+    border: none;
 }
 
 .wallkit-markdown ul,
 .wallkit-markdown ol {
-    margin: 1em 0;
-    padding-left: 2em;
+    margin: var(--wk-spacing-4, 1rem) 0;
+    padding-left: var(--wk-spacing-8, 2rem);
 }
 
 .wallkit-markdown li {
-    margin: 0.5em 0;
+    margin: var(--wk-spacing-2, 0.5rem) 0;
 }
 
 .wallkit-markdown li > p {
@@ -97,65 +153,100 @@
 }
 
 .wallkit-markdown blockquote {
-    margin: 1em 0;
-    padding: 0 1em;
-    border-left: 4px solid var(--wk-border);
-    color: var(--wk-vis-accent);
-    background-color: var(--wk-color-gray-200);
-    border-radius: 0 var(--wk-radius-md) var(--wk-radius-md) 0;
+    margin: var(--wk-spacing-4, 1rem) 0;
+    padding: var(--wk-spacing-3, 0.75rem) var(--wk-spacing-4, 1rem);
+    border-left: 4px solid var(--wk-color-gray-300, #d1d5db);
+    color: var(--wk-color-gray-600, #4b5563);
+    background-color: var(--wk-color-gray-50, #f9fafb);
+    border-radius: 0 var(--wk-radius-md, 0.25rem) var(--wk-radius-md, 0.25rem) 0;
 }
 
 .wallkit-markdown hr {
     border: none;
-    border-top: 2px solid var(--wk-border);
-    margin: 2em 0;
+    border-top: var(--wk-border-width, 1px) solid var(--wk-color-gray-300, #d1d5db);
+    margin: var(--wk-spacing-6, 1.5rem) 0;
 }
 
 .wallkit-markdown img {
     max-width: 100%;
     height: auto;
-    border-radius: var(--wk-radius-md);
+    border-radius: var(--wk-radius-md, 0.25rem);
+    border: var(--wk-border-width, 1px) solid var(--wk-color-gray-200, #e5e7eb);
 }
 
 .wallkit-markdown table {
     width: 100%;
     border-collapse: collapse;
-    margin: 1em 0;
-    border: 1px solid var(--wk-border);
+    margin: var(--wk-spacing-4, 1rem) 0;
+    border: var(--wk-border-width, 1px) solid var(--wk-color-gray-300, #d1d5db);
+    border-radius: var(--wk-radius-md, 0.25rem);
+    overflow: hidden;
+    box-shadow: var(--wk-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
 .wallkit-markdown th,
 .wallkit-markdown td {
-    padding: 0.75em;
-    border: 1px solid var(--wk-border);
+    padding: var(--wk-spacing-3, 0.75rem);
+    border: var(--wk-border-width, 1px) solid var(--wk-color-gray-300, #d1d5db);
 }
 
 .wallkit-markdown th {
-    background-color: var(--wk-color-gray-200);
-    font-weight: 600;
+    background-color: var(--wk-color-gray-100, #f3f4f6);
+    font-weight: var(--wk-font-weight-semibold, 600);
     text-align: left;
+    color: var(--wk-color-gray-900, #111827);
 }
 
 .wallkit-markdown tr:nth-child(even) {
-    background-color: var(--wk-color-gray-200);
+    background-color: var(--wk-color-gray-50, #f9fafb);
+}
+
+.wallkit-markdown tr:hover {
+    background-color: var(--wk-color-gray-100, #f3f4f6);
 }
 
 .wallkit-markdown del {
     text-decoration: line-through;
-    color: var(--wk-vis-accent);
+    color: var(--wk-color-gray-500, #6b7280);
+}
+
+.wallkit-markdown ins {
+    background-color: var(--wk-color-green-50, #f0fdf4);
+    text-decoration: none;
+    padding: 0 0.2em;
+}
+
+.wallkit-markdown mark {
+    background-color: var(--wk-color-yellow-100, #fef9c3);
+    padding: 0 0.2em;
+    border-radius: var(--wk-radius-sm, 0.125rem);
 }
 
 /* Для ParsedownExtra */
 .wallkit-markdown .footnote-ref,
 .wallkit-markdown .footnote-backref {
-    color: var(--wk-accent);
+    color: var(--wk-color-blue-600, #2563eb);
     text-decoration: none;
+    font-weight: var(--wk-font-weight-medium, 500);
 }
 
 .wallkit-markdown .footnotes {
-    margin-top: 2em;
-    padding-top: 1em;
-    border-top: 1px solid var(--wk-border);
-    font-size: 0.9em;
-    color: var(--wk-vis-accent);
+    margin-top: var(--wk-spacing-8, 2rem);
+    padding-top: var(--wk-spacing-4, 1rem);
+    border-top: var(--wk-border-width, 1px) solid var(--wk-color-gray-300, #d1d5db);
+    font-size: var(--wk-font-size-sm, 0.875rem);
+    color: var(--wk-color-gray-600, #4b5563);
+}
+
+.wallkit-markdown .footnotes hr {
+    display: none;
+}
+
+.wallkit-markdown .task-list-item {
+    list-style-type: none;
+    margin-left: -1.5em;
+}
+
+.wallkit-markdown .task-list-item-checkbox {
+    margin-right: var(--wk-spacing-2, 0.5rem);
 }

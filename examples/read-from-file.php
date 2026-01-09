@@ -44,7 +44,7 @@ function renderMarkdownFile(string $filePath): string
 // Пример использования
 $readmeContent = renderMarkdownFile(__DIR__.'/../README.md');
 /*$readmeContent = new Markdown(
-    content: '',
+    content: '<script>alert("xss")</script>',
     safeMode: true, // Всегда безопасно для внешних файлов
 );*/
 ?>
@@ -53,6 +53,7 @@ $readmeContent = renderMarkdownFile(__DIR__.'/../README.md');
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markdown из файла</title>
 </head>
 <body>

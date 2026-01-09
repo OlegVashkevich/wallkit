@@ -40,8 +40,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--wk-spacing-2) var(--wk-spacing-3);
-    min-height: 2.5rem;
+    padding: var(--wk-spacing-1) var(--wk-spacing-3);
+    min-height: var(--wk-spacing-2);
 }
 
 /* Метка языка */
@@ -88,7 +88,7 @@
     display: flex;
     overflow-x: auto;
     background-color: var(--wk-color-gray-900);
-    min-height: 3rem;
+    min-height: var(--wk-spacing-4);
 }
 
 /* Блок с номерами строк */
@@ -100,7 +100,7 @@
     padding: var(--wk-spacing-3) var(--wk-spacing-2);
     text-align: right;
     user-select: none;
-    min-width: 3rem;
+    min-width: var(--wk-spacing-4);
     font-variant-numeric: tabular-nums;
     line-height: 1.5;
 }
