@@ -22,30 +22,41 @@ use OlegV\WallKit\Base\Base;
  * ### Простой текст
  * ```php
  * $input = new Input(
- *     name: 'username',
- *     placeholder: 'Введите ваше имя'
+ * name: 'username',
+ * placeholder: 'Введите ваше имя'
  * );
  * echo $input;
+ * ```
+ *
+ * ### Радио-кнопка
+ * ```php
+ * $radio = new Input(
+ * name: 'theme',
+ * type: 'radio',
+ * value: 'dark',
+ * checked: true,
+ * id: 'theme-dark'
+ * );
+ * ```
+ *
+ * ### Чекбокс
+ * ```php
+ * $checkbox = new Input(
+ * name: 'agree',
+ * type: 'checkbox',
+ * value: 'yes',
+ * checked: true,
+ * required: true
+ * );
  * ```
  *
  * ### С валидацией
  * ```php
  * $emailInput = new Input(
- *     name: 'email',
- *     type: 'email',
- *     required: true,
- *     autocomplete: 'email'
- * );
- * ```
- *
- * ### Числовое поле
- * ```php
- * $priceInput = new Input(
- *     name: 'price',
- *     type: 'number',
- *     min: '0',
- *     max: '1000',
- *     step: '0.01'
+ * name: 'email',
+ * type: 'email',
+ * required: true,
+ * autocomplete: 'email'
  * );
  * ```
  *
@@ -68,10 +79,11 @@ readonly class Input extends Base
      * @param  string  $name  Название поля (атрибут name)
      * @param  string|null  $placeholder  Плейсхолдер
      * @param  string|null  $value  Текущее значение
-     * @param  string  $type  Тип поля (text, email, password и т.д.)
+     * @param  string  $type  Тип поля (text, email, password, radio, checkbox и т.д.)
      * @param  bool  $required  Обязательное ли поле
      * @param  bool  $disabled  Заблокировано ли поле
      * @param  bool  $readonly  Только для чтения
+     * @param  bool  $checked  Отмечен ли элемент (для radio/checkbox)
      * @param  string|null  $id  ID поля (автогенерируется если не указан)
      * @param  array<string>  $classes  Дополнительные CSS классы
      * @param  array<string, string|int|bool|null>  $attributes  Дополнительные HTML атрибуты
@@ -85,29 +97,28 @@ readonly class Input extends Base
      * @param  string|null  $autocomplete  Значение атрибута autocomplete
      * @param  bool|null  $spellcheck  Включить/выключить проверку орфографии
      *
-     * @throws InvalidArgumentException Если тип поля не поддерживается
-     * @throws InvalidArgumentException Если имя поля пустое
      */
     public function __construct(
-        public string $name,
-        public ?string $placeholder = null,
-        public ?string $value = null,
-        public string $type = 'text',
-        public bool $required = false,
-        public bool $disabled = false,
-        public bool $readonly = false,
-        public ?string $id = null,
-        public array $classes = [],
-        public array $attributes = [],
-        public bool $autoFocus = false,
-        public ?string $pattern = null,
-        public ?string $min = null,
-        public ?string $max = null,
-        public ?int $maxLength = null,
-        public ?int $minLength = null,
-        public ?string $step = null,
-        public ?string $autocomplete = null,
-        public ?bool $spellcheck = null,
+            public string $name,
+            public ?string $placeholder = null,
+            public ?string $value = null,
+            public string $type = 'text',
+            public bool $required = false,
+            public bool $disabled = false,
+            public bool $readonly = false,
+            public bool $checked = false,
+            public ?string $id = null,
+            public array $classes = [],
+            public array $attributes = [],
+            public bool $autoFocus = false,
+            public ?string $pattern = null,
+            public ?string $min = null,
+            public ?string $max = null,
+            public ?int $maxLength = null,
+            public ?int $minLength = null,
+            public ?string $step = null,
+            public ?string $autocomplete = null,
+            public ?bool $spellcheck = null,
     ) {}
 
     /**
@@ -125,12 +136,12 @@ readonly class Input extends Base
      */
     protected function prepare(): void
     {
-        if (!$this->isValidType($this->type)) {
+        if ( ! $this->isValidType($this->type)) {
             throw new InvalidArgumentException("Неподдерживаемый тип: $this->type");
         }
-        if (!$this->hasString(trim($this->name))) {
+        if ( ! $this->hasString(trim($this->name))) {
             throw new InvalidArgumentException(
-                "Имя поля обязательно и не может состоять только из пробелов",
+                    "Имя поля обязательно и не может состоять только из пробелов",
             );
         }
     }
@@ -156,13 +167,13 @@ readonly class Input extends Base
     public function getInputAttributes(): array
     {
         $attrs = array_merge([
-            'id' => $this->id,
-            'name' => $this->name,
-            'type' => $this->type,
-            'class' => $this->classList($this->getInputClasses()),
-            'placeholder' => $this->placeholder,
-            'value' => $this->value,
-            'autocomplete' => $this->autocomplete,
+                'id' => $this->id,
+                'name' => $this->name,
+                'type' => $this->type,
+                'class' => $this->classList($this->getInputClasses()),
+                'placeholder' => $this->placeholder,
+                'value' => $this->value,
+                'autocomplete' => $this->autocomplete,
         ], $this->attributes);
 
         // Булевые атрибуты
@@ -177,6 +188,9 @@ readonly class Input extends Base
         }
         if ($this->autoFocus) {
             $attrs['autofocus'] = true;
+        }
+        if ($this->checked) { //для radio/checkbox
+            $attrs['checked'] = true;
         }
 
         // Валидационные атрибуты
@@ -210,27 +224,30 @@ readonly class Input extends Base
      * Проверяет, является ли тип поля допустимым.
      *
      * @param  string  $type  Тип поля для проверки
+     *
      * @return bool true если тип поддерживается, false в противном случае
      */
     public function isValidType(string $type): bool
     {
         $validTypes = [
-            'color',
-            'date',
-            'datetime-local',
-            'email',
-            'file',
-            'hidden',
-            'month',
-            'number',
-            'password',
-            'range',
-            'search',
-            'tel',
-            'text',
-            'time',
-            'url',
-            'week',
+                'color',
+                'date',
+                'datetime-local',
+                'email',
+                'file',
+                'hidden',
+                'month',
+                'number',
+                'password',
+                'range',
+                'search',
+                'tel',
+                'text',
+                'time',
+                'url',
+                'week',
+                'radio',
+                'checkbox',
         ];
 
         return in_array($type, $validTypes, true);

@@ -9,6 +9,7 @@ use OlegV\Traits\WithInheritance;
 use OlegV\Traits\WithStrictHelpers;
 use OlegV\WallKit\Base\Base;
 use OlegV\WallKit\Form\Input\Input;
+use OlegV\WallKit\Form\Select\Select;
 use OlegV\WallKit\Form\Textarea\Textarea;
 
 /**
@@ -72,15 +73,16 @@ readonly class Field extends Base
     /**
      * Создаёт новый экземпляр компонента Field.
      *
-     * @param  Input|Textarea  $input  Объект Input или Textarea для рендеринга внутри поля
+     * @param  Input|Textarea|Select  $input  Объект Input или Textarea для рендеринга внутри поля
      * @param  string|null  $label  Текст метки поля (отображается над полем ввода)
      * @param  string|null  $helpText  Текст подсказки (отображается под полем ввода)
      * @param  string|null  $error  Сообщение об ошибке (подсвечивает поле и отображает текст)
-     * @param  bool  $withPasswordToggle  Показывать ли кнопку переключения видимости пароля (только для type="password")
+     * @param  bool  $withPasswordToggle  Показывать ли кнопку переключения видимости пароля (только для
+     *     type="password")
      * @param  array<string>  $wrapperClasses  Дополнительные CSS-классы для обёртки поля
      */
     public function __construct(
-        public Input|Textarea $input,
+        public Input|Textarea|Select $input,
         public ?string $label = null,
         public ?string $helpText = null,
         public ?string $error = null,

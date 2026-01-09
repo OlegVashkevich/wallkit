@@ -90,3 +90,10 @@
     background-color: white;
     border-color: var(--wk-color-primary);
 }
+
+/* Стили для radio и checkbox */
+.wallkit-input__field[type="radio"],
+.wallkit-input__field[type="checkbox"] {
+    width: auto; /* Убираем 100% ширину */
+    margin-right: var(--wk-spacing-2);
+}

@@ -19,7 +19,7 @@ readonly class DemoComponentCard extends Base
 
     public function __construct(
         public string $title,
-        public Brick $component,
+        public Brick|array $component,
         public string $description,
         public string $badgeText,
         public string $badgeType = 'default',
@@ -28,6 +28,9 @@ readonly class DemoComponentCard extends Base
 
     protected function getHtml(): string
     {
+        if (is_array($this->component)) {
+            return implode('', $this->component);
+        }
         return (string)$this->component;
     }
 
@@ -44,6 +47,7 @@ readonly class DemoComponentCard extends Base
      * @param  object  $obj
      * @param  int  $depth
      * @param  array  $processed
+     *
      * @return string
      */
     protected function objectToConstructorStringNonDefaults(
@@ -62,7 +66,7 @@ readonly class DemoComponentCard extends Base
         $className = str_replace($reflection->getNamespaceName().'\\', '', $reflection->getName());
         $constructor = $reflection->getConstructor();
 
-        if (!$constructor) {
+        if ( ! $constructor) {
             return "new $className()";
         }
 
@@ -72,7 +76,7 @@ readonly class DemoComponentCard extends Base
         foreach ($constructor->getParameters() as $param) {
             $paramName = $param->getName();
 
-            if (!$reflection->hasProperty($paramName)) {
+            if ( ! $reflection->hasProperty($paramName)) {
                 continue;
             }
 
@@ -87,7 +91,7 @@ readonly class DemoComponentCard extends Base
             }
 
             // Добавляем только если не равно значению по умолчанию
-            if (!$param->isDefaultValueAvailable() || !$isDefault) {
+            if ( ! $param->isDefaultValueAvailable() || ! $isDefault) {
                 $formattedValue = $this->formatValue($currentValue, $depth, $processed);
                 $args[] = "$indent$paramName: $formattedValue";
             }

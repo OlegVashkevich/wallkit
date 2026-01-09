@@ -175,3 +175,111 @@
     margin-right: var(--wk-spacing-4);
     margin-bottom: 0;
 }
+
+/* Стили для Radio и Checkbox внутри Field */
+.wallkit-field--radio,
+.wallkit-field--checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.wallkit-field--radio .wallkit-input__field,
+.wallkit-field--checkbox .wallkit-input__field {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Кастомный круг для радио */
+.wallkit-field__radio-visual {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--wk-color-gray-400);
+    border-radius: 50%;
+    background: white;
+    position: relative;
+    margin-right: var(--wk-spacing-2);
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.wallkit-field__radio-visual::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--wk-color-primary);
+    transition: transform 0.2s ease;
+}
+
+.wallkit-field--radio .wallkit-input__field:checked + .wallkit-field__radio-visual {
+    border-color: var(--wk-color-primary);
+}
+
+.wallkit-field--radio .wallkit-input__field:checked + .wallkit-field__radio-visual::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Кастомный квадрат для чекбокса */
+.wallkit-field__checkbox-visual {
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid var(--wk-color-gray-400);
+    border-radius: var(--wk-border-radius-sm);
+    background: white;
+    position: relative;
+    margin-right: var(--wk-spacing-2);
+    flex-shrink: 0;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.wallkit-field__checkbox-visual::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    color: white;
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+}
+
+.wallkit-field--checkbox .wallkit-input__field:checked + .wallkit-field__checkbox-visual {
+    background-color: var(--wk-color-primary);
+    border-color: var(--wk-color-primary);
+}
+
+.wallkit-field--checkbox .wallkit-input__field:checked + .wallkit-field__checkbox-visual::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Состояния disabled */
+.wallkit-field--radio .wallkit-input__field:disabled + .wallkit-field__radio-visual,
+.wallkit-field--checkbox .wallkit-input__field:disabled + .wallkit-field__checkbox-visual {
+    border-color: var(--wk-color-gray-300);
+    background-color: var(--wk-color-gray-100);
+    cursor: not-allowed;
+}
+
+.wallkit-field--radio .wallkit-input__field:disabled:checked + .wallkit-field__radio-visual::after {
+    background-color: var(--wk-color-gray-400);
+}
+
+.wallkit-field--checkbox .wallkit-input__field:disabled:checked + .wallkit-field__checkbox-visual {
+    background-color: var(--wk-color-gray-300);
+    border-color: var(--wk-color-gray-300);
+}
+
+.wallkit-field--radio .wallkit-input__field:disabled ~ .wallkit-field__label,
+.wallkit-field--checkbox .wallkit-input__field:disabled ~ .wallkit-field__label {
+    color: var(--wk-color-gray-400);
+    cursor: not-allowed;
+}

@@ -33,6 +33,8 @@
 | `search` | Поиск | Поисковое поле |
 | `file` | Файл | Загрузка файлов |
 | `hidden` | Скрытое поле | Скрытый ввод |
+| `radio` | Радио-кнопка (выбор одного из группы) | Группировка по name |
+| `checkbox` | Флажок (множественный выбор) | Группировка по name |
 
 ## Свойства компонента
 
@@ -53,6 +55,7 @@
 | `step` | `?string` | `null` | Шаг для числовых полей |
 | `autocomplete` | `?string` | `null` | Автозаполнение |
 | `spellcheck` | `?bool` | `null` | Проверка орфографии |
+| `checked` | `bool` | `false` | Отмечен ли элемент (для radio/checkbox) |
 
 ## Использование
 
@@ -87,6 +90,26 @@ $price = new Input(
     max: '1000',
     step: '0.01',
     placeholder: '0.00 - 1000.00'
+);
+```
+### Радио-кнопка
+```php
+$radio = new Input(
+    name: 'theme',
+    type: 'radio',
+    value: 'dark',
+    checked: true,
+    id: 'theme-dark'
+);
+```
+### Чекбокс
+```php
+$radio = new Input(
+    name: 'agree',
+    type: 'checkbox',
+    value: 'yes',
+    checked: true,
+    required: true
 );
 ```
 

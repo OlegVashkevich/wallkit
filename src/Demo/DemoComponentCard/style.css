@@ -67,7 +67,7 @@
     padding: var(--wk-spacing-6);
     background: var(--wk-color-gray-100);
     border-radius: var(--wk-border-radius-sm);
-    display: flex;
+    /*display: flex;*/
     align-items: flex-start;
     margin-bottom: var(--wk-spacing-4);
     border: 1px solid var(--wk-color-gray-200);

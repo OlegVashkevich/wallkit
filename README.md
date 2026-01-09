@@ -49,8 +49,6 @@ echo BrickManager::getInstance()->renderAssets();
 - **[Textarea](/src/Form/Textarea/README.md)** — Многострочное текстовое поле с авторазмером ✅
 - **[Field](/src/Form/Field/README.md)** — Обёртка поля (label + input + help + error) ✅
 - **[Button](/src/Form/Button/README.md)** — Кнопка с вариантами ⚠️
-- **[Checkbox](/src/Form/Checkbox/README.md)** — Флажок (single, группа) ⚠️
-- *Radio* — Переключатель (группа) (запланировано)
 - **[Select](/src/Form/Select/README.md)*** — Выпадающий список (single/multiple) ⚠️
 - *Form* — Форма (поля + валидация + submit) (запланировано)
 - *Toggle* — Переключатель On/Off (запланировано)
