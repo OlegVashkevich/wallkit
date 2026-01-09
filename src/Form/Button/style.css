@@ -1,0 +1,187 @@
+/*
+ * Стили для компонента Button
+ *
+ * Этот файл содержит все стили для кнопок.
+ * Все стили используют CSS-переменные из базовой темы WallKit.
+ *
+ * Компонент: Button
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
+
+/* Базовые стили Button */
+.wallkit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wk-spacing-2);
+  padding: var(--wk-spacing-3) var(--wk-spacing-6);
+  font-family: var(--wk-font-family), sans-serif;
+  font-size: var(--wk-font-size-base);
+  font-weight: var(--wk-font-weight-medium);
+  line-height: var(--wk-line-height-base);
+  text-align: center;
+  text-decoration: none;
+  border: var(--wk-border-width) solid transparent;
+  border-radius: var(--wk-border-radius);
+  cursor: pointer;
+  transition: var(--wk-transition);
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+/* Варианты кнопок (solid) */
+.wallkit-button--primary {
+  background-color: var(--wk-color-primary);
+  color: white;
+}
+
+.wallkit-button--secondary {
+  background-color: var(--wk-color-secondary);
+  color: white;
+}
+
+.wallkit-button--success {
+  background-color: var(--wk-color-success);
+  color: white;
+}
+
+.wallkit-button--danger {
+  background-color: var(--wk-color-danger);
+  color: white;
+}
+
+.wallkit-button--warning {
+  background-color: var(--wk-color-warning);
+  color: var(--wk-color-gray-900);
+}
+
+.wallkit-button--info {
+  background-color: var(--wk-color-info);
+  color: white;
+}
+
+.wallkit-button--light {
+  background-color: var(--wk-color-gray-100);
+  color: var(--wk-color-gray-900);
+  border-color: var(--wk-color-gray-300);
+}
+
+.wallkit-button--dark {
+  background-color: var(--wk-color-gray-900);
+  color: white;
+}
+
+.wallkit-button--link {
+  background-color: transparent;
+  color: var(--wk-color-primary);
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* Outline варианты */
+.wallkit-button--outline-primary {
+  background-color: transparent;
+  border-color: var(--wk-color-primary);
+  color: var(--wk-color-primary);
+}
+
+.wallkit-button--outline-secondary {
+  background-color: transparent;
+  border-color: var(--wk-color-secondary);
+  color: var(--wk-color-secondary);
+}
+
+.wallkit-button--outline-success {
+  background-color: transparent;
+  border-color: var(--wk-color-success);
+  color: var(--wk-color-success);
+}
+
+.wallkit-button--outline-danger {
+  background-color: transparent;
+  border-color: var(--wk-color-danger);
+  color: var(--wk-color-danger);
+}
+
+/* Размеры */
+.wallkit-button--sm {
+  padding: var(--wk-spacing-2) var(--wk-spacing-4);
+  font-size: var(--wk-font-size-sm);
+}
+
+.wallkit-button--md {
+  padding: var(--wk-spacing-3) var(--wk-spacing-6);
+  font-size: var(--wk-font-size-base);
+}
+
+.wallkit-button--lg {
+  padding: var(--wk-spacing-4) var(--wk-spacing-8);
+  font-size: var(--wk-font-size-lg);
+}
+
+/* Модификаторы */
+.wallkit-button--full-width {
+  width: 100%;
+}
+
+.wallkit-button--rounded {
+  border-radius: 9999px;
+}
+
+.wallkit-button--disabled,
+.wallkit-button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Иконки */
+.wallkit-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wallkit-button__icon--after {
+  order: 2;
+}
+
+/* Состояния hover/focus */
+.wallkit-button:not(.wallkit-button--disabled):not([disabled]):hover {
+  transform: translateY(-1px);
+  box-shadow: var(--wk-shadow-md);
+}
+
+.wallkit-button:focus {
+  outline: none;
+  box-shadow: var(--wk-shadow-outline);
+}
+
+.wallkit-button--link:hover {
+  text-decoration: none;
+  background-color: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Outline варианты hover */
+.wallkit-button--outline-primary:hover {
+  background-color: var(--wk-color-primary);
+  color: white;
+}
+
+.wallkit-button--outline-secondary:hover {
+  background-color: var(--wk-color-secondary);
+  color: white;
+}
+
+.wallkit-button--outline-success:hover {
+  background-color: var(--wk-color-success);
+  color: white;
+}
+
+.wallkit-button--outline-danger:hover {
+  background-color: var(--wk-color-danger);
+  color: white;
+}

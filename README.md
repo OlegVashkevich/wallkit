@@ -48,10 +48,10 @@ echo BrickManager::getInstance()->renderAssets();
 - **[Input](/src/Form/Input/README.md)** — Поле ввода (text, email, password, search, number, tel, url) ✅
 - **[Textarea](/src/Form/Textarea/README.md)** — Многострочное текстовое поле с авторазмером ✅
 - **[Field](/src/Form/Field/README.md)** — Обёртка поля (label + input + help + error) ✅
-- *Button* — Кнопка со вариантами и иконками (запланировано)
+- **[Button](/src/Form/Button/README.md)** — Кнопка с вариантами ⚠️
 - *Checkbox* — Флажок (single, группа) (запланировано)
 - *Radio* — Переключатель (группа) (запланировано)
-- *Select* — Выпадающий список (single/multiple, поиск) (запланировано)
+- **[Select](/src/Form/Select/README.md)*** — Выпадающий список (single/multiple) ⚠️
 - *Form* — Форма (поля + валидация + submit) (запланировано)
 - *Toggle* — Переключатель On/Off (запланировано)
 - *Range* — Ползунок (ценовой диапазон) (запланировано)
