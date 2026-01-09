@@ -1,0 +1,140 @@
+/*
+ * Стили для компонента TagCloud
+ *
+ * Этот файл содержит все стили для облака тегов.
+ * Все стили используют CSS-переменные из базовой темы WallKit.
+ *
+ * Структура стилей:
+ * 1. Контейнер облака тегов
+ * 2. Базовые стили тегов
+ * 3. Размеры тегов (5 размеров: xs, sm, base, lg, xl)
+ * 4. Состояния тегов (активные, неактивные, фильтрация)
+ * 5. Анимации и переходы
+ *
+ * Используемые CSS-переменные:
+ * - Цвета: --wk-color-*
+ * - Отступы: --wk-spacing-*
+ * - Типографика: --wk-font-*, --wk-font-size-*, --wk-font-weight-*
+ * - Радиусы: --wk-border-radius
+ * - Тени: --wk-shadow-*
+ * - Анимации: --wk-transition-fast, --wk-transition
+ *
+ * Компонент: TagCloud
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
+
+.wallkit-tagcloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--wk-spacing-2);
+    margin: var(--wk-spacing-4) 0;
+}
+
+/* Базовый класс тега */
+.wallkit-tagcloud__tag {
+    display: inline-flex;
+    padding: var(--wk-spacing-2) var(--wk-spacing-3);
+    border-radius: var(--wk-border-radius);
+    text-decoration: none;
+    transition: var(--wk-transition-fast);
+    font-weight: var(--wk-font-weight-medium);
+    border: var(--wk-border-width) solid var(--wk-color-gray-300);
+    background-color: white;
+    color: var(--wk-color-gray-700);
+    line-height: normal;
+    min-height: var(--wk-spacing-6);
+    align-items: center;
+    justify-content: center;
+}
+
+/* Размерные классы (используют готовые переменные) */
+.wallkit-tagcloud__tag--xs {
+    font-size: var(--wk-font-size-xs);
+    padding: var(--wk-spacing-1) var(--wk-spacing-2);
+}
+
+.wallkit-tagcloud__tag--sm {
+    font-size: var(--wk-font-size-sm);
+}
+
+.wallkit-tagcloud__tag--base {
+    font-size: var(--wk-font-size-base);
+}
+
+.wallkit-tagcloud__tag--lg {
+    font-size: var(--wk-font-size-lg);
+}
+
+.wallkit-tagcloud__tag--xl {
+    font-size: var(--wk-font-size-xl);
+}
+
+/* Состояния для активных тегов */
+.wallkit-tagcloud__tag[href]:hover {
+    background-color: var(--wk-color-primary);
+    color: white;
+    border-color: var(--wk-color-primary);
+    transform: translateY(-2px);
+    box-shadow: var(--wk-shadow-md);
+}
+
+.wallkit-tagcloud__tag[href]:focus-visible {
+    outline: 2px solid var(--wk-color-primary);
+    outline-offset: 2px;
+}
+
+/* Неактивные теги (без ссылки) */
+.wallkit-tagcloud__tag:not([href]) {
+    background-color: var(--wk-color-gray-100);
+    color: var(--wk-color-gray-500);
+    border-color: var(--wk-color-gray-200);
+    cursor: default;
+}
+/* Активный тег фильтра (выбран для фильтрации) */
+.wallkit-tagcloud__tag.wallkit-tagcloud__tag--active {
+    background-color: var(--wk-color-primary) !important;
+    color: white !important;
+    border-color: var(--wk-color-primary) !important;
+    box-shadow: var(--wk-shadow-lg);
+    position: relative;
+}
+
+/* Индикатор выбранного фильтра */
+.wallkit-tagcloud__tag.wallkit-tagcloud__tag--active::after {
+    content: '✓';
+    margin-left: var(--wk-spacing-1);
+    font-weight: var(--wk-font-weight-bold);
+}
+
+/* Убираем hover-эффект для активного тега */
+.wallkit-tagcloud__tag.wallkit-tagcloud__tag--active:hover {
+    transform: none;
+    box-shadow: var(--wk-shadow-lg);
+}
+
+/* Убираем hover для неактивных (без ссылки) */
+.wallkit-tagcloud__tag:not([href]):hover {
+    transform: none;
+    box-shadow: none;
+    cursor: default;
+}
+
+/* Для скрытых элементов фильтрации */
+[data-tag][hidden] {
+    display: none !important;
+}
+
+/* Анимация появления/скрытия элементов */
+[data-tag] {
+    transition: opacity 0.2s ease;
+}
+
+[data-tag][hidden] {
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
