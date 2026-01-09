@@ -12,18 +12,63 @@ use RuntimeException;
 
 /**
  * Компонент для формирования JSON-ответов API
+ *
+ * Этот компонент реализует стандартизированный формат ответа API с поддержкой
+ * успешных и ошибочных сценариев, метаданных и фильтрации конфиденциальных данных.
+ * Предназначен для использования в API-контроллерах и сервисах.
+ *
+ * ## Примеры использования
+ *
+ * ### Успешный ответ с данными
+ * ```php
+ * $response = ApiResponse::success([
+ *     'user' => ['id' => 1, 'name' => 'John'],
+ *     'token' => 'xyz123'
+ * ], ['version' => '1.0']);
+ *
+ * echo $response->toJson();
+ * ```
+ *
+ * ### Ответ с ошибкой
+ * ```php
+ * $response = ApiResponse::error(
+ *     'Пользователь не найден',
+ *     ['code' => 404, 'details' => 'user_id=5']
+ * );
+ * ```
+ *
+ * ### Фильтрация конфиденциальных данных
+ * ```php
+ * $response = new ApiResponse(
+ *     success: true,
+ *     data: ['user' => ['id' => 1, 'password' => 'secret']],
+ *     exclude: ['password', 'token']
+ * );
+ * // Пароль будет исключен из ответа
+ * ```
+ *
+ * @package OlegV\WallKit\Utilities\ApiResponse
+ * @author OlegV
+ * @since 1.0.0
+ * @version 1.0.0
+ * @immutable
+ * @readonly
  */
 readonly class ApiResponse extends Base
 {
     /**
+     * Создаёт новый экземпляр компонента ApiResponse.
+     *
      * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
      * @param  bool  $success  Успешность операции
      * @param  array<mixed>|object|null  $data  Основные данные ответа
      * @param  string|null  $error  Сообщение об ошибке (если success = false)
-     * @param  array<string, mixed>  $meta  Метаданные
-     * @param  array<string>  $exclude  Список свойств для исключения
-     * @param  int  $jsonOptions  Опции для json_encode
-     * @param  int<1, max>  $jsonDepth  Максимальная глубина вложенности
+     * @param  array<string, mixed>  $meta  Метаданные ответа
+     * @param  array<string>  $exclude  Список свойств для исключения из данных
+     * @param  int  $jsonOptions  Опции для json_encode (по умолчанию: JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE)
+     * @param  int<1, max>  $jsonDepth  Максимальная глубина вложенности для JSON
+     *
+     * @throws InvalidArgumentException Если параметры success и error противоречат друг другу
      */
     public function __construct(
         public bool $success,
@@ -35,6 +80,19 @@ readonly class ApiResponse extends Base
         public int $jsonDepth = 512,
     ) {}
 
+    /**
+     * Подготовка компонента к рендерингу.
+     *
+     * Выполняет валидацию параметров компонента перед использованием.
+     * Вызывается автоматически при рендеринге.
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException Если success = true, но указана ошибка
+     * @throws InvalidArgumentException Если success = false, но ошибка не указана
+     *
+     * @internal
+     */
     protected function prepare(): void
     {
         // Валидация: если ошибка есть, но success = true
@@ -49,7 +107,15 @@ readonly class ApiResponse extends Base
     }
 
     /**
-     * Преобразует ответ в JSON-строку
+     * Преобразует ответ в JSON-строку.
+     *
+     * Формат ответа:
+     * - Успешный: {"success": true, "data": ..., "meta": ..., "timestamp": ...}
+     * - Ошибочный: {"success": false, "error": ..., "meta": ..., "timestamp": ...}
+     *
+     * @return string JSON-строка с ответом API
+     *
+     * @throws RuntimeException Если произошла ошибка при кодировании JSON
      */
     public function toJson(): string
     {
@@ -77,8 +143,9 @@ readonly class ApiResponse extends Base
      * Создает успешный ответ
      *
      * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
-     * @param  array<mixed>|object|null  $data  Основные данные
-     * @param  array<string, mixed>  $meta  Метаданные
+     * @param  array<mixed>|object|null  $data  Основные данные ответа
+     * @param  array<string, mixed>  $meta  Метаданные ответа
+     * @return self Экземпляр ApiResponse с success = true
      */
     public static function success(array|object|null $data = null, array $meta = []): self
     {
@@ -90,10 +157,11 @@ readonly class ApiResponse extends Base
     }
 
     /**
-     * Создает ответ с ошибкой
+     * Создает ответ с ошибкой.
      *
      * @param  string  $error  Сообщение об ошибке
-     * @param  array<string, mixed>  $meta  Метаданные
+     * @param  array<string, mixed>  $meta  Метаданные ответа
+     * @return self Экземпляр ApiResponse с success = false
      */
     public static function error(string $error, array $meta = []): self
     {
@@ -107,6 +175,9 @@ readonly class ApiResponse extends Base
 
     /**
      * Фильтрует данные, исключая конфиденциальные поля
+     *
+     * Рекурсивно обрабатывает массивы и объекты, удаляя свойства,
+     * указанные в $exclude.
      *
      * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
      * @param  array<mixed>|object|null  $data  Данные для фильтрации
@@ -154,6 +225,8 @@ readonly class ApiResponse extends Base
 
     /**
      * Фильтрует объект, исключая указанные свойства
+     *
+     * Использует Reflection для получения публичных свойств объекта.
      *
      * @noinspection PhpPluralMixedCanBeReplacedWithArrayInspection
      * @param  object  $object  Объект для фильтрации
