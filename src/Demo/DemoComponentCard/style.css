@@ -1,9 +1,9 @@
 .wallkit-demo-component-card {
-    border: 1px solid var(--wk-border);
-    background: var(--wk-white);
+    border: 1px solid var(--wk-color-gray-200);
+    background: var(--wk-color-gray-50);
     padding: var(--wk-spacing-6);
-    border-radius: var(--wk-radius-md);
-    transition: all var(--wk-transition-base);
+    border-radius: var(--wk-border-radius);
+    transition: all var(--wk-transition-default);
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
 
 .wallkit-demo-component-card__title {
     font-weight: var(--wk-font-weight-medium);
-    color: var(--wk-dark-gray);
+    color: var(--wk-color-gray-900);
     font-size: var(--wk-font-size-base);
     margin: 0;
 }
@@ -34,58 +34,58 @@
     font-weight: var(--wk-font-weight-semibold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    border-radius: var(--wk-radius-sm);
+    border-radius: var(--wk-border-radius-sm);
 }
 
 .wallkit-demo-component-card__badge--input {
     background: rgba(74, 111, 165, 0.1);
-    color: var(--wk-accent);
+    color: var(--wk-color-primary);
 }
 
 .wallkit-demo-component-card__badge--textarea {
     background: rgba(156, 39, 176, 0.1);
-    color: #9c27b0;
+    color: var(--wk-color-purple-600);
 }
 
 .wallkit-demo-component-card__badge--field {
     background: rgba(46, 125, 50, 0.1);
-    color: #2e7d32;
+    color: var(--wk-color-green-700);
 }
 
 .wallkit-demo-component-card__badge--required {
     background: rgba(211, 47, 47, 0.1);
-    color: #d32f2f;
+    color: var(--wk-color-red-700);
 }
 
 .wallkit-demo-component-card__badge--help {
     background: rgba(2, 136, 209, 0.1);
-    color: #0288d1;
+    color: var(--wk-color-blue-700);
 }
 
 .wallkit-demo-component-card__preview {
     min-height: 150px;
     padding: var(--wk-spacing-6);
-    background: var(--wk-light-gray);
-    border-radius: var(--wk-radius-sm);
+    background: var(--wk-color-gray-100);
+    border-radius: var(--wk-border-radius-sm);
     display: flex;
     align-items: flex-start;
     margin-bottom: var(--wk-spacing-4);
-    border: 1px solid var(--wk-border);
+    border: 1px solid var(--wk-color-gray-200);
 }
 
 .wallkit-demo-component-card__description {
-    color: var(--wk-medium-gray);
+    color: var(--wk-color-gray-600);
     font-size: var(--wk-font-size-sm);
-    line-height: 1.6;
+    line-height: var(--wk-line-height-base);
     margin-bottom: var(--wk-spacing-4);
     flex-grow: 1;
 }
 
 .wallkit-demo-component-card__note {
     background: rgba(255, 193, 7, 0.1);
-    color: #ff9800;
+    color: var(--wk-color-yellow-700);
     padding: var(--wk-spacing-3);
-    border-radius: var(--wk-radius-sm);
+    border-radius: var(--wk-border-radius-sm);
     font-size: var(--wk-font-size-sm);
     margin-bottom: var(--wk-spacing-4);
     display: flex;
@@ -94,12 +94,12 @@
 }
 
 .wallkit-demo-component-card__code {
-    background: var(--wk-dark-gray);
-    color: var(--wk-light-gray);
+    background: var(--wk-color-gray-900);
+    color: var(--wk-color-gray-100);
     padding: var(--wk-spacing-4);
-    border-radius: var(--wk-radius-sm);
-    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: var(--wk-font-size-xs);
+    border-radius: var(--wk-border-radius-sm);
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+    font-size: var(--wk-font-size-sm);
     overflow-x: auto;
     margin: 0;
 }

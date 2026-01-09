@@ -5,12 +5,12 @@
 }
 
 .wallkit-demo-component-grid__group {
-    background: var(--wk-white);
-    border: 1px solid var(--wk-border);
-    border-radius: var(--wk-radius-lg);
+    background: var(--wk-color-gray-50);
+    border: 1px solid var(--wk-color-gray-200);
+    border-radius: var(--wk-border-radius-lg);
     padding: var(--wk-spacing-6);
-    transition: all var(--wk-transition-base);
-    border-left: 4px solid var(--wk-accent); /* Цвет из getGroupColor */
+    transition: all var(--wk-transition-default);
+    border-left: 4px solid var(--wk-color-primary); /* Базовый цвет, будет переопределен через inline-style */
 }
 
 .wallkit-demo-component-grid__group:hover {
@@ -20,13 +20,13 @@
 .wallkit-demo-component-grid__group-title {
     font-size: var(--wk-font-size-xl);
     font-weight: var(--wk-font-weight-medium);
-    color: var(--wk-dark-gray);
+    color: var(--wk-color-gray-900);
     margin: 0 0 var(--wk-spacing-4) 0;
     display: flex;
     align-items: center;
     gap: var(--wk-spacing-3);
     padding-bottom: var(--wk-spacing-4);
-    border-bottom: 1px solid var(--wk-border);
+    border-bottom: 1px solid var(--wk-color-gray-200);
 }
 
 .wallkit-demo-component-grid__group-icon {
@@ -36,15 +36,23 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: var(--wk-radius-md);
+    border-radius: var(--wk-border-radius);
 }
 
 .wallkit-demo-component-grid__group-count {
-    background: var(--wk-light-gray);
-    color: var(--wk-medium-gray);
+    background: var(--wk-color-gray-100);
+    color: var(--wk-color-gray-600);
     font-size: var(--wk-font-size-sm);
     padding: var(--wk-spacing-1) var(--wk-spacing-3);
     margin-left: auto;
+    border-radius: var(--wk-border-radius-sm);
+}
+
+.wallkit-demo-component-grid__group-description {
+    color: var(--wk-color-gray-600);
+    font-size: var(--wk-font-size-sm);
+    line-height: var(--wk-line-height-base);
+    margin: var(--wk-spacing-2) 0 var(--wk-spacing-4) 0;
 }
 
 .wallkit-demo-component-grid__items {
@@ -57,36 +65,18 @@
     display: block;
     text-decoration: none;
     color: inherit;
-    background: var(--wk-white);
-    border: 1px solid var(--wk-border);
-    border-radius: var(--wk-radius-md);
+    background: var(--wk-color-gray-50);
+    border: 1px solid var(--wk-color-gray-200);
+    border-radius: var(--wk-border-radius);
     padding: var(--wk-spacing-4);
-    transition: all var(--wk-transition-base);
+    transition: all var(--wk-transition-default);
     height: 100%;
     display: flex;
     flex-direction: column;
 }
-.wallkit-demo-component-grid__group-description {
-    color: var(--wk-medium-gray);
-    font-size: var(--wk-font-size-sm);
-    line-height: 1.5;
-    margin: var(--wk-spacing-2) 0 var(--wk-spacing-4) 0;
-}
-
-.wallkit-demo-component-grid__item-icon {
-    font-size: var(--wk-font-size-xl);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border-radius: var(--wk-radius-md);
-    /* background будет установлен inline-style из getGroupColor */
-    flex-shrink: 0;
-}
 
 .wallkit-demo-component-grid__item:hover {
-    border-color: var(--wk-accent);
+    border-color: var(--wk-color-primary);
     box-shadow: var(--wk-shadow-sm);
     transform: translateY(-2px);
 }
@@ -105,8 +95,8 @@
     justify-content: center;
     width: 48px;
     height: 48px;
-    background: var(--wk-light-gray);
-    border-radius: var(--wk-radius-md);
+    background: var(--wk-color-gray-100);
+    border-radius: var(--wk-border-radius);
     flex-shrink: 0;
 }
 
@@ -118,7 +108,7 @@
 .wallkit-demo-component-grid__item-name {
     font-size: var(--wk-font-size-base);
     font-weight: var(--wk-font-weight-medium);
-    color: var(--wk-dark-gray);
+    color: var(--wk-color-gray-900);
     margin: 0 0 var(--wk-spacing-1) 0;
     white-space: nowrap;
     overflow: hidden;
@@ -130,30 +120,30 @@
     padding: var(--wk-spacing-1) var(--wk-spacing-2);
     font-size: var(--wk-font-size-xs);
     font-weight: var(--wk-font-weight-medium);
-    border-radius: var(--wk-radius-sm);
+    border-radius: var(--wk-border-radius-sm);
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
 
 .wallkit-demo-component-grid__item-status--stable {
     background: rgba(46, 125, 50, 0.1);
-    color: #2e7d32;
+    color: var(--wk-color-green-700);
 }
 
 .wallkit-demo-component-grid__item-status--planned {
     background: rgba(255, 152, 0, 0.1);
-    color: #ff9800;
+    color: var(--wk-color-yellow-700);
 }
 
 .wallkit-demo-component-grid__item-status--beta {
     background: rgba(33, 150, 243, 0.1);
-    color: #2196f3;
+    color: var(--wk-color-blue-700);
 }
 
 .wallkit-demo-component-grid__item-description {
-    color: var(--wk-medium-gray);
+    color: var(--wk-color-gray-600);
     font-size: var(--wk-font-size-sm);
-    line-height: 1.5;
+    line-height: var(--wk-line-height-base);
     margin: 0 0 var(--wk-spacing-3) 0;
     flex: 1;
 }
@@ -168,133 +158,135 @@
 .wallkit-demo-component-grid__item-tag {
     display: inline-block;
     padding: var(--wk-spacing-1) var(--wk-spacing-3);
-    font-size: var(--wk-font-size-3xs);
+    font-size: var(--wk-font-size-xs);
     font-weight: var(--wk-font-weight-medium);
-    border-radius: var(--wk-radius-sm);
+    border-radius: var(--wk-border-radius-sm);
     text-transform: uppercase;
     letter-spacing: 0.01em;
     background: rgba(74, 111, 165, 0.1);
-    color: var(--wk-accent);
+    color: var(--wk-color-primary);
 }
 
 .wallkit-demo-component-grid__item-version {
     font-size: var(--wk-font-size-xs);
-    color: var(--wk-medium-gray);
-    font-family: 'Monaco', 'Menlo', monospace;
+    color: var(--wk-color-gray-600);
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
 }
-
 
 /* Облако тегов */
 .wallkit-demo-component-grid__tags-cloud {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid var(--wk-border);
+    margin-top: var(--wk-spacing-12);
+    padding-top: var(--wk-spacing-8);
+    border-top: 1px solid var(--wk-color-gray-200);
 }
 
 .wallkit-demo-component-grid__tags-title {
-    font-size: 1.125rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--wk-text-color, #374151);
+    font-size: var(--wk-font-size-lg);
+    font-weight: var(--wk-font-weight-semibold);
+    margin-bottom: var(--wk-spacing-4);
+    color: var(--wk-color-gray-900);
 }
 
 .wallkit-demo-component-grid__tags-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--wk-spacing-2);
 }
 
 .wallkit-demo-component-grid__tag {
     display: inline-flex;
     align-items: center;
-    gap: 0.25rem;
-    padding: 0.375rem 0.75rem;
-    background-color: var(--wk-bg-secondary, #f3f4f6);
-    color: var(--wk-text-secondary, #6b7280);
+    gap: var(--wk-spacing-1);
+    padding: var(--wk-spacing-1) var(--wk-spacing-3);
+    background-color: var(--wk-color-gray-100);
+    color: var(--wk-color-gray-700);
     text-decoration: none;
-    border-radius: var(--wk-border-radius, 0.375rem);
+    border-radius: var(--wk-border-radius);
     border: 1px solid transparent;
-    transition: all 0.2s ease;
+    transition: all var(--wk-transition-default);
     cursor: pointer;
 }
 
 .wallkit-demo-component-grid__tag:hover {
-    background-color: var(--wk-bg-primary, #3b82f6);
-    color: white;
-    border-color: var(--wk-color-primary, #3b82f6);
+    background-color: var(--wk-color-primary);
+    color: var(--wk-color-gray-50);
+    border-color: var(--wk-color-primary);
     transform: translateY(-1px);
 }
 
 /* Размеры тегов */
 .wallkit-demo-component-grid__tag--sm {
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: var(--wk-font-size-sm);
+    font-weight: var(--wk-font-weight-normal);
 }
 
 .wallkit-demo-component-grid__tag--md {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: var(--wk-font-size-base);
+    font-weight: var(--wk-font-weight-medium);
 }
 
 .wallkit-demo-component-grid__tag--lg {
-    font-size: 1.125rem;
-    font-weight: 600;
+    font-size: var(--wk-font-size-lg);
+    font-weight: var(--wk-font-weight-semibold);
 }
 
 .wallkit-demo-component-grid__tag--xl {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: var(--wk-font-size-xl);
+    font-weight: var(--wk-font-weight-bold);
 }
 
 .wallkit-demo-component-grid__tag-count {
     background-color: rgba(255, 255, 255, 0.3);
     color: inherit;
-    font-size: 0.75rem;
-    padding: 0.125rem 0.375rem;
+    font-size: var(--wk-font-size-xs);
+    padding: var(--wk-spacing-1) var(--wk-spacing-2);
     border-radius: 9999px;
-    font-weight: 600;
+    font-weight: var(--wk-font-weight-semibold);
 }
+
 /* Кнопка сброса фильтра */
 .wallkit-demo-component-grid__reset-filter {
     display: none;
-    margin-bottom: 1rem;
-    padding: 0.5rem 1rem;
-    background-color: var(--wk-color-danger, #ef4444);
-    color: white;
+    margin-bottom: var(--wk-spacing-4);
+    padding: var(--wk-spacing-2) var(--wk-spacing-4);
+    background-color: var(--wk-color-danger);
+    color: var(--wk-color-gray-50);
     border: none;
-    border-radius: var(--wk-border-radius, 0.375rem);
+    border-radius: var(--wk-border-radius);
     cursor: pointer;
-    font-size: 0.875rem;
-    transition: background-color 0.2s ease;
+    font-size: var(--wk-font-size-sm);
+    transition: background-color var(--wk-transition-default);
+    font-weight: var(--wk-font-weight-medium);
 }
 
 .wallkit-demo-component-grid__reset-filter:hover {
-    background-color: var(--wk-color-danger-dark, #dc2626);
+    background-color: var(--wk-color-red-700);
 }
 
 /* Сообщение "нет результатов" */
 .wallkit-demo-component-grid__no-results {
     display: none;
-    padding: 1.5rem;
-    background-color: var(--wk-bg-secondary, #f3f4f6);
-    border-radius: var(--wk-border-radius, 0.375rem);
-    margin-bottom: 1.5rem;
-    border-left: 4px solid var(--wk-color-warning, #f59e0b);
+    padding: var(--wk-spacing-6);
+    background-color: var(--wk-color-gray-100);
+    border-radius: var(--wk-border-radius);
+    margin-bottom: var(--wk-spacing-6);
+    border-left: 4px solid var(--wk-color-warning);
 }
 
 .wallkit-demo-component-grid__no-results p {
-    margin: 0 0 1rem 0;
-    color: var(--wk-text-secondary, #6b7280);
+    margin: 0 0 var(--wk-spacing-4) 0;
+    color: var(--wk-color-gray-700);
 }
 
 .wallkit-demo-component-grid__no-results button {
-    padding: 0.375rem 0.75rem;
-    background-color: var(--wk-color-primary, #3b82f6);
-    color: white;
+    padding: var(--wk-spacing-2) var(--wk-spacing-4);
+    background-color: var(--wk-color-primary);
+    color: var(--wk-color-gray-50);
     border: none;
-    border-radius: var(--wk-border-radius, 0.375rem);
+    border-radius: var(--wk-border-radius);
     cursor: pointer;
-    font-size: 0.875rem;
+    font-size: var(--wk-font-size-sm);
+    font-weight: var(--wk-font-weight-medium);
 }
 
 @media (max-width: 768px) {

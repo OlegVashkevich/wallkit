@@ -1,4 +1,3 @@
-/* src/Demo/DemoSidebar/style.css */
 .wallkit-demo-sidebar {
     position: sticky;
     top: var(--wk-spacing-8);
@@ -15,17 +14,17 @@
     font-size: var(--wk-font-size-lg);
     font-weight: var(--wk-font-weight-medium);
     margin-bottom: var(--wk-spacing-4);
-    color: var(--wk-dark-gray);
+    color: var(--wk-color-gray-900);
     display: flex;
     align-items: center;
     gap: var(--wk-spacing-3);
 }
 
 .wallkit-demo-sidebar__nav {
-    border: 1px solid var(--wk-border);
-    background: var(--wk-white);
+    border: 1px solid var(--wk-color-gray-200);
+    background: var(--wk-color-gray-50);
     padding: var(--wk-spacing-4);
-    border-radius: var(--wk-radius-md);
+    border-radius: var(--wk-border-radius);
 }
 
 .wallkit-demo-sidebar__nav-list {
@@ -47,24 +46,24 @@
     align-items: center;
     gap: var(--wk-spacing-3);
     padding: var(--wk-spacing-3);
-    color: var(--wk-medium-gray);
+    color: var(--wk-color-gray-600);
     text-decoration: none;
     border-left: 3px solid transparent;
-    transition: all var(--wk-transition-base);
+    transition: all var(--wk-transition-default);
     font-size: var(--wk-font-size-sm);
-    border-radius: var(--wk-radius-sm);
+    border-radius: var(--wk-border-radius-sm);
 }
 
 .wallkit-demo-sidebar__nav-item:hover {
-    background: var(--wk-light-gray);
-    color: var(--wk-dark-gray);
-    border-left-color: var(--wk-accent);
+    background: var(--wk-color-gray-100);
+    color: var(--wk-color-gray-900);
+    border-left-color: var(--wk-color-primary);
 }
 
 .wallkit-demo-sidebar__nav-item--active {
-    background: var(--wk-light-gray);
-    color: var(--wk-dark-gray);
-    border-left-color: var(--wk-accent);
+    background: var(--wk-color-gray-100);
+    color: var(--wk-color-gray-900);
+    border-left-color: var(--wk-color-primary);
     font-weight: var(--wk-font-weight-medium);
 }
 
@@ -82,10 +81,10 @@
 }
 
 .wallkit-demo-sidebar__info-card {
-    border: 1px solid var(--wk-border);
-    background: var(--wk-white);
+    border: 1px solid var(--wk-color-gray-200);
+    background: var(--wk-color-gray-50);
     padding: var(--wk-spacing-4);
-    border-radius: var(--wk-radius-md);
+    border-radius: var(--wk-border-radius);
 }
 
 .wallkit-demo-sidebar__info-card-header {
@@ -96,19 +95,19 @@
 }
 
 .wallkit-demo-sidebar__info-card-icon {
-    color: var(--wk-accent);
+    color: var(--wk-color-primary);
     font-size: var(--wk-font-size-lg);
 }
 
 .wallkit-demo-sidebar__info-card-title {
     font-size: var(--wk-font-size-base);
     font-weight: var(--wk-font-weight-medium);
-    color: var(--wk-dark-gray);
+    color: var(--wk-color-gray-900);
     margin: 0;
 }
 
 .wallkit-demo-sidebar__info-card-content {
-    color: var(--wk-medium-gray);
+    color: var(--wk-color-gray-600);
     font-size: var(--wk-font-size-sm);
     line-height: 1.5;
     margin: 0;

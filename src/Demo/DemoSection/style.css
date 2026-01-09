@@ -1,9 +1,9 @@
 .wallkit-demo-section {
-    border: 1px solid var(--wk-border);
-    background: var(--wk-white);
+    border: 1px solid var(--wk-color-gray-200);
+    background: var(--wk-color-gray-50);
     padding: var(--wk-spacing-8);
-    border-radius: var(--wk-radius-lg);
-    transition: all var(--wk-transition-base);
+    border-radius: var(--wk-border-radius-lg);
+    transition: all var(--wk-transition-default);
     margin-bottom: var(--wk-spacing-12);
 }
 
@@ -17,31 +17,30 @@
     gap: var(--wk-spacing-4);
     margin-bottom: var(--wk-spacing-8);
     padding-bottom: var(--wk-spacing-4);
-    border-bottom: 1px solid var(--wk-border);
+    border-bottom: 1px solid var(--wk-color-gray-200);
 }
 
 .wallkit-demo-section__icon {
     width: 48px;
     height: 48px;
-    background: var(--wk-light-gray);
-    border-radius: var(--wk-radius-md);
+    background: var(--wk-color-gray-100);
+    border-radius: var(--wk-border-radius);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: var(--wk-font-size-xl);
-    color: var(--wk-accent);
+    color: var(--wk-color-primary);
 }
 
 .wallkit-demo-section__title {
     font-size: var(--wk-font-size-2xl);
     font-weight: var(--wk-font-weight-normal);
-    color: var(--wk-dark-gray);
+    color: var(--wk-color-gray-900);
     margin: 0;
 }
 
 .wallkit-demo-section__description {
-    color: var(--wk-medium-gray);
-    margin-top: var(--wk-spacing-2);
+    color: var(--wk-color-gray-600);
     font-size: var(--wk-font-size-sm);
     margin: 0;
 }
@@ -62,5 +61,5 @@
 .wallkit-demo-section__extra {
     margin-top: var(--wk-spacing-8);
     padding-top: var(--wk-spacing-6);
-    border-top: 1px solid var(--wk-border);
+    border-top: 1px solid var(--wk-color-gray-200);
 }

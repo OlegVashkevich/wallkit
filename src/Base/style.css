@@ -93,10 +93,15 @@
     --wk-font-size-base: 1rem;
     --wk-font-size-lg: 1.125rem;
     --wk-font-size-xl: 1.25rem;
+    --wk-font-size-2xl: 1.5rem;
+    --wk-font-size-3xl: 1.875rem;    /* 30px */
+    --wk-font-size-4xl: 2.25rem;     /* 36px */
+    --wk-font-size-5xl: 3rem;        /* 48px */
 
     --wk-font-weight-normal: 400;
     --wk-font-weight-medium: 500;
     --wk-font-weight-semibold: 600;
+    --wk-font-weight-bold: 700;
 
     --wk-line-height-sm: 1.25;
     --wk-line-height-base: 1.5;
@@ -110,6 +115,10 @@
     --wk-spacing-4: 1rem;
     --wk-spacing-6: 1.5rem;
     --wk-spacing-8: 2rem;
+    --wk-spacing-10: 2.5rem;  /* 40px */
+    --wk-spacing-12: 3rem;    /* 48px */
+    --wk-spacing-16: 4rem;    /* 64px */
+    --wk-spacing-20: 5rem;    /* 80px */
 
     /* ==================== ГРАНИЦЫ И РАДИУСЫ ==================== */
     --wk-radius-sm: var(--wk-border-radius-sm);
