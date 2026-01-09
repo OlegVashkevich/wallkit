@@ -43,8 +43,10 @@ function renderMarkdownFile(string $filePath): string
 
 // Пример использования
 $readmeContent = renderMarkdownFile(__DIR__.'/../README.md');
-// Или любого другого файла
-//$articleContent = renderMarkdownFile(__DIR__.'/../docs/article.md');
+/*$readmeContent = new Markdown(
+    content: '',
+    safeMode: true, // Всегда безопасно для внешних файлов
+);*/
 ?>
 
 <!DOCTYPE html>

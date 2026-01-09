@@ -1,24 +1,47 @@
-/* ==================== INPUT COMPONENT STYLES ==================== */
+/*
+ * Стили для компонента Input
+ *
+ * Этот файл содержит все стили для базового поля ввода.
+ * Все стили используют CSS-переменные из базовой темы WallKit.
+ *
+ * Структура стилей:
+ * 1. Базовые стили Input
+ * 2. Состояния Input (ошибка, отключен)
+ * 3. Размеры Input (малый, большой)
+ * 4. Варианты Input (контурный, заполненный)
+ *
+ * Используемые CSS-переменные:
+ * - Цвета: --wk-color-*
+ * - Отступы: --wk-spacing-*
+ * - Типографика: --wk-font-*, --wk-line-height-*
+ * - Радиусы: --wk-border-radius-*
+ * - Тени: --wk-shadow-*
+ * - Анимации: --wk-transition-*
+ *
+ * Компонент: Input
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
 
 /* Базовые стили Input */
 .wallkit-input__field {
     width: 100%;
-    padding: var(--wk-spacing-2-5) var(--wk-spacing-3);
+    padding: var(--wk-spacing-3) var(--wk-spacing-4);
     font-family: var(--wk-font-family), serif;
-    font-size: var(--wk-font-size-sm);
-    line-height: var(--wk-line-height-sm);
-    border: 1px solid var(--wk-color-gray-300);
-    border-radius: var(--wk-radius-sm);
+    font-size: var(--wk-font-size-base);
+    line-height: var(--wk-line-height-base);
+    border: var(--wk-border-width) solid var(--wk-color-gray-300);
+    border-radius: var(--wk-border-radius);
     background-color: white;
     color: var(--wk-color-gray-900);
-    transition: var(--wk-transition-default);
+    transition: var(--wk-transition);
     box-shadow: var(--wk-shadow-sm);
 }
 
 .wallkit-input__field:focus {
     outline: none;
-    border-color: var(--wk-color-blue-500);
-    box-shadow: var(--wk-shadow-outline-blue);
+    border-color: var(--wk-color-primary);
+    box-shadow: var(--wk-shadow-outline);
 }
 
 .wallkit-input__field::placeholder {
@@ -27,12 +50,12 @@
 
 /* Состояния Input */
 .wallkit-input__field--error {
-    border-color: var(--wk-color-red-600);
+    border-color: var(--wk-color-danger);
 }
 
 .wallkit-input__field--error:focus {
-    border-color: var(--wk-color-red-600);
-    box-shadow: var(--wk-shadow-outline-red);
+    border-color: var(--wk-color-danger);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
 }
 
 .wallkit-input__field--disabled {
@@ -43,26 +66,27 @@
 
 /* Размеры Input */
 .wallkit-input__field--sm {
-    padding: var(--wk-spacing-2) var(--wk-spacing-2-5);
-    font-size: var(--wk-font-size-xs);
+    padding: var(--wk-spacing-2) var(--wk-spacing-3);
+    font-size: var(--wk-font-size-sm);
 }
 
 .wallkit-input__field--lg {
-    padding: var(--wk-spacing-3) var(--wk-spacing-4);
-    font-size: var(--wk-font-size-base);
+    padding: var(--wk-spacing-4) var(--wk-spacing-6);
+    font-size: var(--wk-font-size-lg);
 }
 
 /* Варианты Input */
 .wallkit-input__field--outline {
-    border: 2px solid var(--wk-color-gray-300);
+    border-width: 2px;
+    border-color: var(--wk-color-gray-400);
 }
 
 .wallkit-input__field--filled {
     background-color: var(--wk-color-gray-50);
-    border: 1px solid transparent;
+    border-color: transparent;
 }
 
 .wallkit-input__field--filled:focus {
     background-color: white;
-    border-color: var(--wk-color-blue-500);
+    border-color: var(--wk-color-primary);
 }

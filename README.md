@@ -45,9 +45,9 @@ echo BrickManager::getInstance()->renderAssets();
 ## 📚 Компоненты
 
 ### Формы (Forms)
-- **[Input](/docs/forms/input.md)** — Поле ввода (text, email, password, search, number, tel, url) ✅
-- **[Textarea](/docs/forms/textarea.md)** — Многострочное текстовое поле с авторазмером ✅
-- **[Field](/docs/forms/field.md)** — Обёртка поля (label + input + help + error) ✅
+- **[Input](/src/Form/Input/README.md)** — Поле ввода (text, email, password, search, number, tel, url) ✅
+- **[Textarea](/src/Form/Textarea/README.md)** — Многострочное текстовое поле с авторазмером ✅
+- **[Field](/src/Form/Field/README.md)** — Обёртка поля (label + input + help + error) ✅
 - *Button* — Кнопка со вариантами и иконками (запланировано)
 - *Checkbox* — Флажок (single, группа) (запланировано)
 - *Radio* — Переключатель (группа) (запланировано)
@@ -89,9 +89,9 @@ echo BrickManager::getInstance()->renderAssets();
 - *Drawer* — Выдвижная панель (запланировано)
 
 ### Контент (Content)
-- **[TagCloud](/docs/content/tagcloud.md)** — Облако тегов для фильтрации и навигации ⚠️
-- **[Code](/docs/content/code.md)** — Блок кода с подсветкой синтаксиса ⚠️
-- **[Markdown](/docs/content/markdown.md)** — Markdown в HTML с использованием Parsedown ⚠️
+- **[TagCloud](/src/Content/TagCloud/README.md)** — Облако тегов для фильтрации и навигации ⚠️
+- **[Code](/src/Content/Code/README.md)** — Блок кода с подсветкой синтаксиса ⚠️
+- **[Markdown](/src/Content/Markdown/README.md)** — Markdown в HTML с использованием Parsedown ⚠️
 - *Avatar* — Аватар пользователя (запланировано)
 - *Icon* — Иконка (SVG, спрайты) (запланировано)
 - *Image* — Изображение (lazy loading) (запланировано)
@@ -104,7 +104,7 @@ echo BrickManager::getInstance()->renderAssets();
 - *Search* — Поиск по данным (запланировано)
 - *Sorting* — Сортировка данных (запланировано)
 - *Layout* — Компоненты макета (Container, Row, Col) (запланировано)
-- **[ApiResponse](/docs/utilities/apiresponse.md)** - JSON-ответ для API с фильтрацией конфиденциальных данных
+- **[ApiResponse](/src/Utilities/ApiResponse/README.md)** - JSON-ответ для API с фильтрацией конфиденциальных данных
 
 ---
 
@@ -140,9 +140,9 @@ echo BrickManager::getInstance()->renderAssets();
 
 ```css
 :root {
-    /* Цвета */
-    --wk-color-blue-500: #3b82f6;
-    --wk-color-gray-500: #6b7280;
+    /* Акцентные цвета */
+    --wk-color-primary: #4a6fa5;
+    --wk-color-secondary: #6b7280;
     
     /* Размеры */
     --wk-spacing-2: 0.5rem;
@@ -178,11 +178,6 @@ composer run test
 # Запуск тестов
 composer run stan
 ```
-
-## 📄 Документация
-
-- [📘 Input Component](/docs/form/input.md)
-- [📘 Field Component](/docs/form/field.md)
 
 ## 🤝 Вклад в проект
 

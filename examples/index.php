@@ -10,6 +10,7 @@ use OlegV\WallKit\Demo\DemoLayout\DemoLayout;
 use OlegV\WallKit\Demo\DemoSidebar\DemoSidebar;
 use OlegV\WallKit\Demo\DemoStats\DemoStats;
 
+BrickManager::enableDebug();
 // Загружаем метаданные компонентов
 $componentsData = json_decode(file_get_contents(__DIR__.'/components.json'), true);
 

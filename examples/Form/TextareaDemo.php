@@ -14,6 +14,7 @@ use OlegV\WallKit\Form\Field\Field;
 use OlegV\WallKit\Form\Input\Input;
 use OlegV\WallKit\Form\Textarea\Textarea;
 
+BrickManager::enableDebug();
 // 1. Заголовок
 $header = new DemoHeader(
     title: 'WallKit Textarea Component',

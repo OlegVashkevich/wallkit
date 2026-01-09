@@ -11,13 +11,50 @@ use OlegV\Traits\WithStrictHelpers;
 use OlegV\WallKit\Base\Base;
 
 /**
- * Чистый компонент Input - базовое поле ввода без обёртки
+ * Компонент Input — базовое поле ввода без обёртки
  *
- * @example
+ * Этот компонент реализует стандартный HTML-инпут с поддержкой всех распространённых типов
+ * и атрибутов. Предназначен для использования как в одиночном режиме, так и внутри компонентов
+ * Form и Field.
+ *
+ * ## Примеры использования
+ *
+ * ### Простой текст
+ * ```php
  * $input = new Input(
  *     name: 'username',
  *     placeholder: 'Введите ваше имя'
  * );
+ * echo $input;
+ * ```
+ *
+ * ### С валидацией
+ * ```php
+ * $emailInput = new Input(
+ *     name: 'email',
+ *     type: 'email',
+ *     required: true,
+ *     autocomplete: 'email'
+ * );
+ * ```
+ *
+ * ### Числовое поле
+ * ```php
+ * $priceInput = new Input(
+ *     name: 'price',
+ *     type: 'number',
+ *     min: '0',
+ *     max: '1000',
+ *     step: '0.01'
+ * );
+ * ```
+ *
+ * @package OlegV\WallKit\Form\Input
+ * @author OlegV
+ * @since 1.0.0
+ * @version 1.0.0
+ * @immutable
+ * @readonly
  */
 readonly class Input extends Base
 {
@@ -26,6 +63,8 @@ readonly class Input extends Base
     use WithInheritance;
 
     /**
+     * Создаёт новый экземпляр компонента Input.
+     *
      * @param  string  $name  Название поля (атрибут name)
      * @param  string|null  $placeholder  Плейсхолдер
      * @param  string|null  $value  Текущее значение
@@ -44,8 +83,10 @@ readonly class Input extends Base
      * @param  int|null  $minLength  Минимальная длина
      * @param  string|null  $step  Шаг для числовых полей
      * @param  string|null  $autocomplete  Значение атрибута autocomplete
-     *                                    (например: "on", "off", "name", "email", "username")
      * @param  bool|null  $spellcheck  Включить/выключить проверку орфографии
+     *
+     * @throws InvalidArgumentException Если тип поля не поддерживается
+     * @throws InvalidArgumentException Если имя поля пустое
      */
     public function __construct(
         public string $name,
@@ -69,6 +110,19 @@ readonly class Input extends Base
         public ?bool $spellcheck = null,
     ) {}
 
+    /**
+     * Подготовка компонента к рендерингу.
+     *
+     * Выполняет валидацию параметров компонента перед использованием.
+     * Вызывается автоматически при рендеринге.
+     *
+     * @return void
+     *
+     * @throws InvalidArgumentException Если тип поля не поддерживается
+     * @throws InvalidArgumentException Если имя поля пустое
+     *
+     * @internal
+     */
     protected function prepare(): void
     {
         if (!$this->isValidType($this->type)) {
@@ -82,8 +136,9 @@ readonly class Input extends Base
     }
 
     /**
-     * Получить CSS классы для input
-     * @return array<string>
+     * Возвращает массив CSS-классов для поля ввода.
+     *
+     * @return array<string> Массив CSS-классов
      */
     public function getInputClasses(): array
     {
@@ -92,8 +147,11 @@ readonly class Input extends Base
     }
 
     /**
-     * Получить все атрибуты для input
-     * @return array<string, string|int|bool|null>
+     * Возвращает все HTML-атрибуты для поля ввода.
+     *
+     * Собирает атрибуты из всех свойств компонента и дополнительных атрибутов.
+     *
+     * @return array<string, string|int|bool|null> Ассоциативный массив атрибутов
      */
     public function getInputAttributes(): array
     {
@@ -149,7 +207,10 @@ readonly class Input extends Base
     }
 
     /**
-     * Валидация типа поля
+     * Проверяет, является ли тип поля допустимым.
+     *
+     * @param  string  $type  Тип поля для проверки
+     * @return bool true если тип поддерживается, false в противном случае
      */
     public function isValidType(string $type): bool
     {

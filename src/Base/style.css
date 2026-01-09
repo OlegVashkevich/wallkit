@@ -1,107 +1,108 @@
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 :root {
-    --wk-black: #000000;
-    --wk-dark-gray: #333333;
-    --wk-medium-gray: #666666;
-    --wk-light-gray: #f5f5f5;
-    --wk-white: #ffffff;
-    --wk-border: #e0e0e0;
-    --wk-accent: #4a6fa5;
-    --wk-vis-accent: #8a4baf;
-    --wk-nav-accent: #2e7d32;
-    --wk-form-accent: #d84315;
-    --wk-control-accent: #0277bd;
-    --wk-feedback-accent: #6d4c41;
-    --wk-error-color: #d32f2f;
-    --wk-success-color: #2e7d32;
-    --wk-warning-color: #ed6c02;
-    --wk-info-color: #0288d1;
+    /* ==================== ЦВЕТОВАЯ СИСТЕМА ==================== */
 
-    /* Серые оттенки для компонентов */
-    --wk-color-gray-50: var(--wk-light-gray);
-    --wk-color-gray-100: #eeeeee;
-    --wk-color-gray-200: var(--wk-border);
-    --wk-color-gray-300: #bdbdbd;
-    --wk-color-gray-400: var(--wk-medium-gray);
-    --wk-color-gray-500: #757575;
-    --wk-color-gray-700: #424242;
-    --wk-color-gray-900: var(--wk-dark-gray);
+    /* Шкала серого (шкалированная система) */
+    --wk-color-gray-50: #f9fafb;
+    --wk-color-gray-100: #f3f4f6;
+    --wk-color-gray-200: #e5e7eb;
+    --wk-color-gray-300: #d1d5db;
+    --wk-color-gray-400: #9ca3af;
+    --wk-color-gray-500: #6b7280;
+    --wk-color-gray-600: #4b5563;
+    --wk-color-gray-700: #374151;
+    --wk-color-gray-800: #1f2937;
+    --wk-color-gray-900: #111827;
 
-    /* Акцентные цвета для компонентов */
-    --wk-color-blue-500: var(--wk-accent);
-    --wk-color-blue-100: rgba(74, 111, 165, 0.1);
+    /* Акцентные цвета */
+    --wk-color-primary: #4a6fa5;
+    --wk-color-secondary: #6b7280;
 
-    --wk-color-red-600: var(--wk-error-color);
-    --wk-color-red-100: rgba(211, 47, 47, 0.1);
+    /* Семантические цвета */
+    --wk-color-success: #10b981;
+    --wk-color-danger: #ef4444;
+    --wk-color-warning: #f59e0b;
+    --wk-color-info: #0ea5e9;
 
-    --wk-color-green-500: var(--wk-nav-accent);
-    --wk-color-green-100: rgba(46, 125, 50, 0.1);
+    /* Синяя палитра (на основе primary) */
+    --wk-color-blue-50: #eff6ff;
+    --wk-color-blue-100: #dbeafe;
+    --wk-color-blue-200: #bfdbfe;
+    --wk-color-blue-300: #93c5fd;
+    --wk-color-blue-400: #60a5fa;
+    --wk-color-blue-500: var(--wk-color-primary); /* #4a6fa5 */
+    --wk-color-blue-600: #2563eb;
+    --wk-color-blue-700: #1d4ed8;
+    --wk-color-blue-800: #1e40af;
+    --wk-color-blue-900: #1e3a8a;
 
-    --wk-color-purple-500: var(--wk-vis-accent);
-    --wk-color-purple-100: rgba(138, 75, 175, 0.1);
+    /* Красная палитра (на основе danger) */
+    --wk-color-red-50: #fef2f2;
+    --wk-color-red-100: #fee2e2;
+    --wk-color-red-200: #fecaca;
+    --wk-color-red-300: #fca5a5;
+    --wk-color-red-400: #f87171;
+    --wk-color-red-500: #ef4444;
+    --wk-color-red-600: var(--wk-color-danger); /* #ef4444 */
+    --wk-color-red-700: #dc2626;
+    --wk-color-red-800: #b91c1c;
+    --wk-color-red-900: #991b1b;
 
-    --wk-color-orange-500: var(--wk-form-accent);
-    --wk-color-orange-100: rgba(216, 67, 21, 0.1);
+    /* ==================== ТИПОГРАФИКА ==================== */
 
-    --wk-color-teal-500: #008080;
-    --wk-color-teal-100: rgba(0, 128, 128, 0.1);
+    --wk-font-family: system-ui, -apple-system, sans-serif;
+    --wk-font-size-3xs: 0.625rem;   /* 10px */
+    --wk-font-size-2xs: 0.6875rem;  /* 11px */
+    --wk-font-size-xs: 0.75rem;
+    --wk-font-size-sm: 0.875rem;
+    --wk-font-size-base: 1rem;
+    --wk-font-size-lg: 1.125rem;
+    --wk-font-size-xl: 1.25rem;
 
-    --wk-color-yellow-500: var(--wk-warning-color);
-    --wk-color-yellow-100: rgba(237, 108, 2, 0.1);
+    --wk-font-weight-normal: 400;
+    --wk-font-weight-medium: 500;
+    --wk-font-weight-semibold: 600;
 
-    /* Типографика */
-    --wk-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --wk-font-size-xs: 0.75rem; /* 12px */
-    --wk-font-size-sm: 0.875rem; /* 14px */
-    --wk-font-size-base: 1rem; /* 16px */
-    --wk-font-size-lg: 1.125rem; /* 18px */
-    --wk-font-size-xl: 1.25rem; /* 20px */
-    --wk-font-size-2xl: 1.5rem; /* 24px */
-    --wk-font-size-3xl: 2rem; /* 32px */
+    --wk-line-height-sm: 1.25;
+    --wk-line-height-base: 1.5;
+    --wk-line-height-lg: 1.75;
 
-    /* Дополнительные размеры для компонентов */
-    --wk-font-size-2xs: 0.6875rem; /* 11px */
-    --wk-font-size-3xs: 0.5625rem; /* 9px */
+    /* ==================== ОТСТУПЫ ==================== */
 
-    /* Веса шрифтов */
-    --wk-font-weight-light: 300;
-    --wk-font-weight-normal: 350;
-    --wk-font-weight-medium: 400;
-    --wk-font-weight-semibold: 500;
+    --wk-spacing-1: 0.25rem;
+    --wk-spacing-2: 0.5rem;
+    --wk-spacing-3: 0.75rem;
+    --wk-spacing-4: 1rem;
+    --wk-spacing-6: 1.5rem;
+    --wk-spacing-8: 2rem;
 
-    /* Высота строки */
-    --wk-line-height-sm: 1.25rem; /* 20px */
-    --wk-line-height-base: 1.6;
+    /* ==================== ГРАНИЦЫ И РАДИУСЫ ==================== */
+    --wk-radius-sm: var(--wk-border-radius-sm);
+    --wk-radius-md: var(--wk-border-radius);
+    --wk-radius-lg: var(--wk-border-radius-lg);
 
-    /* Отступы */
-    --wk-spacing-1: 0.25rem; /* 4px */
-    --wk-spacing-2: 0.5rem; /* 8px */
-    --wk-spacing-2-5: 0.625rem; /* 10px */
-    --wk-spacing-3: 0.75rem; /* 12px */
-    --wk-spacing-4: 1rem; /* 16px */
-    --wk-spacing-6: 1.5rem; /* 24px */
-    --wk-spacing-8: 2rem; /* 32px */
-    --wk-spacing-12: 3rem; /* 48px */
+    --wk-border-width: 1px;
+    --wk-border-radius-sm: 0.125rem;
+    --wk-border-radius: 0.25rem;
+    --wk-border-radius-lg: 0.5rem;
 
-    /* Радиусы скругления */
-    --wk-radius-sm: 2px;
-    --wk-radius-md: 4px;
-    --wk-radius-lg: 8px;
-    --wk-radius-full: 100%;
+    /* ==================== ТЕНИ ==================== */
 
-    /* Тени */
     --wk-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --wk-shadow-md: 0 4px 6px rgba(0, 0, 0, 0.05);
-    --wk-shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.05);
+    --wk-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --wk-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --wk-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+
+    /* Акцентные тени */
     --wk-shadow-outline: 0 0 0 3px rgba(74, 111, 165, 0.1);
+    --wk-shadow-outline-blue: 0 0 0 3px rgba(74, 111, 165, 0.1);
+    --wk-shadow-outline-red: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    --wk-shadow-outline-green: 0 0 0 3px rgba(16, 185, 129, 0.1);
 
-    /* Тени для компонентов */
-    --wk-shadow-outline-blue: 0 0 0 3px var(--wk-color-blue-100);
-    --wk-shadow-outline-red: 0 0 0 3px var(--wk-color-red-100);
-    --wk-shadow-outline-green: 0 0 0 3px var(--wk-color-green-100);
+    /* ==================== АНИМАЦИИ ==================== */
 
-    /* Анимации */
-    --wk-transition-fast: 0.15s ease;
-    --wk-transition-base: 0.3s ease;
-    --wk-transition-default: var(--wk-transition-fast);
+    --wk-transition-fast: 150ms ease-in-out;
+    --wk-transition: 200ms ease-in-out;
+    --wk-transition-slow: 300ms ease-in-out;
+    --wk-transition-default: var(--wk-transition);
 }

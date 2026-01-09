@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace OlegV\WallKit\Content\Markdown;
 
 use Exception;
-use InvalidArgumentException;
 use OlegV\Traits\WithInheritance;
 use OlegV\WallKit\Base\Base;
 use Parsedown;
@@ -32,10 +31,6 @@ readonly class Markdown extends Base
 
     protected function prepare(): void
     {
-        if (empty(trim($this->content))) {
-            throw new InvalidArgumentException('Markdown content cannot be empty');
-        }
-
         // Проверяем наличие библиотеки Parsedown
         if (!class_exists(Parsedown::class)) {
             throw new RuntimeException(

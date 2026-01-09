@@ -26,7 +26,7 @@ readonly class DemoComponentCard extends Base
         public ?string $note = null,
     ) {}
 
-    private function getHtml(): string
+    protected function getHtml(): string
     {
         return (string)$this->component;
     }
@@ -46,7 +46,7 @@ readonly class DemoComponentCard extends Base
      * @param  array  $processed
      * @return string
      */
-    private function objectToConstructorStringNonDefaults(
+    protected function objectToConstructorStringNonDefaults(
         object $obj,
         int $depth = 1,
         array &$processed = [],

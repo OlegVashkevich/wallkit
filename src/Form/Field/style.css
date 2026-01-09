@@ -1,5 +1,16 @@
 /* ==================== FIELD COMPONENT STYLES ==================== */
 
+/*
+ * Стили для компонента Field
+ *
+ * Компонент-обертка для полей ввода с label, help text и error states.
+ * Используется вместе с Input, Textarea, Select и другими полями.
+ *
+ * Компонент: Field
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
+
 /* Базовые стили Field */
 .wallkit-field {
     margin-bottom: var(--wk-spacing-4);
@@ -15,7 +26,7 @@
 }
 
 .wallkit-field__required {
-    color: var(--wk-color-red-600);
+    color: var(--wk-color-danger);
     margin-left: var(--wk-spacing-1);
 }
 
@@ -27,11 +38,11 @@
 
 /* Состояния Field */
 .wallkit-field--error .wallkit-input__field {
-    border-color: var(--wk-color-red-600);
+    border-color: var(--wk-color-danger);
 }
 
 .wallkit-field--error .wallkit-input__field:focus {
-    border-color: var(--wk-color-red-600);
+    border-color: var(--wk-color-danger);
     box-shadow: var(--wk-shadow-outline-red);
 }
 
@@ -55,7 +66,7 @@
     padding: var(--wk-spacing-1);
     font-size: var(--wk-font-size-base);
     color: var(--wk-color-gray-500);
-    transition: color 0.15s;
+    transition: var(--wk-transition-fast);
 }
 
 .wallkit-field__toggle-password:hover {
@@ -72,7 +83,7 @@
 .wallkit-field__error {
     margin-top: var(--wk-spacing-1);
     font-size: var(--wk-font-size-xs);
-    color: var(--wk-color-red-600);
+    color: var(--wk-color-danger);
     display: flex;
     align-items: center;
     gap: var(--wk-spacing-1);
@@ -80,8 +91,8 @@
 
 /* Размеры Field */
 .wallkit-field--sm .wallkit-input__field {
-    padding: var(--wk-spacing-2) var(--wk-spacing-2-5);
-    font-size: var(--wk-font-size-xs);
+    padding: var(--wk-spacing-2) var(--wk-spacing-3);
+    font-size: var(--wk-font-size-sm);
 }
 
 .wallkit-field--sm .wallkit-field__label {
@@ -90,12 +101,12 @@
 
 .wallkit-field--sm .wallkit-field__help,
 .wallkit-field--sm .wallkit-field__error {
-    font-size: var(--wk-font-size-2xs);
+    font-size: 0.6875rem; /* 11px - не используем переменную так как ее нет */
 }
 
 .wallkit-field--lg .wallkit-input__field {
-    padding: var(--wk-spacing-3) var(--wk-spacing-4);
-    font-size: var(--wk-font-size-base);
+    padding: var(--wk-spacing-4) var(--wk-spacing-6);
+    font-size: var(--wk-font-size-lg);
 }
 
 .wallkit-field--lg .wallkit-field__label {
@@ -110,17 +121,18 @@
 
 /* Варианты Field */
 .wallkit-field--outline .wallkit-input__field {
-    border: 2px solid var(--wk-color-gray-300);
+    border-width: 2px;
+    border-color: var(--wk-color-gray-300);
 }
 
 .wallkit-field--filled .wallkit-input__field {
     background-color: var(--wk-color-gray-50);
-    border: 1px solid transparent;
+    border-color: transparent;
 }
 
 .wallkit-field--filled .wallkit-input__field:focus {
     background-color: white;
-    border-color: var(--wk-color-blue-500);
+    border-color: var(--wk-color-primary);
 }
 
 /* Расположение label */
