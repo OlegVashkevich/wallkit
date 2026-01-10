@@ -45,12 +45,13 @@ echo BrickManager::getInstance()->renderAssets();
 ## 📚 Компоненты
 
 ### Формы (Forms)
-- **[Input](/src/Form/Input/README.md)** — Поле ввода (text, email, password, search, number, tel, url) ✅
+- **[Input](/src/Form/Input/README.md)** — Поле ввода (text, email, password, search, number, tel, url и т.д.) ✅
 - **[Textarea](/src/Form/Textarea/README.md)** — Многострочное текстовое поле с авторазмером ✅
 - **[Field](/src/Form/Field/README.md)** — Обёртка поля (label + input + help + error) ✅
 - **[Button](/src/Form/Button/README.md)** — Кнопка с вариантами ⚠️
 - **[Select](/src/Form/Select/README.md)** — Выпадающий список (single/multiple) ⚠️
-- **[Form](/src/Form/Form/README.md)** — Форма (поля + валидация + submit) (запланировано)
+- **[Form](/src/Form/Form/README.md)** — Форма
+- **[FileUpload](/src/Form/FileUpload/README.md)** — Поле загрузки файлов с валидацией и drag & drop
 - *Toggle* — Переключатель On/Off (запланировано)
 - *Range* — Ползунок (ценовой диапазон) (запланировано)
 

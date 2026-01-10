@@ -1,0 +1,93 @@
+/*
+ * Стили для компонента FileUpload
+ *
+ * Использует CSS-переменные из базовой темы WallKit.
+ * Реализует кастомный стиль для поля загрузки файлов с поддержкой перетаскивания.
+ *
+ * Компонент: FileUpload
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
+
+/* Базовые стили */
+.wallkit-fileupload {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--wk-spacing-4);
+}
+
+.wallkit-fileupload__label {
+  display: block;
+  margin-bottom: var(--wk-spacing-2);
+  font-weight: var(--wk-font-weight-medium);
+  color: var(--wk-color-gray-700);
+}
+
+.wallkit-fileupload__required {
+  color: var(--wk-color-danger);
+}
+
+.wallkit-fileupload__wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--wk-spacing-3);
+}
+
+/* Кастомное поле ввода файлов */
+.wallkit-fileupload__field {
+  width: 100%;
+  padding: var(--wk-spacing-3) var(--wk-spacing-4);
+  font-family: var(--wk-font-family), serif;
+  font-size: var(--wk-font-size-base);
+  border: 2px dashed var(--wk-color-gray-300);
+  border-radius: var(--wk-border-radius);
+  background-color: var(--wk-color-gray-50);
+  color: var(--wk-color-gray-700);
+  transition: all var(--wk-transition);
+  cursor: pointer;
+}
+
+.wallkit-fileupload__field:hover {
+  border-color: var(--wk-color-primary);
+  background-color: rgba(var(--wk-color-primary),10%);
+}
+
+.wallkit-fileupload__field:focus {
+  outline: none;
+  border-color: var(--wk-color-primary);
+  box-shadow: var(--wk-shadow-outline);
+}
+
+.wallkit-fileupload__field:disabled {
+  background-color: var(--wk-color-gray-100);
+  border-color: var(--wk-color-gray-200);
+  color: var(--wk-color-gray-400);
+  cursor: not-allowed;
+}
+
+/* Плейсхолдер */
+.wallkit-fileupload__placeholder {
+  color: var(--wk-color-gray-500);
+  font-size: var(--wk-font-size-sm);
+  font-style: italic;
+}
+
+/* Вспомогательные тексты */
+.wallkit-fileupload__help {
+  margin-top: var(--wk-spacing-2);
+  font-size: var(--wk-font-size-sm);
+  color: var(--wk-color-gray-500);
+}
+
+.wallkit-fileupload__error {
+  margin-top: var(--wk-spacing-2);
+  font-size: var(--wk-font-size-sm);
+  color: var(--wk-color-danger);
+}
+
+/* Модификатор для перетаскивания */
+.wallkit-fileupload__field[data-drag-over="true"] {
+  border-color: var(--wk-color-success);
+  background-color: rgba(var(--wk-color-success),10%);
+}

@@ -64,6 +64,13 @@
     cursor: not-allowed;
 }
 
+.wallkit-input__field:invalid {
+    border-color: var(--wk-color-danger);
+}
+.wallkit-input__field:valid {
+    border-color: var(--wk-color-success);
+}
+
 /* Размеры Input */
 .wallkit-input__field--sm {
     padding: var(--wk-spacing-2) var(--wk-spacing-3);

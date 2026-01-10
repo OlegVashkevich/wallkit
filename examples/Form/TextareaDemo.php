@@ -12,6 +12,7 @@ use OlegV\WallKit\Demo\DemoSection\DemoSection;
 use OlegV\WallKit\Demo\DemoSidebar\DemoSidebar;
 use OlegV\WallKit\Form\Button\Button;
 use OlegV\WallKit\Form\Field\Field;
+use OlegV\WallKit\Form\FileUpload\FileUpload;
 use OlegV\WallKit\Form\Form\Form;
 use OlegV\WallKit\Form\Input\Input;
 use OlegV\WallKit\Form\Select\Select;
@@ -503,6 +504,51 @@ $sizesCards = [
             method: 'POST',
         ),
         description: 'Форма входа',
+        badgeText: 'form',
+        badgeType: 'form',
+    ),
+    new DemoComponentCard(
+        title: 'Загрузка изображений с ограничениями',
+        component: new Form(
+            fields: [
+                new FileUpload(
+                    name: 'avatar',
+                    label: 'Аватар профиля',
+                    accept: 'image/*',
+                    maxSize: 5 * 1024 * 1024, // 5MB
+                    maxWidth: 800,
+                    maxHeight: 600,
+                    helpText: 'Максимальный размер: 5MB, размер: до 800×600px',
+                ),
+                new Field(input: new Input(name: 'email', type: 'email'), label: 'Email'),
+                new Field(input: new Input(name: 'url', type: 'url'), label: 'Url'),
+                new Button('Войти', type: 'submit'),
+            ],
+            action: '/login',
+            method: 'POST',
+        ),
+        description: 'Загрузка изображений с ограничениями',
+        badgeText: 'form',
+        badgeType: 'form',
+    ),
+    new DemoComponentCard(
+        title: 'Множественная загрузка',
+        component: new Form(
+            fields: [
+                new FileUpload(
+                    name: 'gallery',
+                    label: 'Галерея изображений',
+                    placeholder: 'Перетащите файлы сюда или нажмите для выбора',
+                    multiple: true,
+                    maxSize: 10 * 1024 * 1024,
+                    maxFiles: 10,
+                ),
+                new Button('Войти', type: 'submit'),
+            ],
+            action: '/login',
+            method: 'POST',
+        ),
+        description: 'Множественная загрузка',
         badgeText: 'form',
         badgeType: 'form',
     ),

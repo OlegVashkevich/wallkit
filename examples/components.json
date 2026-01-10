@@ -121,6 +121,23 @@
       ]
     },
     {
+      "name": "FileUpload",
+      "group": "Forms",
+      "description": "Поле загрузки файлов с валидацией и drag & drop",
+      "icon": "📎",
+      "demoFile": "Form/FileUploadDemo.php",
+      "badge": "file-upload",
+      "status": "stable",
+      "since": "1.0.0",
+      "tags": [
+        "file",
+        "upload",
+        "validation",
+        "drag-and-drop",
+        "multiple"
+      ]
+    },
+    {
       "name": "Toggle",
       "group": "Forms",
       "description": "Переключатель On/Off",
