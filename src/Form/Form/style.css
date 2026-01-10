@@ -14,20 +14,35 @@
  * Версия: 1.0.0
  */
 
-/* Базовые стили формы */
 .wallkit-form {
+  /* Основные параметры */
+  --wk-form-gap: var(--wk-spacing-4, 1rem);
+  --wk-form-bg: transparent;
+
+  /* Цвета сообщений */
+  --wk-form-success-bg: var(--wk-color-green-50, #ecfdf5);
+  --wk-form-success-text: var(--wk-color-green-700, #047857);
+  --wk-form-success-border: var(--wk-color-green-200, #a7f3d0);
+
+  --wk-form-error-bg: var(--wk-color-red-50, #fef2f2);
+  --wk-form-error-text: var(--wk-color-red-700, #dc2626);
+  --wk-form-error-border: var(--wk-color-red-200, #fecaca);
+
+  /* Состояния */
+  --wk-form-disabled-opacity: 0.7;
+  --wk-form-message-padding: var(--wk-spacing-3) var(--wk-spacing-4);
+  --wk-form-message-radius: var(--wk-border-radius, 0.25rem);
+
   display: flex;
   flex-direction: column;
-  gap: var(--wk-spacing-4);
+  gap: var(--wk-form-gap);
   width: 100%;
-  font-family: var(--wk-font-family), serif;
-  font-size: var(--wk-font-size-base);
-  line-height: var(--wk-line-height-base);
+  background-color: var(--wk-form-bg);
 }
 
-/* Состояние отправки формы */
+/* Состояния формы */
 .wallkit-form--submitting {
-  opacity: 0.7;
+  opacity: var(--wk-form-disabled-opacity);
   pointer-events: none;
 }
 
@@ -35,15 +50,15 @@
   cursor: wait;
 }
 
-/* Сообщения формы (для AJAX ответов) */
+/* Сообщения формы */
 .wallkit-form__message {
-  padding: var(--wk-spacing-3) var(--wk-spacing-4);
-  border-radius: var(--wk-border-radius);
-  font-size: var(--wk-font-size-sm);
-  animation: wk-fade-in 0.3s ease-in-out;
+  padding: var(--wk-form-message-padding);
+  border-radius: var(--wk-form-message-radius);
+  font-size: var(--wk-font-size-sm, 0.875rem);
+  animation: wk-form-fade-in 0.3s ease-in-out;
 }
 
-@keyframes wk-fade-in {
+@keyframes wk-form-fade-in {
   from {
     opacity: 0;
     transform: translateY(-10px);
@@ -55,20 +70,44 @@
 }
 
 .wallkit-form__message--success {
-  background-color: var(--wk-color-green-50);
-  color: var(--wk-color-green-700);
-  border: 1px solid var(--wk-color-green-200);
+  background-color: var(--wk-form-success-bg);
+  color: var(--wk-form-success-text);
+  border: 1px solid var(--wk-form-success-border);
 }
 
 .wallkit-form__message--error {
-  background-color: var(--wk-color-red-50);
-  color: var(--wk-color-red-700);
-  border: 1px solid var(--wk-color-red-200);
+  background-color: var(--wk-form-error-bg);
+  color: var(--wk-form-error-text);
+  border: 1px solid var(--wk-form-error-border);
 }
 
-/* Адаптивность для мобильных */
+/* Модификаторы */
+.wallkit-form--compact {
+  --wk-form-gap: var(--wk-spacing-3, 0.75rem);
+}
+
+.wallkit-form--inline {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.wallkit-form--inline .wallkit-form__item {
+  flex: 1;
+  min-width: 200px;
+}
+
+/* Адаптивность */
 @media (max-width: 768px) {
   .wallkit-form {
-    gap: var(--wk-spacing-3);
+    --wk-form-gap: var(--wk-spacing-3, 0.75rem);
+  }
+
+  .wallkit-form--inline {
+    flex-direction: column;
+  }
+
+  .wallkit-form--inline .wallkit-form__item {
+    min-width: 100%;
   }
 }

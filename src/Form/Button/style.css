@@ -1,124 +1,149 @@
 /*
  * Стили для компонента Button
- *
- * Этот файл содержит все стили для кнопок.
- * Все стили используют CSS-переменные из базовой темы WallKit.
- *
+ * Локальные переменные для кастомизации кнопок.
  * Компонент: Button
  * Автор: OlegV
- * Версия: 1.0.0
+ * Версия: 1.0.1
  */
 
-/* Базовые стили Button */
 .wallkit-button {
+  /* Основные параметры */
+  --wk-btn-padding: var(--wk-spacing-3) var(--wk-spacing-6);
+  --wk-btn-gap: var(--wk-spacing-2);
+  --wk-btn-radius: var(--wk-border-radius);
+  --wk-btn-border: var(--wk-border-width) solid transparent;
+
+  /* Типографика */
+  --wk-btn-font-family: var(--wk-font-family);
+  --wk-btn-font-size: var(--wk-font-size-base);
+  --wk-btn-font-weight: var(--wk-font-weight-medium);
+  --wk-btn-line-height: var(--wk-line-height-base);
+
+  /* Цвета по умолчанию (для primary) */
+  --wk-btn-bg: var(--wk-color-primary);
+  --wk-btn-text: white;
+  --wk-btn-border-color: transparent;
+
+  /* Состояния */
+  --wk-btn-hover-transform: translateY(-1px);
+  --wk-btn-hover-shadow: var(--wk-shadow-md);
+  --wk-btn-focus-shadow: var(--wk-shadow-outline);
+  --wk-btn-disabled-opacity: 0.6;
+
+  /* Transition */
+  --wk-btn-transition: var(--wk-transition);
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--wk-spacing-2);
-  padding: var(--wk-spacing-3) var(--wk-spacing-6);
-  font-family: var(--wk-font-family), sans-serif;
-  font-size: var(--wk-font-size-base);
-  font-weight: var(--wk-font-weight-medium);
-  line-height: var(--wk-line-height-base);
+  gap: var(--wk-btn-gap);
+  padding: var(--wk-btn-padding);
+  font-family: var(--wk-btn-font-family), serif;
+  font-size: var(--wk-btn-font-size);
+  font-weight: var(--wk-btn-font-weight);
+  line-height: var(--wk-btn-line-height);
   text-align: center;
   text-decoration: none;
-  border: var(--wk-border-width) solid transparent;
-  border-radius: var(--wk-border-radius);
+  border: var(--wk-btn-border);
+  border-color: var(--wk-btn-border-color);
+  border-radius: var(--wk-btn-radius);
+  background-color: var(--wk-btn-bg);
+  color: var(--wk-btn-text);
   cursor: pointer;
-  transition: var(--wk-transition);
+  transition: var(--wk-btn-transition);
   user-select: none;
   white-space: nowrap;
   vertical-align: middle;
 }
 
-/* Варианты кнопок (solid) */
+/* Варианты через переменные */
 .wallkit-button--primary {
-  background-color: var(--wk-color-primary);
-  color: white;
+  --wk-btn-bg: var(--wk-color-primary);
+  --wk-btn-text: white;
 }
 
 .wallkit-button--secondary {
-  background-color: var(--wk-color-secondary);
-  color: white;
+  --wk-btn-bg: var(--wk-color-secondary);
+  --wk-btn-text: white;
 }
 
 .wallkit-button--success {
-  background-color: var(--wk-color-success);
-  color: white;
+  --wk-btn-bg: var(--wk-color-success);
+  --wk-btn-text: white;
 }
 
 .wallkit-button--danger {
-  background-color: var(--wk-color-danger);
-  color: white;
+  --wk-btn-bg: var(--wk-color-danger);
+  --wk-btn-text: white;
 }
 
 .wallkit-button--warning {
-  background-color: var(--wk-color-warning);
-  color: var(--wk-color-gray-900);
+  --wk-btn-bg: var(--wk-color-warning);
+  --wk-btn-text: var(--wk-color-gray-900);
 }
 
 .wallkit-button--info {
-  background-color: var(--wk-color-info);
-  color: white;
+  --wk-btn-bg: var(--wk-color-info);
+  --wk-btn-text: white;
 }
 
 .wallkit-button--light {
-  background-color: var(--wk-color-gray-100);
-  color: var(--wk-color-gray-900);
-  border-color: var(--wk-color-gray-300);
+  --wk-btn-bg: var(--wk-color-gray-100);
+  --wk-btn-text: var(--wk-color-gray-900);
+  --wk-btn-border-color: var(--wk-color-gray-300);
 }
 
 .wallkit-button--dark {
-  background-color: var(--wk-color-gray-900);
-  color: white;
+  --wk-btn-bg: var(--wk-color-gray-900);
+  --wk-btn-text: white;
 }
 
 .wallkit-button--link {
-  background-color: transparent;
-  color: var(--wk-color-primary);
+  --wk-btn-bg: transparent;
+  --wk-btn-text: var(--wk-color-primary);
+  --wk-btn-padding: 0;
   text-decoration: underline;
-  padding: 0;
 }
 
 /* Outline варианты */
 .wallkit-button--outline-primary {
-  background-color: transparent;
-  border-color: var(--wk-color-primary);
-  color: var(--wk-color-primary);
+  --wk-btn-bg: transparent;
+  --wk-btn-text: var(--wk-color-primary);
+  --wk-btn-border-color: var(--wk-color-primary);
 }
 
 .wallkit-button--outline-secondary {
-  background-color: transparent;
-  border-color: var(--wk-color-secondary);
-  color: var(--wk-color-secondary);
+  --wk-btn-bg: transparent;
+  --wk-btn-text: var(--wk-color-secondary);
+  --wk-btn-border-color: var(--wk-color-secondary);
 }
 
 .wallkit-button--outline-success {
-  background-color: transparent;
-  border-color: var(--wk-color-success);
-  color: var(--wk-color-success);
+  --wk-btn-bg: transparent;
+  --wk-btn-text: var(--wk-color-success);
+  --wk-btn-border-color: var(--wk-color-success);
 }
 
 .wallkit-button--outline-danger {
-  background-color: transparent;
-  border-color: var(--wk-color-danger);
-  color: var(--wk-color-danger);
+  --wk-btn-bg: transparent;
+  --wk-btn-text: var(--wk-color-danger);
+  --wk-btn-border-color: var(--wk-color-danger);
 }
 
 /* Размеры */
 .wallkit-button--sm {
-  padding: var(--wk-spacing-2) var(--wk-spacing-4);
-  font-size: var(--wk-font-size-sm);
+  --wk-btn-padding: var(--wk-spacing-2) var(--wk-spacing-4);
+  --wk-btn-font-size: var(--wk-font-size-sm);
 }
 
 .wallkit-button--md {
-  padding: var(--wk-spacing-3) var(--wk-spacing-6);
-  font-size: var(--wk-font-size-base);
+  --wk-btn-padding: var(--wk-spacing-3) var(--wk-spacing-6);
+  --wk-btn-font-size: var(--wk-font-size-base);
 }
 
 .wallkit-button--lg {
-  padding: var(--wk-spacing-4) var(--wk-spacing-8);
-  font-size: var(--wk-font-size-lg);
+  --wk-btn-padding: var(--wk-spacing-4) var(--wk-spacing-8);
+  --wk-btn-font-size: var(--wk-font-size-lg);
 }
 
 /* Модификаторы */
@@ -127,13 +152,52 @@
 }
 
 .wallkit-button--rounded {
-  border-radius: 9999px;
+  --wk-btn-radius: 9999px;
 }
 
 .wallkit-button--disabled,
 .wallkit-button[disabled] {
-  opacity: 0.6;
+  opacity: var(--wk-btn-disabled-opacity);
   cursor: not-allowed;
+}
+
+/* Состояния hover/focus */
+.wallkit-button:not(.wallkit-button--disabled):not([disabled]):hover {
+  transform: var(--wk-btn-hover-transform);
+  box-shadow: var(--wk-btn-hover-shadow);
+}
+
+.wallkit-button:focus {
+  outline: none;
+  box-shadow: var(--wk-btn-focus-shadow);
+}
+
+/* Особые состояния для link */
+.wallkit-button--link:hover {
+  text-decoration: none;
+  --wk-btn-hover-transform: none;
+  --wk-btn-hover-shadow: none;
+}
+
+/* Hover для outline кнопок */
+.wallkit-button--outline-primary:hover {
+  --wk-btn-bg: var(--wk-color-primary);
+  --wk-btn-text: white;
+}
+
+.wallkit-button--outline-secondary:hover {
+  --wk-btn-bg: var(--wk-color-secondary);
+  --wk-btn-text: white;
+}
+
+.wallkit-button--outline-success:hover {
+  --wk-btn-bg: var(--wk-color-success);
+  --wk-btn-text: white;
+}
+
+.wallkit-button--outline-danger:hover {
+  --wk-btn-bg: var(--wk-color-danger);
+  --wk-btn-text: white;
 }
 
 /* Иконки */
@@ -145,43 +209,4 @@
 
 .wallkit-button__icon--after {
   order: 2;
-}
-
-/* Состояния hover/focus */
-.wallkit-button:not(.wallkit-button--disabled):not([disabled]):hover {
-  transform: translateY(-1px);
-  box-shadow: var(--wk-shadow-md);
-}
-
-.wallkit-button:focus {
-  outline: none;
-  box-shadow: var(--wk-shadow-outline);
-}
-
-.wallkit-button--link:hover {
-  text-decoration: none;
-  background-color: transparent;
-  transform: none;
-  box-shadow: none;
-}
-
-/* Outline варианты hover */
-.wallkit-button--outline-primary:hover {
-  background-color: var(--wk-color-primary);
-  color: white;
-}
-
-.wallkit-button--outline-secondary:hover {
-  background-color: var(--wk-color-secondary);
-  color: white;
-}
-
-.wallkit-button--outline-success:hover {
-  background-color: var(--wk-color-success);
-  color: white;
-}
-
-.wallkit-button--outline-danger:hover {
-  background-color: var(--wk-color-danger);
-  color: white;
 }

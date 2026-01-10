@@ -1,65 +1,96 @@
 /*
  * Стили для компонента Code
- *
- * Этот файл содержит все стили для отображения блоков исходного кода с поддержкой:
- * - Подсветки синтаксиса (через highlight.js классы)
- * - Нумерации строк
- * - Кнопки копирования кода в буфер обмена
- * - Метки с названием языка программирования
- *
- * ## Используемые CSS-переменные:
- * - Цвета: --wk-color-*
- * - Отступы: --wk-spacing-*
- * - Типографика: --wk-font-*, --wk-line-height-*
- * - Радиусы: --wk-border-radius-*
- * - Тени: --wk-shadow-*
- * - Анимации: --wk-transition-*
- *
+ * Локальные переменные для отображения блоков исходного кода.
  * Компонент: Code
  * Автор: OlegV
- * Версия: 1.0.0
- * @since 1.0.0
+ * Версия: 1.0.1
  */
 
-/* Компонент Code — отображение блоков исходного кода с подсветкой синтаксиса */
 .wallkit-code {
-    background-color: var(--wk-color-gray-900);
-    border: var(--wk-border-width) solid var(--wk-color-gray-700);
-    border-radius: var(--wk-border-radius);
-    font-family: var(--wk-font-family-mono, 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace), serif;
-    font-size: var(--wk-font-size-sm);
-    margin: var(--wk-spacing-4) 0;
+    /* Основные параметры */
+    --wk-code-bg: var(--wk-color-gray-900);
+    --wk-code-border: var(--wk-border-width) solid var(--wk-color-gray-700);
+    --wk-code-radius: var(--wk-border-radius);
+    --wk-code-margin: var(--wk-spacing-4) 0;
+    --wk-code-font-family: var(--wk-font-family-mono, 'SFMono-Regular', Consolas, monospace);
+    --wk-code-font-size: var(--wk-font-size-sm);
+
+    /* Заголовок */
+    --wk-code-header-bg: var(--wk-color-gray-800);
+    --wk-code-header-border: var(--wk-border-width) solid var(--wk-color-gray-700);
+    --wk-code-header-padding: var(--wk-spacing-1) var(--wk-spacing-3);
+    --wk-code-header-min-height: var(--wk-spacing-2);
+
+    /* Язык */
+    --wk-code-language-color: var(--wk-color-gray-400);
+    --wk-code-language-size: var(--wk-font-size-xs);
+
+    /* Кнопка копирования */
+    --wk-code-copy-bg: transparent;
+    --wk-code-copy-color: var(--wk-color-gray-400);
+    --wk-code-copy-border: var(--wk-border-width) solid var(--wk-color-gray-600);
+    --wk-code-copy-radius: var(--wk-border-radius-sm);
+    --wk-code-copy-hover-bg: var(--wk-color-primary);
+    --wk-code-copy-hover-color: white;
+    --wk-code-copy-hover-border: var(--wk-color-primary);
+
+    /* Номера строк */
+    --wk-code-lines-bg: var(--wk-color-gray-800);
+    --wk-code-lines-border: var(--wk-border-width) solid var(--wk-color-gray-700);
+    --wk-code-lines-color: var(--wk-color-gray-500);
+    --wk-code-lines-padding: var(--wk-spacing-3) var(--wk-spacing-2);
+    --wk-code-lines-min-width: var(--wk-spacing-4);
+
+    /* Контент */
+    --wk-code-content-bg: var(--wk-color-gray-900);
+    --wk-code-content-padding: var(--wk-spacing-3);
+    --wk-code-text-color: var(--wk-color-gray-300);
+
+    /* Светлая тема */
+    --wk-code-light-bg: var(--wk-color-gray-50);
+    --wk-code-light-border: var(--wk-color-gray-200);
+    --wk-code-light-header-bg: var(--wk-color-gray-50);
+    --wk-code-light-lines-bg: var(--wk-color-gray-100);
+    --wk-code-light-lines-color: var(--wk-color-gray-600);
+    --wk-code-light-text-color: var(--wk-color-gray-700);
+
+    background-color: var(--wk-code-bg);
+    border: var(--wk-code-border);
+    border-radius: var(--wk-code-radius);
+    font-family: var(--wk-code-font-family), serif;
+    font-size: var(--wk-code-font-size);
+    margin: var(--wk-code-margin);
     overflow: hidden;
     color-scheme: dark;
 }
 
 /* Заголовок блока кода */
 .wallkit-code__header {
-    background-color: var(--wk-color-gray-800);
-    border-bottom: var(--wk-border-width) solid var(--wk-color-gray-700);
+    background-color: var(--wk-code-header-bg);
+    border-bottom: var(--wk-code-header-border);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: var(--wk-spacing-1) var(--wk-spacing-3);
-    min-height: var(--wk-spacing-2);
+    padding: var(--wk-code-header-padding);
+    min-height: var(--wk-code-header-min-height);
 }
 
 /* Метка языка */
 .wallkit-code__language {
-    color: var(--wk-color-gray-400);
+    color: var(--wk-code-language-color);
     font-weight: var(--wk-font-weight-medium);
     text-transform: uppercase;
-    font-size: var(--wk-font-size-xs);
+    font-size: var(--wk-code-language-size);
     letter-spacing: 0.05em;
     line-height: 1;
 }
 
 /* Кнопка копирования */
 .wallkit-code__copy-button {
-    background-color: transparent;
-    border: var(--wk-border-width) solid var(--wk-color-gray-600);
-    border-radius: var(--wk-border-radius-sm);
-    color: var(--wk-color-gray-400);
+    background-color: var(--wk-code-copy-bg);
+    border: var(--wk-code-copy-border);
+    border-radius: var(--wk-code-copy-radius);
+    color: var(--wk-code-copy-color);
     cursor: pointer;
     font-size: var(--wk-font-size-xs);
     font-weight: var(--wk-font-weight-medium);
@@ -70,9 +101,9 @@
 }
 
 .wallkit-code__copy-button:hover {
-    background-color: var(--wk-color-primary);
-    border-color: var(--wk-color-primary);
-    color: white;
+    background-color: var(--wk-code-copy-hover-bg);
+    border-color: var(--wk-code-copy-hover-border);
+    color: var(--wk-code-copy-hover-color);
 }
 
 .wallkit-code__copy-button:focus-visible {
@@ -87,20 +118,20 @@
 .wallkit-code__content {
     display: flex;
     overflow-x: auto;
-    background-color: var(--wk-color-gray-900);
+    background-color: var(--wk-code-content-bg);
     min-height: var(--wk-spacing-4);
 }
 
 /* Блок с номерами строк */
 .wallkit-code__lines {
-    background-color: var(--wk-color-gray-800);
-    border-right: var(--wk-border-width) solid var(--wk-color-gray-700);
-    color: var(--wk-color-gray-500);
+    background-color: var(--wk-code-lines-bg);
+    border-right: var(--wk-code-lines-border);
+    color: var(--wk-code-lines-color);
     font-size: var(--wk-font-size-sm);
-    padding: var(--wk-spacing-3) var(--wk-spacing-2);
+    padding: var(--wk-code-lines-padding);
     text-align: right;
     user-select: none;
-    min-width: var(--wk-spacing-4);
+    min-width: var(--wk-code-lines-min-width);
     font-variant-numeric: tabular-nums;
     line-height: 1.5;
 }
@@ -113,7 +144,7 @@
 /* Контейнер для кода */
 .wallkit-code__content pre {
     margin: 0;
-    padding: var(--wk-spacing-3);
+    padding: var(--wk-code-content-padding);
     flex: 1;
     overflow-x: auto;
     background: transparent;
@@ -121,7 +152,7 @@
 
 .wallkit-code__content code {
     background: none;
-    color: var(--wk-color-gray-300);
+    color: var(--wk-code-text-color);
     display: block;
     line-height: var(--wk-line-height-base);
     tab-size: 4;
@@ -130,24 +161,36 @@
     font-size: inherit;
 }
 
-/* Стили для highlight.js (только при наличии подсветки) */
+/* Стили для highlight.js */
 .hljs {
     display: block;
     overflow-x: auto;
-    background: var(--wk-color-gray-900);
-    color: var(--wk-color-gray-300);
+    background: var(--wk-code-bg);
+    color: var(--wk-code-text-color);
     font-family: inherit;
     font-size: inherit;
 }
 
-.hljs-strong,
-.hljs-emphasis {
-    color: var(--wk-color-gray-200);
+/* Стандартные цвета highlight.js (можно переопределить) */
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-section,
+.hljs-attribute,
+.hljs-name,
+.hljs-variable {
+    color: #cb7832;
 }
 
-.hljs-bullet,
-.hljs-quote,
-.hljs-link,
+.hljs-string {
+    color: #6a8759;
+}
+
+.hljs-comment,
+.hljs-deletion,
+.hljs-meta {
+    color: var(--wk-color-gray-500);
+}
+
 .hljs-number,
 .hljs-regexp,
 .hljs-literal {
@@ -159,81 +202,26 @@
     color: #a6e22e;
 }
 
-.hljs-emphasis {
-    font-style: italic;
-}
-
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-section,
-.hljs-attribute,
-.hljs-name,
-.hljs-variable {
-    color: #cb7832;
-}
-
-.hljs-params {
-    color: var(--wk-color-gray-400);
-}
-
-.hljs-string {
-    color: #6a8759;
-}
-
-.hljs-subst,
-.hljs-type,
-.hljs-built_in,
-.hljs-builtin-name,
-.hljs-symbol,
-.hljs-selector-id,
-.hljs-selector-attr,
-.hljs-selector-pseudo,
-.hljs-template-tag,
-.hljs-template-variable,
-.hljs-addition {
-    color: #e0c46c;
-}
-
-.hljs-comment,
-.hljs-deletion,
-.hljs-meta {
-    color: var(--wk-color-gray-500);
-}
-
-/* Фокус-состояние для доступности */
+/* Фокус-состояние */
 .wallkit-code:focus-within {
     box-shadow: var(--wk-shadow-outline-blue);
 }
 
-/* Темная тема по умолчанию */
+/* Светлая тема */
 [data-theme="light"] .wallkit-code,
 [data-theme="light"] .wallkit-code__header {
-    background-color: var(--wk-color-gray-50);
-    border-color: var(--wk-color-gray-200);
+    --wk-code-bg: var(--wk-code-light-bg);
+    --wk-code-border: var(--wk-border-width) solid var(--wk-code-light-border);
+    --wk-code-header-bg: var(--wk-code-light-header-bg);
+    --wk-code-lines-bg: var(--wk-code-light-lines-bg);
+    --wk-code-lines-color: var(--wk-code-light-lines-color);
+    --wk-code-text-color: var(--wk-code-light-text-color);
+    --wk-code-language-color: var(--wk-color-gray-600);
+    --wk-code-copy-color: var(--wk-color-gray-600);
+    --wk-code-copy-border: var(--wk-border-width) solid var(--wk-color-gray-300);
 }
 
-[data-theme="light"] .wallkit-code__lines {
-    background-color: var(--wk-color-gray-100);
-    border-color: var(--wk-color-gray-200);
-    color: var(--wk-color-gray-600);
-}
-
-[data-theme="light"] .wallkit-code__language,
-[data-theme="light"] .wallkit-code__copy-button {
-    color: var(--wk-color-gray-600);
-}
-
-[data-theme="light"] .wallkit-code__copy-button {
-    border-color: var(--wk-color-gray-300);
-}
-
-[data-theme="light"] .wallkit-code__copy-button:hover {
-    background-color: var(--wk-color-primary);
-    border-color: var(--wk-color-primary);
-    color: white;
-}
-
-[data-theme="light"] .wallkit-code__content code,
 [data-theme="light"] .hljs {
-    color: var(--wk-color-gray-700);
+    background: var(--wk-code-light-bg);
+    color: var(--wk-code-light-text-color);
 }

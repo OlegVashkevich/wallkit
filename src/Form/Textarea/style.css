@@ -1,43 +1,39 @@
 /*
- * Стили для компонента Textarea — многострочное текстовое поле
- *
- * Этот файл содержит все стили для текстовой области (textarea).
- * Все стили используют CSS-переменные из базовой темы WallKit.
- *
- * Структура стилей:
- * 1. Базовые стили Textarea
- * 2. Состояния Textarea (фокус, плейсхолдер)
- * 3. Контроль размеров и поведения
- *
- * Используемые CSS-переменные:
- * - Цвета: --wk-color-*, --wk-color-gray-*, --wk-color-blue-*
- * - Отступы: --wk-spacing-*
- * - Типографика: --wk-font-*, --wk-line-height-*
- * - Радиусы: --wk-radius-*
- * - Тени: --wk-shadow-*
- *
+ * Стили для компонента Textarea
+ * Минималистичный подход с локальными переменными.
  * Компонент: Textarea
  * Автор: OlegV
- * Версия: 1.0.0
+ * Версия: 1.0.1
  */
+
 .wallkit-textarea__field {
+    --wk-ta-padding: var(--wk-spacing-3) var(--wk-spacing-4);
+    --wk-ta-bg: white;
+    --wk-ta-text: var(--wk-color-gray-900);
+    --wk-ta-border: 1px solid var(--wk-color-gray-300);
+    --wk-ta-radius: var(--wk-border-radius);
+    --wk-ta-focus-border: var(--wk-color-primary);
+    --wk-ta-min-height: calc(0.875rem * 1.5 * 4); /* 4 строки */
+    --wk-ta-font-size: var(--wk-font-size-sm);
+    --wk-ta-line-height: var(--wk-line-height-sm);
+
     width: 100%;
-    padding: var(--wk-spacing-3) var(--wk-spacing-4);
+    padding: var(--wk-ta-padding);
     font-family: var(--wk-font-family), serif;
-    font-size: var(--wk-font-size-sm);
-    line-height: var(--wk-line-height-base);
-    border: 1px solid var(--wk-color-gray-300);
-    border-radius: var(--wk-radius-sm);
-    background-color: white;
-    color: var(--wk-color-gray-900);
+    font-size: var(--wk-ta-font-size);
+    line-height: var(--wk-ta-line-height);
+    border: var(--wk-ta-border);
+    border-radius: var(--wk-ta-radius);
+    background-color: var(--wk-ta-bg);
+    color: var(--wk-ta-text);
     resize: vertical;
-    min-height: calc(var(--wk-font-size-sm) * var(--wk-line-height-base) * 4);
+    min-height: var(--wk-ta-min-height);
 }
 
 .wallkit-textarea__field:focus {
     outline: none;
-    border-color: var(--wk-color-blue-500);
-    box-shadow: var(--wk-shadow-outline-blue);
+    border-color: var(--wk-ta-focus-border);
+    box-shadow: var(--wk-shadow-outline);
 }
 
 .wallkit-textarea__field::placeholder {

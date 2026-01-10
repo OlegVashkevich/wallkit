@@ -66,7 +66,7 @@ readonly class Form extends Base
     /**
      * Создаёт новый экземпляр компонента Form.
      *
-     * @param  array<string>  $fields  Массив полей формы
+     * @param  array<string>  $fields  Массив полей формы - любой Stringable объект
      * @param  string  $action  URL обработки формы
      * @param  string  $method  HTTP метод (GET, POST)
      * @param  string|null  $csrfToken  CSRF-токен для защиты

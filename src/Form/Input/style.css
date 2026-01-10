@@ -1,106 +1,126 @@
 /*
  * Стили для компонента Input
  *
- * Этот файл содержит все стили для базового поля ввода.
- * Все стили используют CSS-переменные из базовой темы WallKit.
- *
- * Структура стилей:
- * 1. Базовые стили Input
- * 2. Состояния Input (ошибка, отключен)
- * 3. Размеры Input (малый, большой)
- * 4. Варианты Input (контурный, заполненный)
- *
- * Используемые CSS-переменные:
- * - Цвета: --wk-color-*
- * - Отступы: --wk-spacing-*
- * - Типографика: --wk-font-*, --wk-line-height-*
- * - Радиусы: --wk-border-radius-*
- * - Тени: --wk-shadow-*
- * - Анимации: --wk-transition-*
- *
+ * Локальные переменные для кастомизации поля ввода.
  * Компонент: Input
  * Автор: OlegV
- * Версия: 1.0.0
+ * Версия: 1.0.1
  */
 
-/* Базовые стили Input */
 .wallkit-input__field {
+    /* Основные параметры */
+    --wk-input-padding: var(--wk-spacing-3) var(--wk-spacing-4);
+    --wk-input-border: var(--wk-border-width, 1px) solid var(--wk-color-gray-300, #d1d5db);
+    --wk-input-radius: var(--wk-border-radius, 0.25rem);
+    --wk-input-bg: white;
+    --wk-input-text: var(--wk-color-gray-900, #111827);
+    --wk-input-placeholder: var(--wk-color-gray-400, #9ca3af);
+
+    /* Фокусное состояние */
+    --wk-input-focus-border: var(--wk-color-primary, #4a6fa5);
+    --wk-input-focus-shadow: var(--wk-shadow-outline, 0 0 0 3px rgba(74, 111, 165, 0.1));
+
+    /* Состояния */
+    --wk-input-error-border: var(--wk-color-danger, #ef4444);
+    --wk-input-error-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    --wk-input-success-border: var(--wk-color-success, #10b981);
+    --wk-input-disabled-bg: var(--wk-color-gray-100, #f3f4f6);
+    --wk-input-disabled-text: var(--wk-color-gray-400, #9ca3af);
+
+    /* Анимации */
+    --wk-input-transition: var(--wk-transition, 200ms ease-in-out);
+
+    /* Варианты */
+    --wk-input-filled-bg: var(--wk-color-gray-50, #f9fafb);
+    --wk-input-outline-width: 2px;
+
     width: 100%;
-    padding: var(--wk-spacing-3) var(--wk-spacing-4);
-    font-family: var(--wk-font-family), serif;
-    font-size: var(--wk-font-size-base);
-    line-height: var(--wk-line-height-base);
-    border: var(--wk-border-width) solid var(--wk-color-gray-300);
-    border-radius: var(--wk-border-radius);
-    background-color: white;
-    color: var(--wk-color-gray-900);
-    transition: var(--wk-transition);
-    box-shadow: var(--wk-shadow-sm);
+    padding: var(--wk-input-padding);
+    font-family: var(--wk-font-family, system-ui, sans-serif), serif;
+    font-size: var(--wk-font-size-base, 1rem);
+    line-height: var(--wk-line-height-base, 1.5);
+    border: var(--wk-input-border);
+    border-radius: var(--wk-input-radius);
+    background-color: var(--wk-input-bg);
+    color: var(--wk-input-text);
+    transition: var(--wk-input-transition);
+    box-shadow: var(--wk-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
 .wallkit-input__field:focus {
     outline: none;
-    border-color: var(--wk-color-primary);
-    box-shadow: var(--wk-shadow-outline);
+    border-color: var(--wk-input-focus-border);
+    box-shadow: var(--wk-input-focus-shadow);
 }
 
 .wallkit-input__field::placeholder {
-    color: var(--wk-color-gray-400);
+    color: var(--wk-input-placeholder);
 }
 
-/* Состояния Input */
+/* Состояния */
 .wallkit-input__field--error {
-    border-color: var(--wk-color-danger);
+    border-color: var(--wk-input-error-border);
 }
 
 .wallkit-input__field--error:focus {
-    border-color: var(--wk-color-danger);
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    border-color: var(--wk-input-error-border);
+    box-shadow: var(--wk-input-error-shadow);
 }
 
 .wallkit-input__field--disabled {
-    background-color: var(--wk-color-gray-100);
-    color: var(--wk-color-gray-400);
+    background-color: var(--wk-input-disabled-bg);
+    color: var(--wk-input-disabled-text);
     cursor: not-allowed;
 }
 
 .wallkit-input__field:invalid {
-    border-color: var(--wk-color-danger);
-}
-.wallkit-input__field:valid {
-    border-color: var(--wk-color-success);
+    border-color: var(--wk-input-error-border);
 }
 
-/* Размеры Input */
+.wallkit-input__field:valid {
+    border-color: var(--wk-input-success-border);
+}
+
+/* Размеры */
 .wallkit-input__field--sm {
-    padding: var(--wk-spacing-2) var(--wk-spacing-3);
-    font-size: var(--wk-font-size-sm);
+    padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-3, 0.75rem);
+    font-size: var(--wk-font-size-sm, 0.875rem);
 }
 
 .wallkit-input__field--lg {
-    padding: var(--wk-spacing-4) var(--wk-spacing-6);
-    font-size: var(--wk-font-size-lg);
+    padding: var(--wk-spacing-4, 1rem) var(--wk-spacing-6, 1.5rem);
+    font-size: var(--wk-font-size-lg, 1.125rem);
 }
 
-/* Варианты Input */
+/* Варианты */
 .wallkit-input__field--outline {
-    border-width: 2px;
-    border-color: var(--wk-color-gray-400);
+    border-width: var(--wk-input-outline-width);
+    border-color: var(--wk-color-gray-400, #9ca3af);
 }
 
 .wallkit-input__field--filled {
-    background-color: var(--wk-color-gray-50);
+    background-color: var(--wk-input-filled-bg);
     border-color: transparent;
 }
 
 .wallkit-input__field--filled:focus {
-    background-color: white;
-    border-color: var(--wk-color-primary);
+    background-color: var(--wk-input-bg, white);
+    border-color: var(--wk-input-focus-border);
 }
 
-/* Стили для radio и checkbox */
+/* Особые типы полей */
 .wallkit-input__field[type="radio"],
 .wallkit-input__field[type="checkbox"] {
-    width: auto; /* Убираем 100% ширину */
-    margin-right: var(--wk-spacing-2);
+    width: auto;
+    margin-right: var(--wk-spacing-2, 0.5rem);
+}
+
+/* Модификаторы контейнера */
+.wallkit-input--block .wallkit-input__field {
+    width: 100%;
+}
+
+.wallkit-input--inline .wallkit-input__field {
+    width: auto;
+    display: inline-block;
 }

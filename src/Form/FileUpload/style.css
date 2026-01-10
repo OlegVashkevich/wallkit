@@ -1,93 +1,115 @@
 /*
  * Стили для компонента FileUpload
  *
- * Использует CSS-переменные из базовой темы WallKit.
- * Реализует кастомный стиль для поля загрузки файлов с поддержкой перетаскивания.
+ * Использует локальные CSS-переменные с резервными значениями из глобальной темы.
+ * Позволяет кастомизировать компонент на уровне конкретного экземпляра.
  *
  * Компонент: FileUpload
  * Автор: OlegV
  * Версия: 1.0.0
  */
 
-/* Базовые стили */
 .wallkit-fileupload {
+  /* Основные цвета */
+  --wk-fu-border: var(--wk-color-gray-300, #d1d5db);
+  --wk-fu-bg: var(--wk-color-gray-50, #f9fafb);
+  --wk-fu-text: var(--wk-color-gray-700, #374151);
+  --wk-fu-primary: var(--wk-color-primary, #4a6fa5);
+  --wk-fu-error: var(--wk-color-danger, #ef4444);
+  --wk-fu-success: var(--wk-color-success, #10b981);
+
+  /* Второстепенные цвета */
+  --wk-fu-placeholder: var(--wk-color-gray-500, #6b7280);
+  --wk-fu-help: var(--wk-color-gray-500, #6b7280);
+  --wk-fu-disabled-bg: var(--wk-color-gray-100, #f3f4f6);
+  --wk-fu-disabled-text: var(--wk-color-gray-400, #9ca3af);
+
+  /* Размеры */
+  --wk-fu-padding: var(--wk-spacing-3) var(--wk-spacing-4);
+  --wk-fu-radius: var(--wk-border-radius, 0.25rem);
+  --wk-fu-gap: var(--wk-spacing-3, 0.75rem);
+  --wk-fu-margin-bottom: var(--wk-spacing-2, 0.5rem);
+
+  /* Визуальные эффекты */
+  --wk-fu-shadow: var(--wk-shadow-outline, 0 0 0 3px rgba(74, 111, 165, 0.1));
+  --wk-fu-transition: var(--wk-transition, 200ms ease-in-out);
+
   display: block;
   width: 100%;
-  margin-bottom: var(--wk-spacing-4);
+  margin-bottom: var(--wk-spacing-4, 1rem);
 }
 
+/* Базовые стили */
 .wallkit-fileupload__label {
   display: block;
-  margin-bottom: var(--wk-spacing-2);
-  font-weight: var(--wk-font-weight-medium);
-  color: var(--wk-color-gray-700);
+  margin-bottom: var(--wk-fu-margin-bottom);
+  font-weight: var(--wk-font-weight-medium, 500);
+  color: var(--wk-fu-text);
 }
 
 .wallkit-fileupload__required {
-  color: var(--wk-color-danger);
+  color: var(--wk-fu-error);
 }
 
 .wallkit-fileupload__wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  gap: var(--wk-spacing-3);
+  gap: var(--wk-fu-gap);
 }
 
-/* Кастомное поле ввода файлов */
+/* Поле ввода */
 .wallkit-fileupload__field {
   width: 100%;
-  padding: var(--wk-spacing-3) var(--wk-spacing-4);
-  font-family: var(--wk-font-family), serif;
-  font-size: var(--wk-font-size-base);
-  border: 2px dashed var(--wk-color-gray-300);
-  border-radius: var(--wk-border-radius);
-  background-color: var(--wk-color-gray-50);
-  color: var(--wk-color-gray-700);
-  transition: all var(--wk-transition);
+  padding: var(--wk-fu-padding);
+  font-family: var(--wk-font-family, system-ui, sans-serif), serif;
+  font-size: var(--wk-font-size-base, 1rem);
+  border: 2px dashed var(--wk-fu-border);
+  border-radius: var(--wk-fu-radius);
+  background-color: var(--wk-fu-bg);
+  color: var(--wk-fu-text);
+  transition: all var(--wk-fu-transition);
   cursor: pointer;
 }
 
 .wallkit-fileupload__field:hover {
-  border-color: var(--wk-color-primary);
-  background-color: rgba(var(--wk-color-primary),10%);
+  border-color: var(--wk-fu-primary);
+  background-color: color-mix(in srgb, var(--wk-fu-primary) 10%, transparent);
 }
 
 .wallkit-fileupload__field:focus {
   outline: none;
-  border-color: var(--wk-color-primary);
-  box-shadow: var(--wk-shadow-outline);
+  border-color: var(--wk-fu-primary);
+  box-shadow: var(--wk-fu-shadow);
 }
 
 .wallkit-fileupload__field:disabled {
-  background-color: var(--wk-color-gray-100);
-  border-color: var(--wk-color-gray-200);
-  color: var(--wk-color-gray-400);
+  background-color: var(--wk-fu-disabled-bg);
+  color: var(--wk-fu-disabled-text);
   cursor: not-allowed;
 }
 
-/* Плейсхолдер */
+/* Дополнительные элементы */
 .wallkit-fileupload__placeholder {
-  color: var(--wk-color-gray-500);
-  font-size: var(--wk-font-size-sm);
+  color: var(--wk-fu-placeholder);
+  font-size: var(--wk-font-size-sm, 0.875rem);
   font-style: italic;
 }
 
-/* Вспомогательные тексты */
 .wallkit-fileupload__help {
-  margin-top: var(--wk-spacing-2);
-  font-size: var(--wk-font-size-sm);
-  color: var(--wk-color-gray-500);
+  margin-top: var(--wk-fu-margin-bottom);
+  font-size: var(--wk-font-size-sm, 0.875rem);
+  color: var(--wk-fu-help);
 }
 
 .wallkit-fileupload__error {
-  margin-top: var(--wk-spacing-2);
-  font-size: var(--wk-font-size-sm);
-  color: var(--wk-color-danger);
+  margin-top: var(--wk-fu-margin-bottom);
+  font-size: var(--wk-font-size-sm, 0.875rem);
+  color: var(--wk-fu-error);
 }
 
-/* Модификатор для перетаскивания */
+/* Состояния */
 .wallkit-fileupload__field[data-drag-over="true"] {
-  border-color: var(--wk-color-success);
-  background-color: rgba(var(--wk-color-success),10%);
+  border-color: var(--wk-fu-success);
+  background-color: color-mix(in srgb, var(--wk-fu-success) 10%, transparent);
 }

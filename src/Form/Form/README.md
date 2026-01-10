@@ -25,20 +25,20 @@
 
 ## Свойства компонента
 
-| Свойство | Тип | По умолчанию | Описание |
-|----------|-----|--------------|----------|
-| `fields` | `array` | — | Массив полей формы (обязательно) |
-| `action` | `string` | `''` | URL обработки формы |
-| `method` | `string` | `'POST'` | HTTP метод отправки |
-| `csrfToken` | `?string` | `null` | CSRF-токен для защиты |
-| `id` | `?string` | `null` | HTML ID формы |
-| `name` | `?string` | `null` | Имя формы |
-| `novalidate` | `bool` | `false` | Отключить браузерную валидацию |
-| `autoComplete` | `bool` | `true` | Включить автозаполнение |
-| `enctype` | `?string` | `null` | Тип кодировки данных |
-| `target` | `?string` | `null` | Цель отправки формы |
-| `classes` | `array<string>` | `[]` | Дополнительные CSS-классы |
-| `attributes` | `array<string, string\|int\|bool\|null>` | `[]` | Дополнительные HTML-атрибуты |
+| Свойство | Тип | По умолчанию | Описание                             |
+|----------|-----|--------------|--------------------------------------|
+| `fields` | `array` | — | Массив полей(любой Stringable объект) формы (обязательно)|
+| `action` | `string` | `''` | URL обработки формы                  |
+| `method` | `string` | `'POST'` | HTTP метод отправки                  |
+| `csrfToken` | `?string` | `null` | CSRF-токен для защиты                |
+| `id` | `?string` | `null` | HTML ID формы                        |
+| `name` | `?string` | `null` | Имя формы                            |
+| `novalidate` | `bool` | `false` | Отключить браузерную валидацию       |
+| `autoComplete` | `bool` | `true` | Включить автозаполнение              |
+| `enctype` | `?string` | `null` | Тип кодировки данных                 |
+| `target` | `?string` | `null` | Цель отправки формы                  |
+| `classes` | `array<string>` | `[]` | Дополнительные CSS-классы            |
+| `attributes` | `array<string, string\|int\|bool\|null>` | `[]` | Дополнительные HTML-атрибуты         |
 
 ## Использование
 

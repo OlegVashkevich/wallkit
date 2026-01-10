@@ -1,71 +1,122 @@
 /*
  * Стили для компонента Select
  *
- * Базовые стили аналогичны Input, с адаптацией для <select>.
+ * Локальные переменные для кастомизации выпадающего списка.
+ * Компонент: Select
+ * Автор: OlegV
+ * Версия: 1.0.1
  */
 
 .wallkit-select__field {
+  /* Основные параметры */
+  --wk-select-padding: var(--wk-spacing-3) var(--wk-spacing-4);
+  --wk-select-padding-right: calc(var(--wk-spacing-4) * 2);
+  --wk-select-border: var(--wk-border-width, 1px) solid var(--wk-color-gray-300, #d1d5db);
+  --wk-select-radius: var(--wk-border-radius, 0.25rem);
+  --wk-select-bg: white;
+  --wk-select-text: var(--wk-color-gray-900, #111827);
+
+  /* Стрелка */
+  --wk-select-arrow-size: 1.25rem;
+  --wk-select-arrow-position: right var(--wk-spacing-3) center;
+  --wk-select-arrow-disabled: var(--wk-color-gray-400, #9ca3af);
+  --wk-select-arrow-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+
+  /* Фокус */
+  --wk-select-focus-border: var(--wk-color-primary, #4a6fa5);
+  --wk-select-focus-shadow: var(--wk-shadow-outline, 0 0 0 3px rgba(74, 111, 165, 0.1));
+
+  /* Состояния */
+  --wk-select-disabled-bg: var(--wk-color-gray-100, #f3f4f6);
+  --wk-select-disabled-text: var(--wk-color-gray-400, #9ca3af);
+
+  /* Варианты */
+  --wk-select-filled-bg: var(--wk-color-gray-50, #f9fafb);
+  --wk-select-outline-width: 2px;
+
+  /* Multiple */
+  --wk-select-multiple-height: auto;
+  --wk-select-multiple-min-height: calc(var(--wk-spacing-8, 2rem) * 2);
+
   width: 100%;
-  padding: var(--wk-spacing-3) var(--wk-spacing-4);
-  padding-right: calc(var(--wk-spacing-4) * 2); /* Для стрелки */
-  font-family: var(--wk-font-family), serif;
-  font-size: var(--wk-font-size-base);
-  line-height: var(--wk-line-height-base);
-  border: var(--wk-border-width) solid var(--wk-color-gray-300);
-  border-radius: var(--wk-border-radius);
-  background-color: white;
-  color: var(--wk-color-gray-900);
-  transition: var(--wk-transition);
-  box-shadow: var(--wk-shadow-sm);
+  padding: var(--wk-select-padding);
+  padding-right: var(--wk-select-padding-right);
+  font-family: var(--wk-font-family, system-ui), sans-serif;
+  font-size: var(--wk-font-size-base, 1rem);
+  line-height: var(--wk-line-height-base, 1.5);
+  border: var(--wk-select-border);
+  border-radius: var(--wk-select-radius);
+  background-color: var(--wk-select-bg);
+  color: var(--wk-select-text);
+  transition: var(--wk-transition, 200ms ease-in-out);
+  box-shadow: var(--wk-shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+
+  /* Стрелка */
+  background-image: var(--wk-select-arrow-image);
   background-repeat: no-repeat;
-  background-position: right var(--wk-spacing-3) center;
-  background-size: 1.25rem;
+  background-position: var(--wk-select-arrow-position);
+  background-size: var(--wk-select-arrow-size);
 }
 
 .wallkit-select__field:focus {
   outline: none;
-  border-color: var(--wk-color-primary);
-  box-shadow: var(--wk-shadow-outline);
+  border-color: var(--wk-select-focus-border);
+  box-shadow: var(--wk-select-focus-shadow);
 }
 
+/* Multiple select */
 .wallkit-select__field--multiple {
   background-image: none;
-  padding-right: var(--wk-spacing-4);
-  height: auto;
-  min-height: calc(var(--wk-spacing-8) * 2);
+  padding-right: var(--wk-spacing-4, 1rem);
+  height: var(--wk-select-multiple-height);
+  min-height: var(--wk-select-multiple-min-height);
 }
 
+/* Disabled state */
 .wallkit-select__field:disabled {
-  background-color: var(--wk-color-gray-100);
-  color: var(--wk-color-gray-400);
+  background-color: var(--wk-select-disabled-bg);
+  color: var(--wk-select-disabled-text);
   cursor: not-allowed;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%239ca3af' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
 }
 
 /* Размеры */
 .wallkit-select__field--sm {
-  padding: var(--wk-spacing-2) var(--wk-spacing-3);
-  padding-right: calc(var(--wk-spacing-3) * 2);
-  font-size: var(--wk-font-size-sm);
-  background-size: 1rem;
+  --wk-select-padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-3, 0.75rem);
+  --wk-select-padding-right: calc(var(--wk-spacing-3, 0.75rem) * 2);
+  font-size: var(--wk-font-size-sm, 0.875rem);
+  --wk-select-arrow-size: 1rem;
 }
 
 .wallkit-select__field--lg {
-  padding: var(--wk-spacing-4) var(--wk-spacing-6);
-  padding-right: calc(var(--wk-spacing-6) * 2);
-  font-size: var(--wk-font-size-lg);
-  background-size: 1.5rem;
+  --wk-select-padding: var(--wk-spacing-4, 1rem) var(--wk-spacing-6, 1.5rem);
+  --wk-select-padding-right: calc(var(--wk-spacing-6, 1.5rem) * 2);
+  font-size: var(--wk-font-size-lg, 1.125rem);
+  --wk-select-arrow-size: 1.5rem;
 }
 
 /* Варианты */
 .wallkit-select__field--outline {
-  border-width: 2px;
+  border-width: var(--wk-select-outline-width);
 }
 
 .wallkit-select__field--filled {
-  background-color: var(--wk-color-gray-50);
+  background-color: var(--wk-select-filled-bg);
   border-color: transparent;
+}
+
+.wallkit-select__field--filled:focus {
+  background-color: var(--wk-select-bg);
+  border-color: var(--wk-select-focus-border);
+}
+
+/* Модификаторы контейнера */
+.wallkit-select--block .wallkit-select__field {
+  width: 100%;
+}
+
+.wallkit-select--inline .wallkit-select__field {
+  width: auto;
+  display: inline-block;
 }
