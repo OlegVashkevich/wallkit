@@ -1,0 +1,74 @@
+/*
+ * Стили для компонента Form
+ *
+ * Минимальные стили для базового компонента формы.
+ * Использует только CSS-переменные из базовой темы WallKit.
+ *
+ * Структура:
+ * 1. Базовые стили формы
+ * 2. Состояния формы
+ * 3. Сообщения формы
+ *
+ * Компонент: Form
+ * Автор: OlegV
+ * Версия: 1.0.0
+ */
+
+/* Базовые стили формы */
+.wallkit-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--wk-spacing-4);
+  width: 100%;
+  font-family: var(--wk-font-family), serif;
+  font-size: var(--wk-font-size-base);
+  line-height: var(--wk-line-height-base);
+}
+
+/* Состояние отправки формы */
+.wallkit-form--submitting {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.wallkit-form--submitting .wallkit-button {
+  cursor: wait;
+}
+
+/* Сообщения формы (для AJAX ответов) */
+.wallkit-form__message {
+  padding: var(--wk-spacing-3) var(--wk-spacing-4);
+  border-radius: var(--wk-border-radius);
+  font-size: var(--wk-font-size-sm);
+  animation: wk-fade-in 0.3s ease-in-out;
+}
+
+@keyframes wk-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wallkit-form__message--success {
+  background-color: var(--wk-color-green-50);
+  color: var(--wk-color-green-700);
+  border: 1px solid var(--wk-color-green-200);
+}
+
+.wallkit-form__message--error {
+  background-color: var(--wk-color-red-50);
+  color: var(--wk-color-red-700);
+  border: 1px solid var(--wk-color-red-200);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+  .wallkit-form {
+    gap: var(--wk-spacing-3);
+  }
+}

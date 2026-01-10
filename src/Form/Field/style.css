@@ -1,83 +1,84 @@
 /*
- * Стили для компонента Field — обёртка для поля ввода с меткой, подсказкой и ошибкой
- *
- * Этот файл содержит все стили для компонента Field, который является структурной обёрткой
- * для полей ввода (Input, Textarea, Select и др.) и включает:
- * - Метку (label) с индикатором обязательности
- * - Внутренний враппер для поля и переключателя пароля
- * - Текст помощи (help text)
- * - Сообщение об ошибке
- * - Поддержку состояний (ошибка, отключено)
- * - Варианты размеров и стилей
- *
- * Структура стилей:
- * 1. Базовые стили Field
- * 2. Состояния Field (ошибка, отключен)
- * 3. Кнопка переключения пароля
- * 4. Текст помощи и ошибок
- * 5. Размеры Field (малый, большой)
- * 6. Варианты Field (контурный, заполненный)
- * 7. Расположение элементов (слева, inline)
- *
- * Используемые CSS-переменные:
- * - Цвета: --wk-color-*
- * - Отступы: --wk-spacing-*
- * - Типографика: --wk-font-*, --wk-line-height-*
- * - Радиусы: --wk-border-radius-*
- * - Тени: --wk-shadow-*
- * - Анимации: --wk-transition-*
+ * Стили для компонента Field
+ * Унифицированная версия с label-оберткой для всех типов полей
  *
  * Компонент: Field
  * Автор: OlegV
- * Версия: 1.0.0
+ * Версия: 2.0.0
  */
 
-/* Базовые стили Field */
+/* ==================== БАЗОВЫЕ СТИЛИ ==================== */
+
 .wallkit-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--wk-spacing-2);
     margin-bottom: var(--wk-spacing-4);
     font-family: var(--wk-font-family), serif;
+    width: 100%;
 }
 
+/* Label оборачивает всё поле */
 .wallkit-field__label {
-    display: block;
-    margin-bottom: var(--wk-spacing-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--wk-spacing-2);
+    cursor: pointer;
+}
+
+/* Текст метки (внутри label) */
+.wallkit-field__label-text {
     font-weight: var(--wk-font-weight-medium);
     color: var(--wk-color-gray-700);
     font-size: var(--wk-font-size-sm);
+    line-height: var(--wk-line-height-sm);
 }
 
+/* Индикатор обязательного поля */
 .wallkit-field__required {
     color: var(--wk-color-danger);
     margin-left: var(--wk-spacing-1);
 }
 
+/* Контейнер для поля ввода и кнопки переключения */
 .wallkit-field__wrapper {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-/* Состояния Field */
-.wallkit-field--error .wallkit-input__field {
+/* ==================== СОСТОЯНИЯ ПОЛЯ ==================== */
+
+/* Ошибка */
+.wallkit-field--error .wallkit-input__field,
+.wallkit-field--error .wallkit-textarea__field,
+.wallkit-field--error .wallkit-select__field {
     border-color: var(--wk-color-danger);
 }
 
-.wallkit-field--error .wallkit-input__field:focus {
+.wallkit-field--error .wallkit-input__field:focus,
+.wallkit-field--error .wallkit-textarea__field:focus,
+.wallkit-field--error .wallkit-select__field:focus {
     border-color: var(--wk-color-danger);
     box-shadow: var(--wk-shadow-outline-red);
 }
 
-.wallkit-field--disabled .wallkit-input__field {
+/* Отключенное состояние */
+.wallkit-field--disabled .wallkit-field__label-text {
+    color: var(--wk-color-gray-400);
+    cursor: not-allowed;
+}
+
+.wallkit-field--disabled .wallkit-input__field,
+.wallkit-field--disabled .wallkit-textarea__field,
+.wallkit-field--disabled .wallkit-select__field {
     background-color: var(--wk-color-gray-100);
     color: var(--wk-color-gray-400);
     cursor: not-allowed;
 }
 
-.wallkit-field--disabled .wallkit-field__label {
-    color: var(--wk-color-gray-400);
-}
+/* ==================== ПЕРЕКЛЮЧАТЕЛЬ ПАРОЛЯ ==================== */
 
-/* Кнопка показа пароля */
 .wallkit-field__toggle-password {
     position: absolute;
     right: var(--wk-spacing-3);
@@ -88,17 +89,26 @@
     font-size: var(--wk-font-size-base);
     color: var(--wk-color-gray-500);
     transition: var(--wk-transition-fast);
+    z-index: 2;
 }
 
 .wallkit-field__toggle-password:hover {
     color: var(--wk-color-gray-700);
 }
 
-/* Подсказки и ошибки */
+.wallkit-field__toggle-password:focus-visible {
+    outline: 2px solid var(--wk-color-primary);
+    outline-offset: 2px;
+    border-radius: var(--wk-border-radius-sm);
+}
+
+/* ==================== ПОДСКАЗКИ И ОШИБКИ ==================== */
+
 .wallkit-field__help {
     margin-top: var(--wk-spacing-1);
     font-size: var(--wk-font-size-xs);
     color: var(--wk-color-gray-500);
+    line-height: var(--wk-line-height-sm);
 }
 
 .wallkit-field__error {
@@ -106,104 +116,40 @@
     font-size: var(--wk-font-size-xs);
     color: var(--wk-color-danger);
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--wk-spacing-1);
+    line-height: var(--wk-line-height-sm);
 }
 
-/* Размеры Field */
-.wallkit-field--sm .wallkit-input__field {
-    padding: var(--wk-spacing-2) var(--wk-spacing-3);
-    font-size: var(--wk-font-size-sm);
-}
+/* ==================== RADIO И CHECKBOX ==================== */
 
-.wallkit-field--sm .wallkit-field__label {
-    font-size: var(--wk-font-size-xs);
-}
-
-.wallkit-field--sm .wallkit-field__help,
-.wallkit-field--sm .wallkit-field__error {
-    font-size: 0.6875rem; /* 11px - не используем переменную так как ее нет */
-}
-
-.wallkit-field--lg .wallkit-input__field {
-    padding: var(--wk-spacing-4) var(--wk-spacing-6);
-    font-size: var(--wk-font-size-lg);
-}
-
-.wallkit-field--lg .wallkit-field__label {
-    font-size: var(--wk-font-size-base);
-    font-weight: var(--wk-font-weight-semibold);
-}
-
-.wallkit-field--lg .wallkit-field__help,
-.wallkit-field--lg .wallkit-field__error {
-    font-size: var(--wk-font-size-sm);
-}
-
-/* Варианты Field */
-.wallkit-field--outline .wallkit-input__field {
-    border-width: 2px;
-    border-color: var(--wk-color-gray-300);
-}
-
-.wallkit-field--filled .wallkit-input__field {
-    background-color: var(--wk-color-gray-50);
-    border-color: transparent;
-}
-
-.wallkit-field--filled .wallkit-input__field:focus {
-    background-color: white;
-    border-color: var(--wk-color-primary);
-}
-
-/* Расположение label */
-.wallkit-field--label-left {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--wk-spacing-3);
-    align-items: center;
-}
-
-.wallkit-field--label-left .wallkit-field__label {
-    margin-bottom: 0;
-}
-
-/* Inline Field */
-.wallkit-field--inline {
-    display: inline-flex;
-    flex-direction: column;
-    margin-right: var(--wk-spacing-4);
-    margin-bottom: 0;
-}
-
-/* Стили для Radio и Checkbox внутри Field */
+/* Контейнер для радио/чекбокса */
 .wallkit-field--radio,
 .wallkit-field--checkbox {
-    display: flex;
+    flex-direction: row;
     align-items: center;
-    cursor: pointer;
+    gap: var(--wk-spacing-2);
 }
 
-.wallkit-field--radio .wallkit-input__field,
-.wallkit-field--checkbox .wallkit-input__field {
+/* Скрываем нативный input */
+.wallkit-field--radio input[type="radio"],
+.wallkit-field--checkbox input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     width: 0;
     height: 0;
 }
 
-/* Кастомный круг для радио */
+/* Визуальное представление радио-кнопки */
 .wallkit-field__radio-visual {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.125rem;
+    height: 1.125rem;
     border: 2px solid var(--wk-color-gray-400);
     border-radius: 50%;
     background: white;
     position: relative;
-    margin-right: var(--wk-spacing-2);
     flex-shrink: 0;
-    display: inline-block;
-    vertical-align: bottom;
+    transition: var(--wk-transition-fast);
 }
 
 .wallkit-field__radio-visual::after {
@@ -212,33 +158,31 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
-    width: 0.625rem;
-    height: 0.625rem;
+    width: 0.5rem;
+    height: 0.5rem;
     border-radius: 50%;
     background: var(--wk-color-primary);
-    transition: transform 0.2s ease;
+    transition: transform var(--wk-transition-fast);
 }
 
-.wallkit-field--radio .wallkit-input__field:checked + .wallkit-field__radio-visual {
+.wallkit-field--radio input[type="radio"]:checked + .wallkit-field__radio-visual {
     border-color: var(--wk-color-primary);
 }
 
-.wallkit-field--radio .wallkit-input__field:checked + .wallkit-field__radio-visual::after {
+.wallkit-field--radio input[type="radio"]:checked + .wallkit-field__radio-visual::after {
     transform: translate(-50%, -50%) scale(1);
 }
 
-/* Кастомный квадрат для чекбокса */
+/* Визуальное представление чекбокса */
 .wallkit-field__checkbox-visual {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.125rem;
+    height: 1.125rem;
     border: 2px solid var(--wk-color-gray-400);
     border-radius: var(--wk-border-radius-sm);
     background: white;
     position: relative;
-    margin-right: var(--wk-spacing-2);
     flex-shrink: 0;
-    display: inline-block;
-    vertical-align: bottom;
+    transition: var(--wk-transition-fast);
 }
 
 .wallkit-field__checkbox-visual::after {
@@ -249,37 +193,67 @@
     transform: translate(-50%, -50%) scale(0);
     color: white;
     font-size: 0.75rem;
-    transition: transform 0.2s ease;
+    font-weight: var(--wk-font-weight-bold);
+    transition: transform var(--wk-transition-fast);
 }
 
-.wallkit-field--checkbox .wallkit-input__field:checked + .wallkit-field__checkbox-visual {
+.wallkit-field--checkbox input[type="checkbox"]:checked + .wallkit-field__checkbox-visual {
     background-color: var(--wk-color-primary);
     border-color: var(--wk-color-primary);
 }
 
-.wallkit-field--checkbox .wallkit-input__field:checked + .wallkit-field__checkbox-visual::after {
+.wallkit-field--checkbox input[type="checkbox"]:checked + .wallkit-field__checkbox-visual::after {
     transform: translate(-50%, -50%) scale(1);
 }
 
-/* Состояния disabled */
-.wallkit-field--radio .wallkit-input__field:disabled + .wallkit-field__radio-visual,
-.wallkit-field--checkbox .wallkit-input__field:disabled + .wallkit-field__checkbox-visual {
+/* Состояния disabled для радио/чекбокса */
+.wallkit-field--radio input[type="radio"]:disabled + .wallkit-field__radio-visual,
+.wallkit-field--checkbox input[type="checkbox"]:disabled + .wallkit-field__checkbox-visual {
     border-color: var(--wk-color-gray-300);
     background-color: var(--wk-color-gray-100);
     cursor: not-allowed;
 }
 
-.wallkit-field--radio .wallkit-input__field:disabled:checked + .wallkit-field__radio-visual::after {
+.wallkit-field--radio input[type="radio"]:disabled:checked + .wallkit-field__radio-visual::after {
     background-color: var(--wk-color-gray-400);
 }
 
-.wallkit-field--checkbox .wallkit-input__field:disabled:checked + .wallkit-field__checkbox-visual {
+.wallkit-field--checkbox input[type="checkbox"]:disabled:checked + .wallkit-field__checkbox-visual {
     background-color: var(--wk-color-gray-300);
     border-color: var(--wk-color-gray-300);
 }
 
-.wallkit-field--radio .wallkit-input__field:disabled ~ .wallkit-field__label,
-.wallkit-field--checkbox .wallkit-input__field:disabled ~ .wallkit-field__label {
+.wallkit-field--radio input[type="radio"]:disabled ~ .wallkit-field__label-text,
+.wallkit-field--checkbox input[type="checkbox"]:disabled ~ .wallkit-field__label-text {
     color: var(--wk-color-gray-400);
     cursor: not-allowed;
+}
+
+/* ==================== FOCUS STATES ==================== */
+
+.wallkit-field__label:focus-within .wallkit-field__label-text {
+    color: var(--wk-color-primary);
+}
+
+.wallkit-field--radio input[type="radio"]:focus-visible + .wallkit-field__radio-visual,
+.wallkit-field--checkbox input[type="checkbox"]:focus-visible + .wallkit-field__checkbox-visual {
+    outline: 2px solid var(--wk-color-primary);
+    outline-offset: 2px;
+}
+
+/* ==================== АДАПТИВНОСТЬ ==================== */
+
+@media (max-width: 768px) {
+    .wallkit-field {
+        gap: var(--wk-spacing-2);
+        margin-bottom: var(--wk-spacing-3);
+    }
+
+    .wallkit-field__label {
+        gap: var(--wk-spacing-2);
+    }
+
+    .wallkit-field__toggle-password {
+        right: var(--wk-spacing-2);
+    }
 }

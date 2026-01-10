@@ -10,7 +10,9 @@ use OlegV\WallKit\Demo\DemoHeader\DemoHeader;
 use OlegV\WallKit\Demo\DemoLayout\DemoLayout;
 use OlegV\WallKit\Demo\DemoSection\DemoSection;
 use OlegV\WallKit\Demo\DemoSidebar\DemoSidebar;
+use OlegV\WallKit\Form\Button\Button;
 use OlegV\WallKit\Form\Field\Field;
+use OlegV\WallKit\Form\Form\Form;
 use OlegV\WallKit\Form\Input\Input;
 use OlegV\WallKit\Form\Select\Select;
 use OlegV\WallKit\Form\Textarea\Textarea;
@@ -463,6 +465,46 @@ $sizesCards = [
         description: 'Несколько Select-полей для фильтрации товаров',
         badgeText: 'filters',
         badgeType: 'primary',
+    ),
+    new DemoComponentCard(
+        title: 'Простая контактная форма',
+        component: new Form(
+            fields: [
+                new Field(new Input(name: 'name', required: true), label: 'Ваше имя'),
+                new Field(new Input(name: 'email', type: 'email', required: true), label: 'Email'),
+                new Field(new Textarea(name: 'message', rows: 4, required: true), label: 'Сообщение'),
+                new Button('Отправить сообщение', type: 'submit', variant: 'primary'),
+            ],
+            action: '/contact',
+            method: 'POST',
+            csrfToken: 'qwerty',
+        ),
+        description: 'Простая контактная форма',
+        badgeText: 'form',
+        badgeType: 'form',
+    ),
+    new DemoComponentCard(
+        title: 'Форма входа',
+        component: new Form(
+            fields: [
+                new Field(
+                    input: new Input(name: 'email', type: 'email'),
+                    label: 'Email',
+                    helpText: 'Введите ваш email',
+                ),
+                new Field(
+                    input: new Input(name: 'password', type: 'password'),
+                    label: 'Пароль',
+                    withPasswordToggle: true,
+                ),
+                new Button('Войти', type: 'submit'),
+            ],
+            action: '/login',
+            method: 'POST',
+        ),
+        description: 'Форма входа',
+        badgeText: 'form',
+        badgeType: 'form',
     ),
 ];
 

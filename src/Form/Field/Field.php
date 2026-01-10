@@ -136,9 +136,38 @@ readonly class Field extends Base
      */
     public function shouldShowPasswordToggle(): bool
     {
-        if (isset($this->input->type)) {
-            return $this->input->type === 'password' && $this->withPasswordToggle;
+        return property_exists($this->input, 'type')
+            && $this->input->type === 'password'
+            && $this->withPasswordToggle;
+    }
+
+    /**
+     * Возвращает тип поля для CSS классов
+     *
+     * @return string
+     */
+    public function getFieldType(): string
+    {
+        if ($this->input instanceof Textarea) {
+            return 'textarea';
         }
-        return false;
+
+        if ($this->input instanceof Select) {
+            return 'select';
+        }
+
+        // Для Input берем тип из свойства
+        return $this->input->type ?? 'text';
+    }
+
+    /**
+     * Проверяет, является ли поле radio/checkbox
+     *
+     * @return bool
+     */
+    public function isCheckable(): bool
+    {
+        $type = $this->getFieldType();
+        return $type === 'radio' || $type === 'checkbox';
     }
 }
