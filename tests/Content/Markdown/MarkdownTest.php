@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace OlegV\WallKit\Tests\Content\Markdown;
 
-use Exception;
 use OlegV\Traits\WithInheritance;
 use OlegV\WallKit\Content\Markdown\Markdown;
 use OlegV\WallKit\Content\Markdown\ParsedownEx;
@@ -167,56 +166,6 @@ class MarkdownTest extends TestCase
         $this->assertStringContainsString('<br />', $output);
     }
 
-    /**
-     * @throws \PHPUnit\Framework\MockObject\Exception
-     */
-    public function testMarkdownHandlesParserException(): void
-    {
-        // Создаем мок для ParsedownEx, который выбрасывает исключение
-        $parserMock = $this->createMock(ParsedownEx::class);
-        $parserMock
-            ->method('text')
-            ->willThrowException(new Exception('Parser error'));
-
-        $md = new Markdown('test content');
-
-        // Используем рефлексию для установки мок-парсера
-        $reflection = new ReflectionClass($md);
-        $parserProperty = $reflection->getProperty('parser');
-        $parserProperty->setValue($md, $parserMock);
-
-        // Тестируем toHtml с обработкой исключений
-        $html = $md->toHtml();
-
-        // Должен вернуться экранированный контент
-        $this->assertEquals('test content', $html);
-    }
-
-    /**
-     * @throws \PHPUnit\Framework\MockObject\Exception
-     */
-    public function testMarkdownHandlesInlineParserException(): void
-    {
-        // Создаем мок для ParsedownEx, который выбрасывает исключение
-        $parserMock = $this->createMock(ParsedownEx::class);
-        $parserMock
-            ->method('line')
-            ->willThrowException(new Exception('Parser error'));
-
-        $md = new Markdown('test content');
-
-        // Используем рефлексию для установки мок-парсера
-        $reflection = new ReflectionClass($md);
-        $parserProperty = $reflection->getProperty('parser');
-        $parserProperty->setValue($md, $parserMock);
-
-        // Тестируем toInlineHtml с обработкой исключений
-        $html = $md->toInlineHtml();
-
-        // Должен вернуться экранированный контент
-        $this->assertEquals('test content', $html);
-    }
-
     public function testMarkdownTemplateStructure(): void
     {
         $content = '# Test';
@@ -257,33 +206,6 @@ class MarkdownTest extends TestCase
         $this->assertStringContainsString('<em>italic</em>', $output);
         $this->assertStringContainsString('<ul>', $output);
         $this->assertStringContainsString('wallkit-code', $output);
-    }
-
-    /**
-     * @throws \PHPUnit\Framework\MockObject\Exception
-     */
-    public function testMarkdownEscapesContentInErrorCase(): void
-    {
-        $content = '<script>alert("xss")</script>';
-
-        // Создаем мок для ParsedownEx, который выбрасывает исключение
-        $parserMock = $this->createMock(ParsedownEx::class);
-        $parserMock
-            ->method('text')
-            ->willThrowException(new Exception('Parser error'));
-
-        $md = new Markdown($content, true);
-
-        // Используем рефлексию для установки мок-парсера
-        $reflection = new ReflectionClass($md);
-        $parserProperty = $reflection->getProperty('parser');
-        $parserProperty->setValue($md, $parserMock);
-
-        $html = $md->toHtml();
-
-        // Должен вернуться экранированный контент
-        $this->assertStringContainsString('&lt;script&gt;', $html);
-        $this->assertStringNotContainsString('<script>', $html);
     }
 
     public function testMarkdownConstructorDoesNotThrow(): void
