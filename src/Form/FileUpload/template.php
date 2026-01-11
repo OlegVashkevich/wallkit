@@ -17,7 +17,7 @@ use OlegV\WallKit\Form\FileUpload\FileUpload;
 ?>
 <div class="wallkit-fileupload">
     <?php
-    if ($this->label): ?>
+    if ($this->hasString($this->label)): ?>
       <label for="<?= $this->e($this->getId()) ?>" class="wallkit-fileupload__label">
           <?= $this->e($this->label) ?>
           <?php
@@ -33,7 +33,7 @@ use OlegV\WallKit\Form\FileUpload\FileUpload;
     <input <?= $this->attr($this->getInputAttributes()) ?>>
 
       <?php
-      if ($this->placeholder): ?>
+      if ($this->hasString($this->placeholder)): ?>
         <div class="wallkit-fileupload__placeholder">
             <?= $this->e($this->placeholder) ?>
         </div>
@@ -42,7 +42,7 @@ use OlegV\WallKit\Form\FileUpload\FileUpload;
   </div>
 
     <?php
-    if ($this->helpText): ?>
+    if ($this->hasString($this->helpText)): ?>
       <div class="wallkit-fileupload__help">
           <?= $this->e($this->helpText) ?>
       </div>
@@ -50,7 +50,7 @@ use OlegV\WallKit\Form\FileUpload\FileUpload;
     endif; ?>
 
     <?php
-    if ($this->error): ?>
+    if ($this->hasString($this->error)): ?>
       <div class="wallkit-fileupload__error">
           <?= $this->e($this->error) ?>
       </div>

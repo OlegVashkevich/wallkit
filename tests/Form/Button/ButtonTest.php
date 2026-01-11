@@ -574,4 +574,327 @@ class ButtonTest extends TestCase
             'Focus должен использовать outline тень',
         );
     }
+
+    /**
+     * Тест: Рендеринг обычной кнопки через __toString()
+     */
+    public function testButtonRenderingViaToString(): void
+    {
+        $button = new Button('Click me');
+        $html = (string)$button;
+
+        $this->assertStringContainsString('<button', $html);
+        $this->assertStringContainsString('type="button"', $html);
+        $this->assertStringContainsString('Click me', $html);
+        $this->assertStringContainsString('wallkit-button', $html);
+        $this->assertStringContainsString('wallkit-button__text', $html);
+        $this->assertStringNotContainsString('wallkit-button__icon', $html);
+    }
+
+    /**
+     * Тест: Рендеринг кнопки-ссылки
+     */
+    public function testLinkButtonRendering(): void
+    {
+        $button = new Button(
+            text: 'Go to site',
+            href: '/home',
+            target: '_blank',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('<a', $html);
+        $this->assertStringContainsString('href="/home"', $html);
+        $this->assertStringContainsString('target="_blank"', $html);
+        $this->assertStringNotContainsString('type="', $html);
+        $this->assertStringContainsString('Go to site', $html);
+    }
+
+    /**
+     * Тест: Рендеринг кнопки с иконкой до текста
+     */
+    public function testButtonWithIconBefore(): void
+    {
+        $button = new Button(
+            text: 'Save',
+            icon: '💾',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('<span class="wallkit-button__icon">💾</span>', $html);
+        $this->assertStringContainsString('<span class="wallkit-button__text">Save</span>', $html);
+        $this->assertStringNotContainsString('wallkit-button__icon--after', $html);
+    }
+
+    /**
+     * Тест: Рендеринг кнопки с иконкой после текста
+     */
+    public function testButtonWithIconAfter(): void
+    {
+        $button = new Button(
+            text: 'Next',
+            iconAfter: '→',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('<span class="wallkit-button__text">Next</span>', $html);
+        $this->assertStringContainsString(
+            '<span class="wallkit-button__icon wallkit-button__icon--after">→</span>',
+            $html,
+        );
+    }
+
+    /**
+     * Тест: Рендеринг кнопки с обеими иконками
+     */
+    public function testButtonWithBothIcons(): void
+    {
+        $button = new Button(
+            text: 'Download',
+            icon: '⬇️',
+            iconAfter: '📥',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('<span class="wallkit-button__icon">⬇️</span>', $html);
+        $this->assertStringContainsString('<span class="wallkit-button__text">Download</span>', $html);
+        $this->assertStringContainsString(
+            '<span class="wallkit-button__icon wallkit-button__icon--after">📥</span>',
+            $html,
+        );
+    }
+
+    /**
+     * Тест: Рендеринг disabled кнопки
+     */
+    public function testDisabledButtonRendering(): void
+    {
+        $button = new Button(
+            text: 'Disabled',
+            disabled: true,
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('disabled', $html);
+        $this->assertStringContainsString('wallkit-button--disabled', $html);
+    }
+
+    /**
+     * Тест: Рендеринг кнопки с onClick
+     */
+    public function testButtonWithOnClick(): void
+    {
+        $button = new Button(
+            text: 'Click me',
+            onClick: 'alert("test")',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringNotContainsString('onclick', $html);
+    }
+
+    /**
+     * Тест: Рендеринг submit кнопки
+     */
+    public function testSubmitButtonRendering(): void
+    {
+        $button = new Button(
+            text: 'Submit',
+            type: 'submit',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('type="submit"', $html);
+    }
+
+    /**
+     * Тест: Рендеринг reset кнопки
+     */
+    public function testResetButtonRendering(): void
+    {
+        $button = new Button(
+            text: 'Reset',
+            type: 'reset',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('type="reset"', $html);
+    }
+
+    /**
+     * Тест: Рендеринг outline кнопки
+     */
+    public function testOutlineButtonRendering(): void
+    {
+        $button = new Button(
+            text: 'Outline',
+            variant: 'primary',
+            outline: true,
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('wallkit-button--outline-primary', $html);
+        $this->assertStringNotContainsString('wallkit-button--primary', $html);
+    }
+
+    /**
+     * Тест: Рендеринг full-width кнопки
+     */
+    public function testFullWidthButtonRendering(): void
+    {
+        $button = new Button(
+            text: 'Full Width',
+            fullWidth: true,
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('wallkit-button--full-width', $html);
+    }
+
+    /**
+     * Тест: Рендеринг rounded кнопки
+     */
+    public function testRoundedButtonRendering(): void
+    {
+        $button = new Button(
+            text: 'Rounded',
+            rounded: true,
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('wallkit-button--rounded', $html);
+    }
+
+    /**
+     * Тест: Рендеринг кнопки разных размеров
+     */
+    public function testButtonSizesRendering(): void
+    {
+        $sizes = ['sm', 'md', 'lg'];
+
+        foreach ($sizes as $size) {
+            $button = new Button(
+                text: "Size $size",
+                size: $size,
+            );
+
+            $html = (string)$button;
+            $this->assertStringContainsString("wallkit-button--$size", $html);
+        }
+    }
+
+    /**
+     * Тест: Рендеринг кнопки разных вариантов
+     */
+    public function testButtonVariantsRendering(): void
+    {
+        $variants = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link'];
+
+        foreach ($variants as $variant) {
+            $button = new Button(
+                text: ucfirst($variant),
+                variant: $variant,
+            );
+
+            $html = (string)$button;
+            $this->assertStringContainsString("wallkit-button--$variant", $html);
+        }
+    }
+
+    /**
+     * Тест: Рендеринг кнопки с кастомными классами
+     */
+    public function testButtonWithCustomClasses(): void
+    {
+        $button = new Button(
+            text: 'Custom',
+            classes: ['custom-class', 'another-class'],
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('custom-class', $html);
+        $this->assertStringContainsString('another-class', $html);
+    }
+
+    /**
+     * Тест: Рендеринг кнопки с кастомными атрибутами
+     */
+    public function testButtonWithCustomAttributes(): void
+    {
+        $button = new Button(
+            text: 'Custom Attr',
+            attributes: [
+                'data-test' => 'value',
+                'aria-label' => 'Test button',
+                'title' => 'Tooltip',
+            ],
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('data-test="value"', $html);
+        $this->assertStringContainsString('aria-label="Test button"', $html);
+        $this->assertStringContainsString('title="Tooltip"', $html);
+    }
+
+    /**
+     * Тест: Рендеринг кнопки с ID
+     */
+    public function testButtonWithId(): void
+    {
+        $button = new Button(
+            text: 'With ID',
+            id: 'test-button-id',
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringContainsString('id="test-button-id"', $html);
+    }
+
+    /**
+     * Тест: Проверка, что null-значения не рендерятся в HTML
+     */
+    public function testNullValuesNotRendered(): void
+    {
+        $button = new Button(
+            text: 'Test',
+            href: null,
+            target: null,
+            id: null,
+            onClick: null,
+        );
+
+        $html = (string)$button;
+
+        $this->assertStringNotContainsString('id="', $html);
+        $this->assertStringNotContainsString('onclick="', $html);
+        $this->assertStringNotContainsString('href="', $html);
+        $this->assertStringNotContainsString('target="', $html);
+    }
+
+    /**
+     * Тест: Проверка корректного HTML вывода через echo
+     */
+    public function testButtonEchoOutput(): void
+    {
+        ob_start();
+        echo new Button('Echo Test');
+        $html = ob_get_clean();
+
+        $this->assertStringContainsString('<button', $html);
+        $this->assertStringContainsString('Echo Test', $html);
+    }
 }
