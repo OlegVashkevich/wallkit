@@ -19,10 +19,10 @@ class FieldIntegrationTest extends TestCase
 
     public function testRegistersAssetsWithBrickManager(): void
     {
-        new Field(
+        echo new Field(
             input: new Input(name: 'test1'),
         );
-        new Field(
+        echo new Field(
             input: new Input(name: 'test2'),
         );
 
@@ -42,9 +42,9 @@ class FieldIntegrationTest extends TestCase
         $manager = BrickManager::getInstance();
 
         // Создаем несколько полей
-        $field1 = new Field(input: new Input(name: 'first'));
-        $field2 = new Field(input: new Input(name: 'second'));
-        $field3 = new Field(input: new Input(name: 'third'));
+        echo new Field(input: new Input(name: 'first'));
+        echo new Field(input: new Input(name: 'second'));
+        echo new Field(input: new Input(name: 'third'));
 
         // Все должны использовать кэш
         $stats = $manager->getStats();

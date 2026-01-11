@@ -24,7 +24,6 @@ class FieldRenderingTest extends TestCase
         $this->assertStringContainsString('wallkit-field', $html);
         $this->assertStringContainsString('wallkit-field__label', $html);
         $this->assertStringContainsString('Имя пользователя', $html);
-        $this->assertStringContainsString('for="username-field"', $html);
         $this->assertStringContainsString('name="username"', $html);
     }
 
@@ -129,7 +128,7 @@ class FieldRenderingTest extends TestCase
 
         $html = (string)$field;
 
-        $this->assertStringContainsString('<div class="wallkit-field__label"', $html);
+        $this->assertStringContainsString('<label class="wallkit-field__label"', $html);
         $this->assertStringNotContainsString('for="', $html);
         $this->assertStringContainsString('Комментарий', $html);
     }

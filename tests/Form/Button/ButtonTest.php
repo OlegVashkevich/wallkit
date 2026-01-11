@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace OlegV\WallKit\Tests\Form\Button;
 
 use OlegV\Exceptions\RenderException;
+use OlegV\WallKit\Base\Base;
 use OlegV\WallKit\Form\Button\Button;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * Тесты для компонента Button
@@ -28,7 +30,7 @@ class ButtonTest extends TestCase
      */
     public function testButtonIsReadonly(): void
     {
-        $reflection = new \ReflectionClass(Button::class);
+        $reflection = new ReflectionClass(Button::class);
         $this->assertTrue($reflection->isReadOnly());
     }
 
@@ -37,7 +39,7 @@ class ButtonTest extends TestCase
      */
     public function testButtonExtendsBase(): void
     {
-        $this->assertInstanceOf(\OlegV\WallKit\Base\Base::class, new Button('Test'));
+        $this->assertInstanceOf(Base::class, new Button('Test'));
     }
 
     /**
@@ -113,9 +115,9 @@ class ButtonTest extends TestCase
     public function testButtonTypeValidation(): void
     {
         // Допустимые типы
-        new Button('Test', type: 'button');
-        new Button('Test', type: 'submit');
-        new Button('Test', type: 'reset');
+        echo new Button('Test', type: 'button');
+        echo new Button('Test', type: 'submit');
+        echo new Button('Test', type: 'reset');
 
         // Недопустимый тип - тестируем через renderOriginal()
         $invalidButton = new Button('Test', type: 'invalid');
@@ -134,7 +136,7 @@ class ButtonTest extends TestCase
         // Допустимые варианты
         $validVariants = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link'];
         foreach ($validVariants as $variant) {
-            new Button('Test', variant: $variant);
+            echo new Button('Test', variant: $variant);
         }
 
         // Недопустимый вариант
@@ -150,9 +152,9 @@ class ButtonTest extends TestCase
     public function testButtonSizeValidation(): void
     {
         // Допустимые размеры
-        new Button('Test', size: 'sm');
-        new Button('Test', size: 'md');
-        new Button('Test', size: 'lg');
+        echo new Button('Test', size: 'sm');
+        echo new Button('Test', size: 'md');
+        echo new Button('Test', size: 'lg');
 
         // Недопустимый размер
         $invalidButton = new Button('Test', size: 'xl');
@@ -226,8 +228,8 @@ class ButtonTest extends TestCase
     {
         $button = new Button(
             'Test',
-            id: 'test-btn',
             disabled: true,
+            id: 'test-btn',
             onClick: 'test()',
         );
 
@@ -325,7 +327,7 @@ class ButtonTest extends TestCase
             $this->assertStringContainsString(
                 $variable.':',
                 $cssContent,
-                "CSS переменная {$variable} должна быть определена",
+                "CSS переменная $variable должна быть определена",
             );
         }
     }
@@ -381,7 +383,7 @@ class ButtonTest extends TestCase
             $this->assertStringContainsString(
                 $class,
                 $cssContent,
-                "CSS класс {$class} должен быть определен",
+                "CSS класс $class должен быть определен",
             );
         }
     }
@@ -404,7 +406,7 @@ class ButtonTest extends TestCase
             $this->assertStringContainsString(
                 $state,
                 $cssContent,
-                "Hover состояние {$state} должно быть определено",
+                "Hover состояние $state должно быть определено",
             );
         }
     }

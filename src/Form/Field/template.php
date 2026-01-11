@@ -26,7 +26,6 @@ use OlegV\WallKit\Form\Field\Field;
 $fieldType = $this->getFieldType();
 $isCheckable = $this->isCheckable();
 ?>
-
 <div class="<?= $this->e($this->classList($this->getWrapperClasses())) ?>">
     <?php
     if ($this->hasString($this->label)): ?>
