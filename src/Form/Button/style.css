@@ -152,7 +152,7 @@
 }
 
 .wallkit-button--rounded {
-  --wk-btn-radius: 9999px;
+  --wk-btn-radius: 100%;
 }
 
 .wallkit-button--disabled,

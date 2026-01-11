@@ -20,25 +20,25 @@ use OlegV\WallKit\Form\Button\Button;
 ?>
 <?php if ($this->isLink()): ?>
     <a <?= $this->attr($this->getButtonAttributes()) ?>>
-        <?php if ($this->icon): ?>
+        <?php if ($this->hasString($this->icon)): ?>
             <span class="wallkit-button__icon"><?= $this->e($this->icon) ?></span>
         <?php endif; ?>
 
         <span class="wallkit-button__text"><?= $this->e($this->text) ?></span>
 
-        <?php if ($this->iconAfter): ?>
+        <?php if ($this->hasString($this->iconAfter)): ?>
             <span class="wallkit-button__icon wallkit-button__icon--after"><?= $this->e($this->iconAfter) ?></span>
         <?php endif; ?>
     </a>
 <?php else: ?>
     <button <?= $this->attr($this->getButtonAttributes()) ?>>
-        <?php if ($this->icon): ?>
+        <?php if ($this->hasString($this->icon)): ?>
             <span class="wallkit-button__icon"><?= $this->e($this->icon) ?></span>
         <?php endif; ?>
 
         <span class="wallkit-button__text"><?= $this->e($this->text) ?></span>
 
-        <?php if ($this->iconAfter): ?>
+        <?php if ($this->hasString($this->iconAfter)): ?>
             <span class="wallkit-button__icon wallkit-button__icon--after"><?= $this->e($this->iconAfter) ?></span>
         <?php endif; ?>
     </button>
