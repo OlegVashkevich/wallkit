@@ -11,9 +11,7 @@ readonly class TestComponent extends Base
 {
     public function __construct(
         public string $message = 'Hello World',
-    ) {
-        parent::__construct();
-    }
+    ) {}
 }
 
 class RenderTest extends TestCase

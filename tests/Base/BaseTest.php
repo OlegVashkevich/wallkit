@@ -45,30 +45,55 @@ class BaseTest extends TestCase
     {
         $cssContent = file_get_contents($this->cssFilePath);
 
-        // Проверяем основные CSS-переменные
+        // Проверяем основные группы CSS-переменных из обновленного файла
         $expectedVariables = [
-            '--wk-black',
-            '--wk-dark-gray',
-            '--wk-medium-gray',
-            '--wk-light-gray',
-            '--wk-white',
-            '--wk-border',
-            '--wk-accent',
-            '--wk-vis-accent',
-            '--wk-nav-accent',
-            '--wk-form-accent',
-            '--wk-control-accent',
-            '--wk-feedback-accent',
-            '--wk-error-color',
-            '--wk-success-color',
-            '--wk-warning-color',
-            '--wk-info-color',
+            // Цветовая система
+            '--wk-color-gray-50',
+            '--wk-color-gray-500',
+            '--wk-color-gray-900',
+            '--wk-color-primary',
+            '--wk-color-secondary',
+            '--wk-color-success',
+            '--wk-color-danger',
+            '--wk-color-warning',
+            '--wk-color-info',
+            '--wk-color-blue-500',
+            '--wk-color-red-600',
+            '--wk-color-green-500',
+            '--wk-color-yellow-500',
+            '--wk-color-purple-500',
+
+            // Типографика
             '--wk-font-family',
+            '--wk-font-size-xs',
             '--wk-font-size-base',
+            '--wk-font-size-xl',
+            '--wk-font-size-5xl',
+            '--wk-font-weight-normal',
+            '--wk-font-weight-bold',
+            '--wk-line-height-base',
+
+            // Отступы
+            '--wk-spacing-1',
             '--wk-spacing-4',
-            '--wk-radius-md',
-            '--wk-shadow-md',
-            '--wk-transition-default',
+            '--wk-spacing-8',
+            '--wk-spacing-20',
+
+            // Границы и радиусы
+            '--wk-border-width',
+            '--wk-border-radius',
+            '--wk-border-radius-lg',
+
+            // Тени
+            '--wk-shadow-sm',
+            '--wk-shadow',
+            '--wk-shadow-lg',
+            '--wk-shadow-outline',
+
+            // Анимации
+            '--wk-transition-fast',
+            '--wk-transition',
+            '--wk-transition-slow',
         ];
 
         foreach ($expectedVariables as $variable) {
@@ -90,24 +115,73 @@ class BaseTest extends TestCase
 
         $this->assertGreaterThan(50, count($matches[1]), 'Должно быть много CSS переменных');
 
-        // Проверяем несколько ключевых переменных
+        // Проверяем несколько ключевых переменных на корректность значений
         $lines = explode("\n", $cssContent);
         foreach ($lines as $line) {
-            if (str_contains($line, '--wk-color-blue-500:')) {
+            $trimmedLine = trim($line);
+
+            if (str_contains($trimmedLine, '--wk-color-blue-500:')) {
                 $this->assertStringContainsString(
-                    'var(--wk-accent)',
-                    $line,
-                    'Основной синий цвет должен быть var(--wk-accent)',
+                    'var(--wk-color-primary)',
+                    $trimmedLine,
+                    'Основной синий цвет должен ссылаться на primary цвет',
                 );
             }
 
-            if (str_contains($line, '--wk-font-family:')) {
-                $this->assertStringContainsString("'Inter'", $line, 'Шрифт должен быть Inter');
+            if (str_contains($trimmedLine, '--wk-font-family:')) {
+                $this->assertStringContainsString(
+                    'system-ui',
+                    $trimmedLine,
+                    'Шрифтовая система должна включать system-ui',
+                );
             }
 
-            if (str_contains($line, '--wk-font-size-base:')) {
-                $this->assertStringContainsString('1rem', $line, 'Базовый размер шрифта должен быть 1rem');
+            if (str_contains($trimmedLine, '--wk-font-size-base:')) {
+                $this->assertStringContainsString(
+                    '1rem',
+                    $trimmedLine,
+                    'Базовый размер шрифта должен быть 1rem',
+                );
+            }
+
+            if (str_contains($trimmedLine, '--wk-color-primary:')) {
+                $this->assertStringContainsString(
+                    '#4a6fa5',
+                    $trimmedLine,
+                    'Основной цвет должен быть #4a6fa5',
+                );
+            }
+
+            if (str_contains($trimmedLine, '--wk-color-danger:')) {
+                $this->assertStringContainsString(
+                    '#ef4444',
+                    $trimmedLine,
+                    'Цвет опасности должен быть #ef4444',
+                );
+            }
+
+            if (str_contains($trimmedLine, '--wk-border-radius:')) {
+                $this->assertStringContainsString(
+                    '0.25rem',
+                    $trimmedLine,
+                    'Базовый радиус границы должен быть 0.25rem',
+                );
             }
         }
+    }
+
+    public function testCssVariablesConsistency(): void
+    {
+        $cssContent = file_get_contents($this->cssFilePath);
+
+        // Проверяем, что все цвета имеют значения в hex-формате или var()
+        $colorPattern = '/(--wk-color-[a-zA-Z0-9-]+):\s*(#[0-9a-fA-F]{3,6}|var\(--wk-[a-zA-Z0-9-]+\))/';
+        preg_match_all($colorPattern, $cssContent, $colorMatches);
+
+        $this->assertGreaterThan(
+            30,
+            count($colorMatches[0]),
+            'Должно быть много корректно определенных цветовых переменных',
+        );
     }
 }
