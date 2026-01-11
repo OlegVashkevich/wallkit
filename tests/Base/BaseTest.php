@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace OlegV\WallKit\Tests\Base;
 
+use OlegV\Brick;
 use OlegV\WallKit\Base\Base;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
 
 /**
  * Тест базового класса WallKit
@@ -21,13 +23,13 @@ class BaseTest extends TestCase
 
     public function testBaseIsReadonly(): void
     {
-        $reflection = new \ReflectionClass(Base::class);
+        $reflection = new ReflectionClass(Base::class);
         $this->assertTrue($reflection->isReadOnly());
     }
 
     public function testBaseExtendsBrick(): void
     {
-        $this->assertInstanceOf(\OlegV\Brick::class, new Base());
+        $this->assertInstanceOf(Brick::class, new Base());
     }
 
     public function testBaseRendersEmptyStringByDefault(): void
@@ -100,7 +102,7 @@ class BaseTest extends TestCase
             $this->assertStringContainsString(
                 $variable.':',
                 $cssContent,
-                "CSS переменная {$variable} должна быть определена",
+                "CSS переменная $variable должна быть определена",
             );
         }
     }

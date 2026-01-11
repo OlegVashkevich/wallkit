@@ -115,7 +115,7 @@ readonly class Code extends Base
     protected function prepare(): void
     {
         // Валидация языка (только для подсветки)
-        if ($this->highlight && !in_array($this->language, ['plaintext', 'text'])) {
+        if ($this->highlight && !in_array($this->language, ['plaintext', 'text'], true)) {
             $this->ensureHighlightLibrary();
         }
 
@@ -152,7 +152,7 @@ readonly class Code extends Base
                 return;
             }
 
-            if (!in_array($this->language, $highlighter::listBundledLanguages())) {
+            if (!in_array($this->language, $highlighter::listBundledLanguages(), true)) {
                 throw new InvalidArgumentException(
                     "Язык '$this->language' не поддерживается библиотекой highlight.php. ".
                     "Используйте один из: ".implode(', ', $highlighter::listBundledLanguages()),
@@ -185,7 +185,11 @@ readonly class Code extends Base
         $highlighter = new Highlighter();
         try {
             $highlighted = $highlighter->highlight($this->language, $this->content);
-            return $highlighted->value;
+            if (isset($highlighted->value) && is_string($highlighted->value)) {
+                return $highlighted->value;
+            } else {
+                return htmlspecialchars($this->content);
+            }
         } catch (Exception) {
             // В случае ошибки подсветки возвращаем обычный текст
             return htmlspecialchars($this->content);
