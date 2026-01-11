@@ -85,22 +85,22 @@ readonly class Button extends Base
      * @throws \InvalidArgumentException Если передан недопустимый вариант стиля
      */
     public function __construct(
-            public string $text,
-            public string $type = 'button',
-            public string $variant = 'primary',
-            public string $size = 'md',
-            public bool $disabled = false,
-            public ?string $icon = null,
-            public ?string $iconAfter = null,
-            public ?string $href = null,
-            public ?string $target = null,
-            public ?string $id = null,
-            public array $classes = [],
-            public array $attributes = [],
-            public ?string $onClick = null,
-            public bool $fullWidth = false,
-            public bool $outline = false,
-            public bool $rounded = false,
+        public string $text,
+        public string $type = 'button',
+        public string $variant = 'primary',
+        public string $size = 'md',
+        public bool $disabled = false,
+        public ?string $icon = null,
+        public ?string $iconAfter = null,
+        public ?string $href = null,
+        public ?string $target = null,
+        public ?string $id = null,
+        public array $classes = [],
+        public array $attributes = [],
+        public ?string $onClick = null,
+        public bool $fullWidth = false,
+        public bool $outline = false,
+        public bool $rounded = false,
     ) {}
 
     /**
@@ -119,17 +119,17 @@ readonly class Button extends Base
     protected function prepare(): void
     {
         $validTypes = ['button', 'submit', 'reset'];
-        if ( ! in_array($this->type, $validTypes, true)) {
+        if (! in_array($this->type, $validTypes, true)) {
             throw new InvalidArgumentException("Неподдерживаемый тип кнопки: $this->type");
         }
 
         $validVariants = ['primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'link'];
-        if ( ! in_array($this->variant, $validVariants, true)) {
+        if (! in_array($this->variant, $validVariants, true)) {
             throw new InvalidArgumentException("Неподдерживаемый вариант стиля: $this->variant");
         }
 
         $validSizes = ['sm', 'md', 'lg'];
-        if ( ! in_array($this->size, $validSizes, true)) {
+        if (! in_array($this->size, $validSizes, true)) {
             throw new InvalidArgumentException("Неподдерживаемый размер: $this->size");
         }
     }
@@ -178,8 +178,8 @@ readonly class Button extends Base
     public function getButtonAttributes(): array
     {
         $attrs = array_merge([
-                'id' => $this->id,
-                'class' => $this->classList($this->getButtonClasses()),
+            'id' => $this->id,
+            'class' => $this->classList($this->getButtonClasses()),
         ], $this->attributes);
 
         if ($this->href === null) {
@@ -200,7 +200,7 @@ readonly class Button extends Base
         }
 
         // Удаляем null значения
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 
     /**

@@ -19,7 +19,7 @@ use OlegV\WallKit\Demo\DemoStats\DemoStats;
         <div class="wallkit-demo-stats__progress-bar">
             <div
                     class="wallkit-demo-stats__progress-fill"
-                    style="width: <?= $this->e((string)$this->getProgress()) ?>%"
+                    style="width: <?= $this->e((string) $this->getProgress()) ?>%"
             ></div>
         </div>
         <div class="wallkit-demo-stats__progress-text">

@@ -110,8 +110,7 @@ use OlegV\WallKit\Demo\DemoComponentGrid\DemoComponentGrid;
                 </div>
             <?php
             endforeach; ?>
-        <?php
-        else: ?>
+        <?php else: ?>
             <!-- Плоский список без группировки -->
             <div class="wallkit-demo-component-grid__items">
                 <?php
@@ -161,14 +160,14 @@ if (!empty($allTags)):
                 <a
                         href="#"
                         class="wallkit-demo-component-grid__tag <?= $this->e($this->getTagSizeClass($count)) ?>"
-                        data-count="<?= $this->e((string)$count) ?>"
+                        data-count="<?= $this->e((string) $count) ?>"
                         onclick="filterByTag('<?= $this->e($tag) ?>'); return false;"
                 >
                     <?= $this->e($tag) ?>
                     <?php
                     if ($count > 1): ?>
                         <span class="wallkit-demo-component-grid__tag-count">
-                        <?= $this->e((string)$count) ?>
+                        <?= $this->e((string) $count) ?>
                     </span>
                     <?php
                     endif; ?>

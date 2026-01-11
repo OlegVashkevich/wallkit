@@ -132,6 +132,6 @@ readonly class Form extends Base
         }
 
         // Удаляем null значения
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 }

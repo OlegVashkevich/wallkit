@@ -133,7 +133,7 @@ readonly class ApiResponse extends Base
         $json = json_encode($result, $this->jsonOptions, $this->jsonDepth);
 
         if ($json === false) {
-            throw new RuntimeException('Ошибка кодирования JSON: '.json_last_error_msg());
+            throw new RuntimeException('Ошибка кодирования JSON: ' . json_last_error_msg());
         }
 
         return $json;

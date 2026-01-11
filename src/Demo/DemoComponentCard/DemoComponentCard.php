@@ -31,7 +31,7 @@ readonly class DemoComponentCard extends Base
         if (is_array($this->component)) {
             return implode('', $this->component);
         }
-        return (string)$this->component;
+        return (string) $this->component;
     }
 
     public function getBadgeClasses(): array
@@ -63,7 +63,7 @@ readonly class DemoComponentCard extends Base
         $processed[$objId] = true;
 
         $reflection = new ReflectionClass($obj);
-        $className = str_replace($reflection->getNamespaceName().'\\', '', $reflection->getName());
+        $className = str_replace($reflection->getNamespaceName() . '\\', '', $reflection->getName());
         $constructor = $reflection->getConstructor();
 
         if (!$constructor) {
@@ -102,16 +102,16 @@ readonly class DemoComponentCard extends Base
         }
 
         $outerIndent = str_repeat('    ', $depth - 1);
-        return "new $className(\n".implode(",\n", $args)."\n$outerIndent)";
+        return "new $className(\n" . implode(",\n", $args) . "\n$outerIndent)";
     }
 
     private function formatValue($value, int $depth = 1, array &$processed = []): string
     {
         if (is_string($value)) {
-            return "'".addslashes($value)."'";
+            return "'" . addslashes($value) . "'";
         }
         if (is_int($value) || is_float($value)) {
-            return (string)$value;
+            return (string) $value;
         }
         if (is_bool($value)) {
             return $value ? 'true' : 'false';
@@ -145,6 +145,6 @@ readonly class DemoComponentCard extends Base
         }
 
         $outerIndent = str_repeat('    ', $depth);
-        return "[\n".implode(",\n", $items)."\n$outerIndent]";
+        return "[\n" . implode(",\n", $items) . "\n$outerIndent]";
     }
 }

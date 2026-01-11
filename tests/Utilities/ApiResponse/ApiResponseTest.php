@@ -210,7 +210,7 @@ class ApiResponseTest extends TestCase
 
     public function testExcludeFilterForObjects(): void
     {
-        $user = new class() {
+        $user = new class () {
             public int $id = 1;
             public string $name = 'John';
             public string $password = 'secret';
@@ -258,12 +258,12 @@ class ApiResponseTest extends TestCase
 
     public function testNestedObjectFiltering(): void
     {
-        $nested = new class() {
+        $nested = new class () {
             public string $visible = 'test';
             public string $secret = 'hidden';
         };
 
-        $main = new class($nested) {
+        $main = new class ($nested) {
             public object $nested;
             public string $public = 'data';
             public string $private = 'confidential';
@@ -382,7 +382,7 @@ class ApiResponseTest extends TestCase
         $response = ApiResponse::success(['test' => 'value']);
 
         // При приведении к строке должен вызываться рендеринг
-        $output = (string)$response;
+        $output = (string) $response;
         $data = json_decode($output, true);
 
         $this->assertIsArray($data);

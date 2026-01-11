@@ -46,7 +46,7 @@ class SelectTest extends TestCase
             selected: 'ru',
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('<select', $html);
         $this->assertStringContainsString('name="country"', $html);
         $this->assertStringContainsString('value="ru"', $html);
@@ -98,7 +98,7 @@ class SelectTest extends TestCase
             multiple: true,
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('name="skills[]"', $html);
         $this->assertStringContainsString('multiple', $html);
         $this->assertMatchesRegularExpression('/value="php"[^>]*selected/', $html);
@@ -126,7 +126,7 @@ class SelectTest extends TestCase
             selected: 'audi',
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('<optgroup label="Немецкие">', $html);
         $this->assertStringContainsString('<optgroup label="Японские">', $html);
         $this->assertMatchesRegularExpression('/value="audi"[^>]*selected/', $html);
@@ -143,7 +143,7 @@ class SelectTest extends TestCase
             placeholder: 'Выберите отдел',
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('<option value="" disabled', $html);
         $this->assertStringContainsString('Выберите отдел', $html);
     }
@@ -159,7 +159,7 @@ class SelectTest extends TestCase
             required: true,
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('required', $html);
     }
 
@@ -174,7 +174,7 @@ class SelectTest extends TestCase
             disabled: true,
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('disabled', $html);
     }
 
@@ -189,7 +189,7 @@ class SelectTest extends TestCase
             autoFocus: true,
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('autofocus', $html);
     }
 
@@ -355,7 +355,7 @@ class SelectTest extends TestCase
             options: [],
         );
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertStringContainsString('<select', $html);
         $this->assertStringContainsString('name="empty"', $html);
     }
@@ -374,7 +374,7 @@ class SelectTest extends TestCase
         $this->assertTrue($select->isOptionSelected('1')); // Строка
         $this->assertTrue($select->isOptionSelected(1));   // Число
 
-        $html = (string)$select;
+        $html = (string) $select;
         $this->assertMatchesRegularExpression('/value="1"[^>]*selected/', $html);
     }
 

@@ -22,5 +22,7 @@
  *           rows="4" placeholder="Введите комментарий">Текущий текст</textarea>
  */
 
-use OlegV\WallKit\Form\Textarea\Textarea; ?>
+use OlegV\WallKit\Form\Textarea\Textarea;
+
+?>
 <textarea <?= $this->attr($this->getTextareaAttributes()) ?>><?= $this->e($this->value) ?></textarea>

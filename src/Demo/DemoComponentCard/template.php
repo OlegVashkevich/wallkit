@@ -32,16 +32,16 @@ use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
       </div>
     <?php
     endif;
-    $code = '';
-    if (is_array($this->component)) {
-        foreach ($this->component as $component) {
-            $code .= $this->objectToConstructorStringNonDefaults($component).','.PHP_EOL;
-        }
-    } else {
-        $code .= $this->objectToConstructorStringNonDefaults($this->component);
+$code = '';
+if (is_array($this->component)) {
+    foreach ($this->component as $component) {
+        $code .= $this->objectToConstructorStringNonDefaults($component) . ',' . PHP_EOL;
     }
+} else {
+    $code .= $this->objectToConstructorStringNonDefaults($this->component);
+}
 
-    //можно пробросить через полноценное свойство, но пока пусть так будет?>
+//можно пробросить через полноценное свойство, но пока пусть так будет?>
     <?= new Code(
         content: $code,
         language: 'php',

@@ -14,7 +14,7 @@ use ReflectionClass;
  */
 class BaseTest extends TestCase
 {
-    public string $cssFilePath = __DIR__.'/../../src/Base/style.css';
+    public string $cssFilePath = __DIR__ . '/../../src/Base/style.css';
 
     public function testBaseClassExists(): void
     {
@@ -35,7 +35,7 @@ class BaseTest extends TestCase
     public function testBaseRendersEmptyStringByDefault(): void
     {
         $base = new Base();
-        $this->assertEquals('', (string)$base);
+        $this->assertEquals('', (string) $base);
     }
 
     public function testBaseCssVariablesFileExists(): void
@@ -100,7 +100,7 @@ class BaseTest extends TestCase
 
         foreach ($expectedVariables as $variable) {
             $this->assertStringContainsString(
-                $variable.':',
+                $variable . ':',
                 $cssContent,
                 "CSS переменная $variable должна быть определена",
             );

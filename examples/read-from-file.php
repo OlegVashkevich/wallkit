@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use OlegV\BrickManager;
 use OlegV\WallKit\Content\Markdown\Markdown;
@@ -38,11 +38,11 @@ function renderMarkdownFile(string $filePath): string
         safeMode: true, // Всегда безопасно для внешних файлов
     );
 
-    return (string)$markdown;
+    return (string) $markdown;
 }
 
 // Пример использования
-$readmeContent = renderMarkdownFile(__DIR__.'/../README.md');
+$readmeContent = renderMarkdownFile(__DIR__ . '/../README.md');
 /*$readmeContent = new Markdown(
     content: '<script>alert("xss")</script>',
     safeMode: true, // Всегда безопасно для внешних файлов

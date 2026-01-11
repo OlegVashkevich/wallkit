@@ -36,8 +36,8 @@ class FieldRealWorldTest extends TestCase
             helpText: 'Минимум 8 символов',
         );
 
-        $usernameHtml = (string)$usernameField;
-        $passwordHtml = (string)$passwordField;
+        $usernameHtml = (string) $usernameField;
+        $passwordHtml = (string) $passwordField;
 
         // Проверяем username поле
         $this->assertStringContainsString('name="username"', $usernameHtml);
@@ -82,13 +82,13 @@ class FieldRealWorldTest extends TestCase
         );
 
         // Проверяем email поле с ошибкой
-        $emailHtml = (string)$emailField;
+        $emailHtml = (string) $emailField;
         $this->assertStringContainsString('wallkit-field--error', $emailHtml);
         $this->assertStringContainsString('Введите корректный email адрес', $emailHtml);
         $this->assertStringContainsString('value="invalid-email"', $emailHtml);
 
         // Проверяем password поле с ошибкой
-        $passwordHtml = (string)$passwordField;
+        $passwordHtml = (string) $passwordField;
         $this->assertStringContainsString('wallkit-field--error', $passwordHtml);
         $this->assertStringContainsString('Пароль должен содержать минимум 8 символов', $passwordHtml);
         $this->assertStringContainsString('value="123"', $passwordHtml);

@@ -18,8 +18,7 @@ use OlegV\WallKit\Demo\DemoLayout\DemoLayout;
         <div class="wallkit-demo-layout__content">
             <?= $this->content ?>
         </div>
-    <?php
-    else: ?>
+    <?php else: ?>
         <div class="wallkit-demo-layout__content">
             <?= $this->content ?>
         </div>

@@ -72,7 +72,7 @@ class ParsedownEx extends Parsedown
             // Используем rawHtml для вывода без экранирования
             $Block['element'] = [
                 'name' => 'div',
-                'rawHtml' => (string)$codeComponent,
+                'rawHtml' => (string) $codeComponent,
                 'allowRawHtmlInSafeMode' => true, // Разрешаем raw HTML даже в безопасном режиме
             ];
 

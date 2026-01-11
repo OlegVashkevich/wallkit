@@ -1,7 +1,7 @@
 <?php
 
 // examples/index.php
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use OlegV\BrickManager;
 use OlegV\WallKit\Demo\DemoComponentGrid\DemoComponentGrid;
@@ -12,14 +12,14 @@ use OlegV\WallKit\Demo\DemoStats\DemoStats;
 
 BrickManager::enableDebug();
 // Загружаем метаданные компонентов
-$componentsData = json_decode(file_get_contents(__DIR__.'/components.json'), true);
+$componentsData = json_decode(file_get_contents(__DIR__ . '/components.json'), true);
 
 // 1. Статистика
 $stats = new DemoStats(
     totalComponents: count($componentsData['components']),
-    stableComponents: count(array_filter($componentsData['components'], fn($c) => $c['status'] === 'stable')),
-    plannedComponents: count(array_filter($componentsData['components'], fn($c) => $c['status'] === 'planned')),
-    demoPages: count(array_filter($componentsData['components'], fn($c) => !empty($c['demoFile']))),
+    stableComponents: count(array_filter($componentsData['components'], fn ($c) => $c['status'] === 'stable')),
+    plannedComponents: count(array_filter($componentsData['components'], fn ($c) => $c['status'] === 'planned')),
+    demoPages: count(array_filter($componentsData['components'], fn ($c) => !empty($c['demoFile']))),
     latestVersion: '1.0.0',
 );
 
@@ -36,7 +36,7 @@ $sidebar = new DemoSidebar(
         ...array_map(function ($item) {
             return [
                 'title' => $item['title'],
-                'href' => '#'.strtolower($item['name']),
+                'href' => '#' . strtolower($item['name']),
                 'icon' => $item['icon'],
                 'active' => false,
             ];
@@ -85,7 +85,7 @@ $content = implode('', [
 
 // 6. Layout
 $layout = new DemoLayout(
-    sidebar: (string)$sidebar,
+    sidebar: (string) $sidebar,
     content: $content,
 );
 

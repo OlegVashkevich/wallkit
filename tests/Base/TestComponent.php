@@ -19,7 +19,7 @@ class RenderTest extends TestCase
     public function testComponentRenders(): void
     {
         $component = new TestComponent('Test Message');
-        $html = (string)$component;
+        $html = (string) $component;
         $this->assertStringContainsString('Test Message', $html);
     }
 }

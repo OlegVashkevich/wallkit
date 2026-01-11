@@ -122,8 +122,8 @@ readonly class Code extends Base
         // Проверка, установлена ли библиотека подсветки
         if ($this->highlight && !class_exists('Highlight\HighlightResult')) {
             trigger_error(
-                'WallKit: Библиотека scrivo/highlight.php не установлена. Подсветка кода отключена. '.
-                'Установите: composer require scrivo/highlight.php',
+                'WallKit: Библиотека scrivo/highlight.php не установлена. Подсветка кода отключена. '
+                . 'Установите: composer require scrivo/highlight.php',
                 E_USER_WARNING,
             );
         }
@@ -154,8 +154,8 @@ readonly class Code extends Base
 
             if (!in_array($this->language, $highlighter::listBundledLanguages(), true)) {
                 throw new InvalidArgumentException(
-                    "Язык '$this->language' не поддерживается библиотекой highlight.php. ".
-                    "Используйте один из: ".implode(', ', $highlighter::listBundledLanguages()),
+                    "Язык '$this->language' не поддерживается библиотекой highlight.php. "
+                    . "Используйте один из: " . implode(', ', $highlighter::listBundledLanguages()),
                 );
             }
         }

@@ -118,7 +118,7 @@ class TagCloudTest extends TestCase
         $this->assertCount(3, $processedTags);
 
         // Проверяем PHP тег
-        $phpTag = array_filter($processedTags, fn($tag) => $tag['label'] === 'PHP');
+        $phpTag = array_filter($processedTags, fn ($tag) => $tag['label'] === 'PHP');
         $phpTag = array_values($phpTag)[0] ?? null;
 
         $this->assertNotNull($phpTag);
@@ -137,7 +137,7 @@ class TagCloudTest extends TestCase
         $this->assertCount(3, $processedTags);
 
         // Проверяем PHP тег
-        $phpTag = array_filter($processedTags, fn($tag) => $tag['label'] === 'PHP');
+        $phpTag = array_filter($processedTags, fn ($tag) => $tag['label'] === 'PHP');
         $phpTag = array_values($phpTag)[0] ?? null;
 
         $this->assertNotNull($phpTag);
@@ -145,7 +145,7 @@ class TagCloudTest extends TestCase
         $this->assertEquals(10, $phpTag['weight']);
 
         // Проверяем HTML тег (без URL)
-        $htmlTag = array_filter($processedTags, fn($tag) => $tag['label'] === 'HTML');
+        $htmlTag = array_filter($processedTags, fn ($tag) => $tag['label'] === 'HTML');
         $htmlTag = array_values($htmlTag)[0] ?? null;
 
         $this->assertNotNull($htmlTag);
@@ -290,7 +290,7 @@ class TagCloudTest extends TestCase
         $this->assertEmpty($processedTags);
 
         // Проверяем рендеринг
-        $output = (string)$cloud;
+        $output = (string) $cloud;
         $this->assertStringContainsString('wallkit-tagcloud', $output);
         $this->assertStringNotContainsString('wallkit-tagcloud__tag', $output);
     }
@@ -357,7 +357,7 @@ class TagCloudTest extends TestCase
     public function testRenderComponent(): void
     {
         $cloud = new TagCloud(tags: $this->tagsWithWeightsAndUrls);
-        $output = (string)$cloud;
+        $output = (string) $cloud;
 
         $this->assertStringStartsWith('<div class="wallkit-tagcloud">', trim($output));
         $this->assertStringEndsWith('</div>', trim($output));
@@ -379,7 +379,7 @@ class TagCloudTest extends TestCase
         ];
 
         $cloud = new TagCloud(tags: $tags, autoSize: true);
-        $output = (string)$cloud;
+        $output = (string) $cloud;
 
         // Должны присутствовать CSS классы размеров
         $this->assertStringContainsString('wallkit-tagcloud__tag--', $output);
@@ -396,7 +396,7 @@ class TagCloudTest extends TestCase
         ];
 
         $cloud = new TagCloud(tags: $tags);
-        $output = (string)$cloud;
+        $output = (string) $cloud;
 
         // Проверяем что HTML символы экранированы
         $this->assertStringNotContainsString('<script>', $output);
@@ -478,7 +478,7 @@ class TagCloudTest extends TestCase
         // Должны корректно обработаться веса
         $this->assertCount(2, $processedTags);
 
-        $zeroTag = array_filter($processedTags, fn($tag) => $tag['label'] === 'Zero');
+        $zeroTag = array_filter($processedTags, fn ($tag) => $tag['label'] === 'Zero');
         $zeroTag = array_values($zeroTag)[0] ?? null;
 
         $this->assertNotNull($zeroTag);
@@ -503,7 +503,7 @@ class TagCloudTest extends TestCase
         $this->assertCount(3, $processedTags);
 
         // Находим тег с отрицательным весом
-        $negativeTag = array_filter($processedTags, fn($tag) => $tag['weight'] === -5);
+        $negativeTag = array_filter($processedTags, fn ($tag) => $tag['weight'] === -5);
         $negativeTag = array_values($negativeTag)[0] ?? null;
 
         $this->assertNotNull($negativeTag);

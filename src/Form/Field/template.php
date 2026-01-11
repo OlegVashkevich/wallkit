@@ -40,8 +40,7 @@ $isCheckable = $this->isCheckable();
                     <?= $this->input->required ? '<span class="wallkit-field__required">*</span>' : '' ?>
                 </span>
           </label>
-        <?php
-        else: ?>
+        <?php else: ?>
           <!-- Все остальные поля: label оборачивает всё -->
           <label class="wallkit-field__label">
             <span class="wallkit-field__label-text">
@@ -61,20 +60,19 @@ $isCheckable = $this->isCheckable();
           </span>
           </label>
         <?php
-        endif; ?>
-    <?php
-    else: ?>
+    endif; ?>
+    <?php else: ?>
       <!-- Поле без label -->
       <div class="wallkit-field__wrapper">
           <?= $this->input ?>
           <?php
-          if ($this->shouldShowPasswordToggle()): ?>
+      if ($this->shouldShowPasswordToggle()): ?>
             <button type="button" class="wallkit-field__toggle-password"
                     aria-label="Показать/скрыть пароль">
               👁️
             </button>
           <?php
-          endif; ?>
+      endif; ?>
       </div>
     <?php
     endif; ?>

@@ -34,8 +34,8 @@ class InputRealWorldTest extends TestCase
             autocomplete: 'current-password',
         );
 
-        $usernameHtml = (string)$usernameInput;
-        $passwordHtml = (string)$passwordInput;
+        $usernameHtml = (string) $usernameInput;
+        $passwordHtml = (string) $passwordInput;
 
         // Проверяем username поле
         $this->assertStringContainsString('name="username"', $usernameHtml);
@@ -83,15 +83,15 @@ class InputRealWorldTest extends TestCase
         ];
 
         foreach ($inputs as $input) {
-            $html = (string)$input;
+            $html = (string) $input;
 
             $this->assertNotEmpty($html);
             $this->assertStringContainsString('wallkit-input__field', $html);
-            $this->assertStringContainsString('name="'.$input->name.'"', $html);
-            $this->assertStringContainsString('type="'.$input->type.'"', $html);
+            $this->assertStringContainsString('name="' . $input->name . '"', $html);
+            $this->assertStringContainsString('type="' . $input->type . '"', $html);
 
             if ($input->placeholder) {
-                $this->assertStringContainsString('placeholder="'.$input->placeholder.'"', $html);
+                $this->assertStringContainsString('placeholder="' . $input->placeholder . '"', $html);
             }
 
             if ($input->required) {
@@ -116,7 +116,7 @@ class InputRealWorldTest extends TestCase
             spellcheck: true,
         );
 
-        $html = (string)$searchInput;
+        $html = (string) $searchInput;
 
         $this->assertStringContainsString('type="search"', $html);
         $this->assertStringContainsString('name="q"', $html);
@@ -163,11 +163,11 @@ class InputRealWorldTest extends TestCase
         ];
 
         foreach ($contactInputs as $input) {
-            $html = (string)$input;
+            $html = (string) $input;
 
-            $this->assertStringContainsString('name="'.$input->name.'"', $html);
-            $this->assertStringContainsString('placeholder="'.$input->placeholder.'"', $html);
-            $this->assertStringContainsString('id="'.$input->id.'"', $html);
+            $this->assertStringContainsString('name="' . $input->name . '"', $html);
+            $this->assertStringContainsString('placeholder="' . $input->placeholder . '"', $html);
+            $this->assertStringContainsString('id="' . $input->id . '"', $html);
             $this->assertStringContainsString('wallkit-input__field', $html);
 
             if ($input->required) {
@@ -175,7 +175,7 @@ class InputRealWorldTest extends TestCase
             }
 
             if ($input->type !== 'text') {
-                $this->assertStringContainsString('type="'.$input->type.'"', $html);
+                $this->assertStringContainsString('type="' . $input->type . '"', $html);
             }
         }
     }
@@ -241,22 +241,22 @@ class InputRealWorldTest extends TestCase
         ];
 
         foreach ($settingsInputs as $input) {
-            $html = (string)$input;
+            $html = (string) $input;
 
-            $this->assertStringContainsString('name="'.$input->name.'"', $html);
+            $this->assertStringContainsString('name="' . $input->name . '"', $html);
             $this->assertStringContainsString('wallkit-input__field', $html);
 
             // Проверяем специфичные атрибуты для каждого типа
             if ($input->value) {
-                $this->assertStringContainsString('value="'.$input->value.'"', $html);
+                $this->assertStringContainsString('value="' . $input->value . '"', $html);
             }
 
             if ($input->type === 'password') {
-                $this->assertStringContainsString('autocomplete="'.$input->autocomplete.'"', $html);
+                $this->assertStringContainsString('autocomplete="' . $input->autocomplete . '"', $html);
             }
 
             if ($input->minLength) {
-                $this->assertStringContainsString('minlength="'.$input->minLength.'"', $html);
+                $this->assertStringContainsString('minlength="' . $input->minLength . '"', $html);
             }
         }
     }
@@ -335,9 +335,9 @@ class InputRealWorldTest extends TestCase
         ];
 
         foreach ($checkoutInputs as $input) {
-            $html = (string)$input;
+            $html = (string) $input;
 
-            $this->assertStringContainsString('name="'.$input->name.'"', $html);
+            $this->assertStringContainsString('name="' . $input->name . '"', $html);
             $this->assertStringContainsString('wallkit-input__field', $html);
 
             // Проверяем, что все обязательные поля имеют required
@@ -347,7 +347,7 @@ class InputRealWorldTest extends TestCase
 
             // Проверяем паттерны для валидации
             if ($input->pattern) {
-                $this->assertStringContainsString('pattern="'.$input->pattern.'"', $html);
+                $this->assertStringContainsString('pattern="' . $input->pattern . '"', $html);
             }
 
             // Специальные проверки для конфиденциальных полей
@@ -373,7 +373,7 @@ class InputRealWorldTest extends TestCase
             ],
         );
 
-        $html = (string)$accessibleInput;
+        $html = (string) $accessibleInput;
 
         // Проверяем базовые accessibility атрибуты
         $this->assertStringContainsString('id="username-field"', $html);
@@ -432,14 +432,14 @@ class InputRealWorldTest extends TestCase
         ];
 
         foreach ($multilingualInputs as $input) {
-            $html = (string)$input;
+            $html = (string) $input;
 
-            $this->assertStringContainsString('name="'.$input->name.'"', $html);
-            $this->assertStringContainsString('placeholder="'.$input->placeholder.'"', $html);
-            $this->assertStringContainsString('id="'.$input->id.'"', $html);
+            $this->assertStringContainsString('name="' . $input->name . '"', $html);
+            $this->assertStringContainsString('placeholder="' . $input->placeholder . '"', $html);
+            $this->assertStringContainsString('id="' . $input->id . '"', $html);
             $this->assertStringContainsString('required', $html);
-            $this->assertStringContainsString('lang="'.$input->attributes['lang'].'"', $html);
-            $this->assertStringContainsString('dir="'.$input->attributes['dir'].'"', $html);
+            $this->assertStringContainsString('lang="' . $input->attributes['lang'] . '"', $html);
+            $this->assertStringContainsString('dir="' . $input->attributes['dir'] . '"', $html);
             $this->assertStringContainsString('wallkit-input__field', $html);
         }
     }

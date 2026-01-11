@@ -35,97 +35,97 @@ class TextareaTest extends TestCase
     public function testTextareaRendersWithRequiredName(): void
     {
         $textarea = new Textarea('comment');
-        $this->assertStringContainsString('name="comment"', (string)$textarea);
+        $this->assertStringContainsString('name="comment"', (string) $textarea);
     }
 
     public function testTextareaRendersWithPlaceholder(): void
     {
         $textarea = new Textarea('comment', 'Введите текст');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('placeholder="Введите текст"', $output);
     }
 
     public function testTextareaRendersWithValue(): void
     {
         $textarea = new Textarea('comment', value: 'Текущий текст');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('>Текущий текст<', $output);
     }
 
     public function testTextareaRendersWithRows(): void
     {
         $textarea = new Textarea('comment', rows: 5);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('rows="5"', $output);
     }
 
     public function testTextareaRendersWithMaxLength(): void
     {
         $textarea = new Textarea('comment', maxLength: 500);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('maxlength="500"', $output);
     }
 
     public function testTextareaRendersAsRequired(): void
     {
         $textarea = new Textarea('comment', required: true);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('required', $output);
     }
 
     public function testTextareaRendersAsDisabled(): void
     {
         $textarea = new Textarea('comment', disabled: true);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('disabled', $output);
     }
 
     public function testTextareaRendersAsReadonly(): void
     {
         $textarea = new Textarea('comment', readonly: true);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('readonly', $output);
     }
 
     public function testTextareaRendersWithId(): void
     {
         $textarea = new Textarea('comment', id: 'comment-field');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('id="comment-field"', $output);
     }
 
     public function testTextareaRendersWithAutoFocus(): void
     {
         $textarea = new Textarea('comment', autoFocus: true);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('autofocus', $output);
     }
 
     public function testTextareaRendersWithAutocomplete(): void
     {
         $textarea = new Textarea('comment', autocomplete: 'on');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('autocomplete="on"', $output);
     }
 
     public function testTextareaRendersWithSpellcheckEnabled(): void
     {
         $textarea = new Textarea('comment', spellcheck: true);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('spellcheck="true"', $output);
     }
 
     public function testTextareaRendersWithSpellcheckDisabled(): void
     {
         $textarea = new Textarea('comment', spellcheck: false);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('spellcheck="false"', $output);
     }
 
     public function testTextareaRendersWithAdditionalClasses(): void
     {
         $textarea = new Textarea('comment', classes: ['custom-class', 'another-class']);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('class="wallkit-textarea__field custom-class another-class"', $output);
     }
 
@@ -135,7 +135,7 @@ class TextareaTest extends TestCase
             'data-test' => 'value',
             'aria-label' => 'Комментарий',
         ]);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('data-test="value"', $output);
         $this->assertStringContainsString('aria-label="Комментарий"', $output);
     }
@@ -143,7 +143,7 @@ class TextareaTest extends TestCase
     public function testTextareaUsesCorrectCssClass(): void
     {
         $textarea = new Textarea('test');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('class="wallkit-textarea__field"', $output);
     }
 
@@ -169,7 +169,7 @@ class TextareaTest extends TestCase
     {
         $textarea = new Textarea('valid-name');
         try {
-            $output = (string)$textarea;
+            $output = (string) $textarea;
             $this->assertStringContainsString('name="valid-name"', $output);
         } catch (RenderException) {
             $this->fail('Не должно выбрасывать исключение для валидного имени');
@@ -259,7 +259,7 @@ class TextareaTest extends TestCase
     public function testTextareaValueIsEscaped(): void
     {
         $textarea = new Textarea('test', value: '<script>alert("xss")</script>');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;', $output);
         $this->assertStringNotContainsString('<script>', $output);
     }
@@ -267,7 +267,7 @@ class TextareaTest extends TestCase
     public function testTextareaPlaceholderIsEscaped(): void
     {
         $textarea = new Textarea('test', placeholder: '"test" & "demo"');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         $this->assertStringContainsString('placeholder="&quot;test&quot; &amp; &quot;demo&quot;"', $output);
     }
 
@@ -277,7 +277,7 @@ class TextareaTest extends TestCase
             'data-html' => '<div>test</div>',
             'onclick' => 'alert("xss")',
         ]);
-        $output = (string)$textarea;
+        $output = (string) $textarea;
         echo $output;
         $this->assertStringContainsString('data-html="&lt;div&gt;test&lt;/div&gt;"', $output);
         $this->assertStringNotContainsString('onclick="alert"', $output);
@@ -321,7 +321,7 @@ class TextareaTest extends TestCase
         $this->assertEquals(5, $attributes['rows']);
         $this->assertEquals(100, $attributes['maxlength']);
         $this->assertTrue($attributes['required']);
-        $this->assertStringContainsString('wallkit-textarea__field', (string)$attributes['class']);
+        $this->assertStringContainsString('wallkit-textarea__field', (string) $attributes['class']);
     }
 
     public function testTextareaGetTextareaAttributesFiltersNullValues(): void
@@ -350,7 +350,7 @@ class TextareaTest extends TestCase
             spellcheck: true,
         );
 
-        $output = (string)$textarea;
+        $output = (string) $textarea;
 
         // Проверяем наличие всех ключевых атрибутов
         $this->assertStringContainsString('<textarea', $output);
@@ -370,7 +370,7 @@ class TextareaTest extends TestCase
     public function testTextareaWithAllOptionalParametersNull(): void
     {
         $textarea = new Textarea('simple');
-        $output = (string)$textarea;
+        $output = (string) $textarea;
 
         // Проверяем минимальный набор атрибутов
         $this->assertStringContainsString('name="simple"', $output);

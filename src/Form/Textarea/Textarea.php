@@ -113,7 +113,7 @@ readonly class Textarea extends Base
      */
     protected function prepare(): void
     {
-        if ( !$this->hasString(trim($this->name))) {
+        if (!$this->hasString(trim($this->name))) {
             throw new InvalidArgumentException("Имя поля обязательно");
         }
     }
@@ -166,6 +166,6 @@ readonly class Textarea extends Base
             $attrs['spellcheck'] = $this->spellcheck ? 'true' : 'false';
         }
 
-        return array_filter($attrs, fn($v) => $v !== null);
+        return array_filter($attrs, fn ($v) => $v !== null);
     }
 }

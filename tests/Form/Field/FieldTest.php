@@ -261,7 +261,7 @@ class FieldTest extends TestCase
             helpText: 'Введите ваше имя',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field', $html);
         $this->assertStringContainsString('Имя пользователя', $html);
@@ -282,7 +282,7 @@ class FieldTest extends TestCase
             error: 'Некорректный адрес почты',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field--error', $html);
         $this->assertStringContainsString('Некорректный адрес почты', $html);
@@ -301,7 +301,7 @@ class FieldTest extends TestCase
             label: 'Пароль',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field__toggle-password', $html);
         $this->assertStringContainsString('aria-label="Показать/скрыть пароль"', $html);
@@ -317,7 +317,7 @@ class FieldTest extends TestCase
         $input = new Input(name: 'search');
         $field = new Field(input: $input);
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field__wrapper', $html);
         $this->assertStringNotContainsString('wallkit-field__label', $html);
@@ -335,7 +335,7 @@ class FieldTest extends TestCase
             label: 'Согласен с условиями',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field--checkbox', $html);
         $this->assertStringContainsString('wallkit-field__checkbox-visual', $html);
@@ -355,7 +355,7 @@ class FieldTest extends TestCase
             label: 'Мужской',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field--radio', $html);
         $this->assertStringContainsString('wallkit-field__radio-visual', $html);
@@ -375,7 +375,7 @@ class FieldTest extends TestCase
             label: 'Email',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field__required', $html);
         $this->assertStringContainsString('*', $html);
@@ -394,7 +394,7 @@ class FieldTest extends TestCase
             helpText: 'Расскажите о себе',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-textarea', $html);
         $this->assertStringContainsString('Биография', $html);
@@ -421,7 +421,7 @@ class FieldTest extends TestCase
             label: 'Страна',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-select', $html);
         $this->assertStringContainsString('Страна', $html);
@@ -466,7 +466,7 @@ class FieldTest extends TestCase
         $input = new Input(name: 'test');
         $field = new Field(input: $input, label: 'Тест');
 
-        $stringResult = (string)$field;
+        $stringResult = (string) $field;
         $renderResult = $field->__toString();
 
         $this->assertIsString($stringResult);
@@ -486,7 +486,7 @@ class FieldTest extends TestCase
             wrapperClasses: ['mb-4', 'custom-field', 'test-class'],
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('mb-4', $html);
         $this->assertStringContainsString('custom-field', $html);
@@ -506,7 +506,7 @@ class FieldTest extends TestCase
             error: 'Это ошибка',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('Это ошибка', $html);
         $this->assertStringContainsString('wallkit-field__error', $html);
@@ -533,8 +533,8 @@ class FieldTest extends TestCase
             $this->assertEquals($expectedType, $field->getFieldType());
 
             // Проверяем, что рендеринг не вызывает ошибок
-            $html = (string)$field;
-            $this->assertStringContainsString('type="'.$expectedType.'"', $html);
+            $html = (string) $field;
+            $this->assertStringContainsString('type="' . $expectedType . '"', $html);
         }
     }
 }

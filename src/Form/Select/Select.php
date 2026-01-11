@@ -161,7 +161,7 @@ readonly class Select extends Base
             $attrs['size'] = $this->size;
         }
 
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 
     /**
@@ -183,7 +183,7 @@ readonly class Select extends Base
             return false;
         }
 
-        return (string)$this->selected === (string)$value;
+        return (string) $this->selected === (string) $value;
     }
 
     /**
@@ -202,7 +202,7 @@ readonly class Select extends Base
                     $normalized[] = [
                         'value' => $subKey,
                         'label' => $subValue,
-                        'group' => (string)$key,
+                        'group' => (string) $key,
                     ];
                 }
             } else {

@@ -170,7 +170,7 @@ readonly class TagCloud extends Base
      *
      * @internal
      */
-    private function normalizeTag(string $label, null|array|string $data): array
+    private function normalizeTag(string $label, array|string|null $data): array
     {
         // Если данные - строка, это URL
         if (is_string($data)) {
@@ -210,9 +210,9 @@ readonly class TagCloud extends Base
     private function sortTags(array $tags): array
     {
         if ($this->sortBy === 'weight') {
-            usort($tags, fn($a, $b) => $b['weight'] <=> $a['weight']);
+            usort($tags, fn ($a, $b) => $b['weight'] <=> $a['weight']);
         } elseif ($this->sortBy === 'alphabet') {
-            usort($tags, fn($a, $b) => $a['label'] <=> $b['label']);
+            usort($tags, fn ($a, $b) => $a['label'] <=> $b['label']);
         } else {
             shuffle($tags);
         }
@@ -262,7 +262,7 @@ readonly class TagCloud extends Base
 
         foreach ($tags as &$tag) {
             $normalizedWeight = ($tag['weight'] - $minWeight) / $weightRange;
-            $sizeIndex = min((int)($normalizedWeight * $sizeCount), $sizeCount - 1);
+            $sizeIndex = min((int) ($normalizedWeight * $sizeCount), $sizeCount - 1);
 
             $tag['sizeClass'] = $sizeClasses[$sizeIndex];
         }

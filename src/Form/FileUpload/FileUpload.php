@@ -143,7 +143,7 @@ readonly class FileUpload extends Base
     {
         // Генерация ID, если не передан
         if ($this->id === null) {
-            return 'fileupload-'.uniqid();
+            return 'fileupload-' . uniqid();
         }
         return $this->id;
     }
@@ -157,7 +157,7 @@ readonly class FileUpload extends Base
     {
         $attrs = array_merge([
             'id' => $this->getId(),
-            'name' => $this->multiple ? $this->name.'[]' : $this->name,
+            'name' => $this->multiple ? $this->name . '[]' : $this->name,
             'type' => 'file',
             'class' => $this->classList(array_merge(['wallkit-fileupload__field'], $this->classes)),
             'accept' => $this->accept,
@@ -189,6 +189,6 @@ readonly class FileUpload extends Base
         }
 
         // Удаляем null-значения
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 }

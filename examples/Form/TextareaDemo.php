@@ -1,7 +1,7 @@
 <?php
 
 // examples/Form/TextareaDemo.php
-require __DIR__.'/../../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use OlegV\BrickManager;
 use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
@@ -124,7 +124,7 @@ $sizesCards = [
                     value: 'no',
                     type: 'checkbox',
                     required: true,
-                /*checked: true,*/
+                    /*checked: true,*/
                 ),
                 label: 'Я согласен с условиями использования',
                 helpText: 'Обязательно для регистрации',
@@ -153,7 +153,7 @@ $sizesCards = [
                 value: 'no',
                 type: 'checkbox',
                 required: true,
-            /*checked: true,*/
+                /*checked: true,*/
             ),
         ],
         description: 'Обязательный чекбокс с предварительным выбором',
@@ -566,7 +566,7 @@ $sizesSection = new DemoSection(
 $formExample = new DemoFormExample(
     title: 'Форма обратной связи',
     description: 'Пример реального использования Textarea в форме обратной связи',
-    formHtml: (string)new Field(
+    formHtml: (string) new Field(
         input: new Textarea(
             name: 'message',
             placeholder: 'Опишите вашу проблему или вопрос...',
@@ -592,7 +592,7 @@ $realWorldSection = new DemoSection(
     title: 'Реальные примеры',
     description: 'Примеры использования в реальных сценариях',
     icon: '🌍',
-    extraContent: (string)$formExample,
+    extraContent: (string) $formExample,
 );
 
 // 6. Собираем контент
@@ -604,7 +604,7 @@ $content = implode('', [
 
 // 7. Создаем layout
 $layout = new DemoLayout(
-    sidebar: (string)$sidebar,
+    sidebar: (string) $sidebar,
     content: $content,
 );
 

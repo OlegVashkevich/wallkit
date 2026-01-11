@@ -45,7 +45,7 @@ class MarkdownTest extends TestCase
     public function testMarkdownRendersEmptyString(): void
     {
         $md = new Markdown('');
-        $output = (string)$md;
+        $output = (string) $md;
         // Шаблон всегда рендерит div, даже для пустого контента
         $this->assertStringContainsString('<div class="wallkit-markdown">', $output);
         $this->assertStringContainsString('</div>', $output);
@@ -60,7 +60,7 @@ class MarkdownTest extends TestCase
         $content = '# Hello World';
         $md = new Markdown($content);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('wallkit-markdown', $output);
         $this->assertStringContainsString('<h1', $output);
@@ -72,7 +72,7 @@ class MarkdownTest extends TestCase
         $content = '**bold text**';
         $md = new Markdown($content);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('<strong>', $output);
         $this->assertStringContainsString('bold text', $output);
@@ -83,7 +83,7 @@ class MarkdownTest extends TestCase
         $content = '*italic text*';
         $md = new Markdown($content);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('<em>', $output);
         $this->assertStringContainsString('italic text', $output);
@@ -94,7 +94,7 @@ class MarkdownTest extends TestCase
         $content = '[Google](https://google.com)';
         $md = new Markdown($content);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('<a', $output);
         $this->assertStringContainsString('href="https://google.com"', $output);
@@ -106,7 +106,7 @@ class MarkdownTest extends TestCase
         $content = "```php\necho 'Hello';\n```";
         $md = new Markdown($content);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('wallkit-code', $output);
     }
@@ -139,7 +139,7 @@ class MarkdownTest extends TestCase
         $content = '<script>alert("xss")</script>';
         $md = new Markdown($content, true);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('&lt;script&gt;', $output);
         $this->assertStringNotContainsString('<script>', $output);
@@ -150,7 +150,7 @@ class MarkdownTest extends TestCase
         $content = '<div>test</div>';
         $md = new Markdown($content, false);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('<div>test</div>', $output);
     }
@@ -160,7 +160,7 @@ class MarkdownTest extends TestCase
         $content = "line1\nline2";
         $md = new Markdown($content, true, ['setBreaksEnabled' => true]);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         // При включенных переносах строк должны быть <br>
         $this->assertStringContainsString('<br />', $output);
@@ -171,7 +171,7 @@ class MarkdownTest extends TestCase
         $content = '# Test';
         $md = new Markdown($content);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         // Проверяем структуру вывода
         $this->assertStringStartsWith('<div class="wallkit-markdown">', $output);
@@ -198,7 +198,7 @@ class MarkdownTest extends TestCase
             MD;
 
         $md = new Markdown($content);
-        $output = (string)$md;
+        $output = (string) $md;
 
         $this->assertStringContainsString('<h1>Main Title</h1>', $output);
         $this->assertStringContainsString('<h2>Subtitle</h2>', $output);
@@ -232,7 +232,7 @@ class MarkdownTest extends TestCase
         $content = "```php\necho 'test';\n```";
         $md = new Markdown($content);
 
-        $output = (string)$md;
+        $output = (string) $md;
 
         // Должен использовать ParsedownEx для рендеринга блоков кода
         $this->assertStringContainsString('wallkit-code', $output);

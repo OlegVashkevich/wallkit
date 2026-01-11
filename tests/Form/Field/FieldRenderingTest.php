@@ -19,7 +19,7 @@ class FieldRenderingTest extends TestCase
             label: 'Имя пользователя',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field', $html);
         $this->assertStringContainsString('wallkit-field__label', $html);
@@ -33,7 +33,7 @@ class FieldRenderingTest extends TestCase
             input: new Input(name: 'search'),
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field', $html);
         $this->assertStringNotContainsString('wallkit-field__label', $html);
@@ -49,7 +49,7 @@ class FieldRenderingTest extends TestCase
             helpText: 'В формате +7 (XXX) XXX-XX-XX',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field__help', $html);
         $this->assertStringContainsString('В формате +7 (XXX) XXX-XX-XX', $html);
@@ -63,7 +63,7 @@ class FieldRenderingTest extends TestCase
             error: 'Введите корректный email',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field--error', $html);
         $this->assertStringContainsString('wallkit-field__error', $html);
@@ -82,7 +82,7 @@ class FieldRenderingTest extends TestCase
             error: 'Пароль слишком короткий',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('wallkit-field__error', $html);
         $this->assertStringContainsString('Пароль слишком короткий', $html);
@@ -97,7 +97,7 @@ class FieldRenderingTest extends TestCase
             label: 'Пароль',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('type="password"', $html);
         $this->assertStringContainsString('wallkit-field__toggle-password', $html);
@@ -112,7 +112,7 @@ class FieldRenderingTest extends TestCase
             withPasswordToggle: false,
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('type="password"', $html);
         $this->assertStringNotContainsString('wallkit-field__toggle-password', $html);
@@ -126,7 +126,7 @@ class FieldRenderingTest extends TestCase
             label: 'Комментарий',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('<label class="wallkit-field__label"', $html);
         $this->assertStringNotContainsString('for="', $html);
@@ -140,7 +140,7 @@ class FieldRenderingTest extends TestCase
             label: 'Email',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         $this->assertStringContainsString('required', $html);
         $this->assertStringContainsString('wallkit-field__required', $html);
@@ -155,10 +155,10 @@ class FieldRenderingTest extends TestCase
             input: new Input(name: 'xss'),
             label: '<script>alert("xss")</script>',
             helpText: '<b>bold</b> & "quotes"</div><script>alert(1)</script>',
-        //error: '" onclick="alert(\'xss\')',
+            //error: '" onclick="alert(\'xss\')',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         // Проверяем экранирование
         $this->assertStringContainsString('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;', $html);
@@ -180,7 +180,7 @@ class FieldRenderingTest extends TestCase
             error: '" onclick="alert(\'xss\')',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         // Проверяем экранирование
         $this->assertStringContainsString('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;', $html);
@@ -199,7 +199,7 @@ class FieldRenderingTest extends TestCase
             helpText: 'Help text',
         );
 
-        $html = (string)$field;
+        $html = (string) $field;
 
         // Проверяем базовую структуру
         $this->assertStringStartsWith('<div class="wallkit-field', $html);

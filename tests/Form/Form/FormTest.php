@@ -103,7 +103,7 @@ class FormTest extends TestCase
             );
             $output = $form->renderOriginal();
 
-            $this->assertStringContainsString('method="'.strtoupper($method).'"', $output);
+            $this->assertStringContainsString('method="' . strtoupper($method) . '"', $output);
         }
     }
 
@@ -187,7 +187,7 @@ class FormTest extends TestCase
         $this->assertEquals('/test', $attributes['action']);
         $this->assertEquals('POST', $attributes['method']);
         $this->assertEquals('_self', $attributes['target']);
-        $this->assertStringContainsString('wallkit-form', (string)$attributes['class']);
+        $this->assertStringContainsString('wallkit-form', (string) $attributes['class']);
     }
 
     public function testFormAttributesFilterNullValues(): void
@@ -222,7 +222,7 @@ class FormTest extends TestCase
     public function testFormCastsToString(): void
     {
         $form = new Form(fields: [new Button('Test')]);
-        $stringForm = (string)$form;
+        $stringForm = (string) $form;
 
         $this->assertStringContainsString('<form', $stringForm);
         $this->assertStringContainsString('</form>', $stringForm);
@@ -232,7 +232,7 @@ class FormTest extends TestCase
     public function testFormWithNonStringableFieldThrowsException(): void
     {
         $this->expectException(RenderException::class);
-        
+
         /** @noinspection PhpParamsInspection */
         $form = new Form(fields: [new stdClass()]);
         $form->renderOriginal();

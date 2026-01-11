@@ -29,8 +29,7 @@ use OlegV\WallKit\Content\TagCloud\TagCloud;
              class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass'] ?? '') ?>">
               <?= $this->e($tag['label']) ?>
           </a>
-        <?php
-        else: ?>
+        <?php else: ?>
           <span class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass'] ?? '') ?>">
                 <?= $this->e($tag['label']) ?>
             </span>

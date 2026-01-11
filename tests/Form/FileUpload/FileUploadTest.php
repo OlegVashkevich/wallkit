@@ -46,7 +46,7 @@ class FileUploadTest extends TestCase
             error: 'Ошибка загрузки',
         );
 
-        $html = (string)$upload;
+        $html = (string) $upload;
 
         $this->assertStringContainsString('wallkit-fileupload', $html);
         $this->assertStringContainsString('Загрузите файл', $html);
@@ -166,7 +166,7 @@ class FileUploadTest extends TestCase
             maxHeight: 1080,
         );
 
-        $html = (string)$upload;
+        $html = (string) $upload;
 
         $this->assertStringContainsString('data-max-size="1024"', $html);
         $this->assertStringContainsString('data-max-files="5"', $html);
@@ -292,7 +292,7 @@ class FileUploadTest extends TestCase
             required: true,
         );
 
-        $html = (string)$upload;
+        $html = (string) $upload;
 
         $this->assertStringContainsString('wallkit-fileupload__required', $html);
         $this->assertStringContainsString('*', $html);
@@ -304,7 +304,7 @@ class FileUploadTest extends TestCase
             required: false,
         );
 
-        $html2 = (string)$upload2;
+        $html2 = (string) $upload2;
         $this->assertStringNotContainsString('wallkit-fileupload__required', $html2);
     }
 
@@ -316,7 +316,7 @@ class FileUploadTest extends TestCase
             multiple: true,
         );
 
-        $html = (string)$upload;
+        $html = (string) $upload;
 
         $this->assertStringContainsString('name="attachments[]"', $html);
     }
@@ -329,7 +329,7 @@ class FileUploadTest extends TestCase
             accept: 'image/*',
         );
 
-        $html = (string)$upload;
+        $html = (string) $upload;
 
         $this->assertStringContainsString('accept="image/*"', $html);
     }
@@ -343,7 +343,7 @@ class FileUploadTest extends TestCase
             error: 'Это ошибка',
         );
 
-        $html = (string)$upload;
+        $html = (string) $upload;
 
         $this->assertStringContainsString('wallkit-fileupload__help', $html);
         $this->assertStringContainsString('Это подсказка', $html);
@@ -356,7 +356,7 @@ class FileUploadTest extends TestCase
             label: 'Test Label 2',
         );
 
-        $html2 = (string)$upload2;
+        $html2 = (string) $upload2;
         $this->assertStringNotContainsString('wallkit-fileupload__help', $html2);
         $this->assertStringNotContainsString('wallkit-fileupload__error', $html2);
     }
@@ -369,7 +369,7 @@ class FileUploadTest extends TestCase
             placeholder: 'Перетащите файлы сюда или нажмите для выбора',
         );
 
-        $html = (string)$upload;
+        $html = (string) $upload;
 
         $this->assertStringContainsString('wallkit-fileupload__placeholder', $html);
         $this->assertStringContainsString('Перетащите файлы сюда или нажмите для выбора', $html);
@@ -380,7 +380,7 @@ class FileUploadTest extends TestCase
             label: 'Test Label 2',
         );
 
-        $html2 = (string)$upload2;
+        $html2 = (string) $upload2;
         $this->assertStringNotContainsString('wallkit-fileupload__placeholder', $html2);
     }
 
@@ -393,7 +393,7 @@ class FileUploadTest extends TestCase
         );
 
         // Не должно быть исключения
-        $html = (string)$upload;
+        $html = (string) $upload;
         $this->assertStringContainsString('valid_name', $html);
         $this->assertStringContainsString('Valid Label', $html);
     }

@@ -15,7 +15,7 @@ use ReflectionClass;
  */
 class ButtonTest extends TestCase
 {
-    public string $cssFilePath = __DIR__.'/../../../src/Form/Button/style.css';
+    public string $cssFilePath = __DIR__ . '/../../../src/Form/Button/style.css';
 
     /**
      * Тест: Существование класса
@@ -239,7 +239,7 @@ class ButtonTest extends TestCase
         $this->assertEquals('button', $attributes['type']);
         $this->assertTrue($attributes['disabled']);
         $this->assertEquals('test()', $attributes['onclick']);
-        $this->assertStringContainsString('wallkit-button', (string)$attributes['class']);
+        $this->assertStringContainsString('wallkit-button', (string) $attributes['class']);
     }
 
     /**
@@ -325,7 +325,7 @@ class ButtonTest extends TestCase
 
         foreach ($expectedVariables as $variable) {
             $this->assertStringContainsString(
-                $variable.':',
+                $variable . ':',
                 $cssContent,
                 "CSS переменная $variable должна быть определена",
             );
@@ -581,7 +581,7 @@ class ButtonTest extends TestCase
     public function testButtonRenderingViaToString(): void
     {
         $button = new Button('Click me');
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('<button', $html);
         $this->assertStringContainsString('type="button"', $html);
@@ -602,7 +602,7 @@ class ButtonTest extends TestCase
             target: '_blank',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('<a', $html);
         $this->assertStringContainsString('href="/home"', $html);
@@ -621,7 +621,7 @@ class ButtonTest extends TestCase
             icon: '💾',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('<span class="wallkit-button__icon">💾</span>', $html);
         $this->assertStringContainsString('<span class="wallkit-button__text">Save</span>', $html);
@@ -638,7 +638,7 @@ class ButtonTest extends TestCase
             iconAfter: '→',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('<span class="wallkit-button__text">Next</span>', $html);
         $this->assertStringContainsString(
@@ -658,7 +658,7 @@ class ButtonTest extends TestCase
             iconAfter: '📥',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('<span class="wallkit-button__icon">⬇️</span>', $html);
         $this->assertStringContainsString('<span class="wallkit-button__text">Download</span>', $html);
@@ -678,7 +678,7 @@ class ButtonTest extends TestCase
             disabled: true,
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('disabled', $html);
         $this->assertStringContainsString('wallkit-button--disabled', $html);
@@ -694,7 +694,7 @@ class ButtonTest extends TestCase
             onClick: 'alert("test")',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringNotContainsString('onclick', $html);
     }
@@ -709,7 +709,7 @@ class ButtonTest extends TestCase
             type: 'submit',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('type="submit"', $html);
     }
@@ -724,7 +724,7 @@ class ButtonTest extends TestCase
             type: 'reset',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('type="reset"', $html);
     }
@@ -740,7 +740,7 @@ class ButtonTest extends TestCase
             outline: true,
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('wallkit-button--outline-primary', $html);
         $this->assertStringNotContainsString('wallkit-button--primary', $html);
@@ -756,7 +756,7 @@ class ButtonTest extends TestCase
             fullWidth: true,
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('wallkit-button--full-width', $html);
     }
@@ -771,7 +771,7 @@ class ButtonTest extends TestCase
             rounded: true,
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('wallkit-button--rounded', $html);
     }
@@ -789,7 +789,7 @@ class ButtonTest extends TestCase
                 size: $size,
             );
 
-            $html = (string)$button;
+            $html = (string) $button;
             $this->assertStringContainsString("wallkit-button--$size", $html);
         }
     }
@@ -807,7 +807,7 @@ class ButtonTest extends TestCase
                 variant: $variant,
             );
 
-            $html = (string)$button;
+            $html = (string) $button;
             $this->assertStringContainsString("wallkit-button--$variant", $html);
         }
     }
@@ -822,7 +822,7 @@ class ButtonTest extends TestCase
             classes: ['custom-class', 'another-class'],
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('custom-class', $html);
         $this->assertStringContainsString('another-class', $html);
@@ -842,7 +842,7 @@ class ButtonTest extends TestCase
             ],
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('data-test="value"', $html);
         $this->assertStringContainsString('aria-label="Test button"', $html);
@@ -859,7 +859,7 @@ class ButtonTest extends TestCase
             id: 'test-button-id',
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringContainsString('id="test-button-id"', $html);
     }
@@ -877,7 +877,7 @@ class ButtonTest extends TestCase
             onClick: null,
         );
 
-        $html = (string)$button;
+        $html = (string) $button;
 
         $this->assertStringNotContainsString('id="', $html);
         $this->assertStringNotContainsString('onclick="', $html);

@@ -37,7 +37,7 @@ use OlegV\WallKit\Form\Select\Select;
             <?php endif?>
             <?php $currentGroup = $option['group']?>
         <?php endif?>
-        <option value="<?= $this->e((string)$option['value']) ?>"
+        <option value="<?= $this->e((string) $option['value']) ?>"
             <?= $this->isOptionSelected($option['value']) ? 'selected' : '' ?>>
             <?= $this->e($option['label']) ?>
         </option>

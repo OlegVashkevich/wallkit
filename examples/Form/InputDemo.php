@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__.'/../../vendor/autoload.php';
+require __DIR__ . '/../../vendor/autoload.php';
 
 use OlegV\BrickManager;
 use OlegV\WallKit\Content\Code\Code;
@@ -556,13 +556,13 @@ use OlegV\WallKit\Form\Input\Input;
                             Самый простой вариант без дополнительных параметров
                         </p>
                         <pre class="component-code language-php"><code><?= htmlspecialchars(
-                                    <<<HTML
-                                        <?php 
-                                        echo new Input(
-                                            name: 'minimal'
-                                         );
-                                        HTML,
-                                ); ?></code></pre>
+                            <<<HTML
+                                <?php 
+                                echo new Input(
+                                    name: 'minimal'
+                                 );
+                                HTML,
+                        ); ?></code></pre>
                     </div>
 
                     <!-- Пример 2 -->
@@ -884,10 +884,10 @@ use OlegV\WallKit\Form\Input\Input;
                                 ),
                             ];
 
-                            foreach ($personalFields as $field) {
-                                echo '<div style="margin-bottom: var(--spacing-4);">'.$field.'</div>';
-                            }
-                            ?>
+foreach ($personalFields as $field) {
+    echo '<div style="margin-bottom: var(--spacing-4);">' . $field . '</div>';
+}
+?>
                         </div>
 
                         <!-- Контактная информация -->
@@ -896,32 +896,32 @@ use OlegV\WallKit\Form\Input\Input;
                                 Контактная информация
                             </h4>
                             <?php
-                            $contactFields = [
-                                new Field(
-                                    input: new Input(
-                                        name: 'email',
-                                        type: 'email',
-                                        placeholder: 'ivan@example.com',
-                                        required: true,
-                                        id: 'user-email',
-                                    ),
-                                    label: 'Email',
-                                ),
-                                new Field(
-                                    input: new Input(
-                                        name: 'phone',
-                                        type: 'tel',
-                                        placeholder: '+7 (999) 123-45-67',
-                                        id: 'user-phone',
-                                    ),
-                                    label: 'Телефон',
-                                ),
-                            ];
+$contactFields = [
+    new Field(
+        input: new Input(
+            name: 'email',
+            type: 'email',
+            placeholder: 'ivan@example.com',
+            required: true,
+            id: 'user-email',
+        ),
+        label: 'Email',
+    ),
+    new Field(
+        input: new Input(
+            name: 'phone',
+            type: 'tel',
+            placeholder: '+7 (999) 123-45-67',
+            id: 'user-phone',
+        ),
+        label: 'Телефон',
+    ),
+];
 
-                            foreach ($contactFields as $field) {
-                                echo '<div style="margin-bottom: var(--spacing-4);">'.$field.'</div>';
-                            }
-                            ?>
+foreach ($contactFields as $field) {
+    echo '<div style="margin-bottom: var(--spacing-4);">' . $field . '</div>';
+}
+?>
                         </div>
                     </div>
 
@@ -932,33 +932,33 @@ use OlegV\WallKit\Form\Input\Input;
                         </h4>
                         <div class="form-row">
                             <?php
-                            $securityFields = [
-                                new Field(
-                                    input: new Input(
-                                        name: 'password',
-                                        type: 'password',
-                                        required: true,
-                                        id: 'user-password',
-                                        minLength: 8,
-                                    ),
-                                    label: 'Пароль',
-                                    helpText: 'Минимум 8 символов',
-                                ),
-                                new Field(
-                                    input: new Input(
-                                        name: 'password_confirm',
-                                        type: 'password',
-                                        required: true,
-                                        id: 'user-password-confirm',
-                                    ),
-                                    label: 'Подтверждение пароля',
-                                ),
-                            ];
+$securityFields = [
+    new Field(
+        input: new Input(
+            name: 'password',
+            type: 'password',
+            required: true,
+            id: 'user-password',
+            minLength: 8,
+        ),
+        label: 'Пароль',
+        helpText: 'Минимум 8 символов',
+    ),
+    new Field(
+        input: new Input(
+            name: 'password_confirm',
+            type: 'password',
+            required: true,
+            id: 'user-password-confirm',
+        ),
+        label: 'Подтверждение пароля',
+    ),
+];
 
-                            foreach ($securityFields as $field) {
-                                echo '<div>'.$field.'</div>';
-                            }
-                            ?>
+foreach ($securityFields as $field) {
+    echo '<div>' . $field . '</div>';
+}
+?>
                         </div>
                     </div>
 

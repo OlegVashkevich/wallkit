@@ -162,7 +162,7 @@ readonly class Markdown extends Base
                 return $this->fallback();
             }
         } catch (Exception $e) {
-            trigger_error("Failed to parse inline Markdown: ".$e->getMessage(), E_USER_WARNING);
+            trigger_error("Failed to parse inline Markdown: " . $e->getMessage(), E_USER_WARNING);
             // В случае ошибки парсинга возвращаем экранированный контент
             return $this->fallback();
         }
@@ -186,7 +186,7 @@ readonly class Markdown extends Base
                 return $this->fallback();
             }
         } catch (Exception $e) {
-            trigger_error("Failed to parse inline Markdown: ".$e->getMessage(), E_USER_WARNING);
+            trigger_error("Failed to parse inline Markdown: " . $e->getMessage(), E_USER_WARNING);
             return $this->fallback();
         }
     }

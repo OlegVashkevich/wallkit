@@ -41,7 +41,13 @@
     }
   },
   "scripts": {
-    "test": "phpunit",
+    "fix-php": "php-cs-fixer fix --config=.php-cs-fixer.php",
+    "fix-tpl": "php-cs-fixer fix --config=.php-cs-fixer.template.php",
+    "fix": [
+      "@fix-php",
+      "@fix-tpl"
+    ],
+    "test": "phpunit --no-configuration ./tests",
     "test-coverage": "phpunit --coverage-html coverage",
     "stan": "./vendor/bin/phpstan analyse --memory-limit 256M  -c phpstan.neon"
   },

@@ -76,18 +76,18 @@ use OlegV\WallKit\Content\Code\Code;
             <div class="wallkit-code__lines">
                 <?php
                 $lines = explode("\n", $this->content);
-                foreach ($lines as $i => $line):
-                    ?>
+            foreach ($lines as $i => $line):
+                ?>
                     <span class="wallkit-code__line-number"><?= $i + 1 ?></span>
                 <?php
-                endforeach; ?>
+            endforeach; ?>
             </div>
         <?php
         endif; ?>
 
-        <pre><code class="<?= $this->highlight ? 'hljs language-'.$this->e(
-                    $this->language,
-                ) : '' ?>"><?= $this->getHighlightedContent() ?>
+        <pre><code class="<?= $this->highlight ? 'hljs language-' . $this->e(
+            $this->language,
+        ) : '' ?>"><?= $this->getHighlightedContent() ?>
         </code></pre>
     </div>
 </div>

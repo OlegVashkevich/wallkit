@@ -99,26 +99,26 @@ readonly class Input extends Base
      *
      */
     public function __construct(
-            public string $name,
-            public ?string $placeholder = null,
-            public ?string $value = null,
-            public string $type = 'text',
-            public bool $required = false,
-            public bool $disabled = false,
-            public bool $readonly = false,
-            public bool $checked = false,
-            public ?string $id = null,
-            public array $classes = [],
-            public array $attributes = [],
-            public bool $autoFocus = false,
-            public ?string $pattern = null,
-            public ?string $min = null,
-            public ?string $max = null,
-            public ?int $maxLength = null,
-            public ?int $minLength = null,
-            public ?string $step = null,
-            public ?string $autocomplete = null,
-            public ?bool $spellcheck = null,
+        public string $name,
+        public ?string $placeholder = null,
+        public ?string $value = null,
+        public string $type = 'text',
+        public bool $required = false,
+        public bool $disabled = false,
+        public bool $readonly = false,
+        public bool $checked = false,
+        public ?string $id = null,
+        public array $classes = [],
+        public array $attributes = [],
+        public bool $autoFocus = false,
+        public ?string $pattern = null,
+        public ?string $min = null,
+        public ?string $max = null,
+        public ?int $maxLength = null,
+        public ?int $minLength = null,
+        public ?string $step = null,
+        public ?string $autocomplete = null,
+        public ?bool $spellcheck = null,
     ) {}
 
     /**
@@ -136,12 +136,12 @@ readonly class Input extends Base
      */
     protected function prepare(): void
     {
-        if ( ! $this->isValidType($this->type)) {
+        if (! $this->isValidType($this->type)) {
             throw new InvalidArgumentException("Неподдерживаемый тип: $this->type");
         }
-        if ( ! $this->hasString(trim($this->name))) {
+        if (! $this->hasString(trim($this->name))) {
             throw new InvalidArgumentException(
-                    "Имя поля обязательно и не может состоять только из пробелов",
+                "Имя поля обязательно и не может состоять только из пробелов",
             );
         }
     }
@@ -167,13 +167,13 @@ readonly class Input extends Base
     public function getInputAttributes(): array
     {
         $attrs = array_merge([
-                'id' => $this->id,
-                'name' => $this->name,
-                'type' => $this->type,
-                'class' => $this->classList($this->getInputClasses()),
-                'placeholder' => $this->placeholder,
-                'value' => $this->value,
-                'autocomplete' => $this->autocomplete,
+            'id' => $this->id,
+            'name' => $this->name,
+            'type' => $this->type,
+            'class' => $this->classList($this->getInputClasses()),
+            'placeholder' => $this->placeholder,
+            'value' => $this->value,
+            'autocomplete' => $this->autocomplete,
         ], $this->attributes);
 
         // Булевые атрибуты
@@ -217,7 +217,7 @@ readonly class Input extends Base
         }
 
         // Удаляем null значения
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 
     /**
@@ -230,24 +230,24 @@ readonly class Input extends Base
     public function isValidType(string $type): bool
     {
         $validTypes = [
-                'color',
-                'date',
-                'datetime-local',
-                'email',
-                'file',
-                'hidden',
-                'month',
-                'number',
-                'password',
-                'range',
-                'search',
-                'tel',
-                'text',
-                'time',
-                'url',
-                'week',
-                'radio',
-                'checkbox',
+            'color',
+            'date',
+            'datetime-local',
+            'email',
+            'file',
+            'hidden',
+            'month',
+            'number',
+            'password',
+            'range',
+            'search',
+            'tel',
+            'text',
+            'time',
+            'url',
+            'week',
+            'radio',
+            'checkbox',
         ];
 
         return in_array($type, $validTypes, true);

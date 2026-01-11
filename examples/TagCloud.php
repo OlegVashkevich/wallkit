@@ -1,7 +1,7 @@
 <?php
 
 // examples/index.php
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 use OlegV\BrickManager;
 use OlegV\WallKit\Content\TagCloud\TagCloud;
@@ -10,31 +10,31 @@ use OlegV\WallKit\Form\Select\Select;
 BrickManager::enableDebug();
 $tags = [
     // Теги с URL для фильтрации (hash-ссылки)
-        'Все' => '#all',
-        'PHP' => '#php',
-        'JavaScript' => '#js',
-        'CSS' => '#css',
-        'Базы данных' => '#database',
-        'Laravel' => '#laravel',
-        'React' => '#react',
+    'Все' => '#all',
+    'PHP' => '#php',
+    'JavaScript' => '#js',
+    'CSS' => '#css',
+    'Базы данных' => '#database',
+    'Laravel' => '#laravel',
+    'React' => '#react',
 
     // Пример тега с дополнительными параметрами (вес 5)
-        'TypeScript' => [
-                'url' => '#typescript',
-                'weight' => 5,
-        ],
+    'TypeScript' => [
+        'url' => '#typescript',
+        'weight' => 5,
+    ],
 
     // Пример тега без ссылки (просто текст)
-        'Архив' => null,
-        'Персональный блог',
-        'Путешествия',
-        'Рецепты',
+    'Архив' => null,
+    'Персональный блог',
+    'Путешествия',
+    'Рецепты',
 
     // Еще один тег с большим весом (будет крупнее)
-        'Vue.js' => [
-                'url' => '#vue',
-                'weight' => 8,
-        ],
+    'Vue.js' => [
+        'url' => '#vue',
+        'weight' => 8,
+    ],
 ];
 $TagCloud = new TagCloud($tags);
 ?>
@@ -74,44 +74,44 @@ $TagCloud = new TagCloud($tags);
 <?php
 // Простой выбор страны
 $countrySelect = new Select(
-        name: 'country',
-        options: [
-                'ru' => 'Россия',
-                'us' => 'США',
-                'de' => 'Германия',
-                'fr' => 'Франция',
-        ],
-        selected: 'ru',
-        placeholder: 'Выберите страну...',
+    name: 'country',
+    options: [
+        'ru' => 'Россия',
+        'us' => 'США',
+        'de' => 'Германия',
+        'fr' => 'Франция',
+    ],
+    selected: 'ru',
+    placeholder: 'Выберите страну...',
 );
 
 // Множественный выбор
 $skillsSelect = new Select(
-        name: 'skills[]',
-        options: [
-                'php' => 'PHP',
-                'js' => 'JavaScript',
-                'python' => 'Python',
-                'java' => 'Java',
-        ],
-        selected: ['php', 'js'],
-        multiple: true,
-        size: 4,
+    name: 'skills[]',
+    options: [
+        'php' => 'PHP',
+        'js' => 'JavaScript',
+        'python' => 'Python',
+        'java' => 'Java',
+    ],
+    selected: ['php', 'js'],
+    multiple: true,
+    size: 4,
 );
 
 // С группами
 $carSelect = new Select(
-        name: 'car',
-        options: [
-                'Немецкие' => [
-                        'bmw' => 'BMW',
-                        'audi' => 'Audi',
-                ],
-                'Японские' => [
-                        'toyota' => 'Toyota',
-                        'honda' => 'Honda',
-                ],
+    name: 'car',
+    options: [
+        'Немецкие' => [
+            'bmw' => 'BMW',
+            'audi' => 'Audi',
         ],
+        'Японские' => [
+            'toyota' => 'Toyota',
+            'honda' => 'Honda',
+        ],
+    ],
 );
 echo $countrySelect;
 echo $skillsSelect;

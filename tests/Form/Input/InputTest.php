@@ -284,7 +284,7 @@ class InputTest extends TestCase
     {
         $input = new Input(name: 'test');
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringStartsWith('<input', $html);
         $this->assertStringContainsString('name="test"', $html);
@@ -307,7 +307,7 @@ class InputTest extends TestCase
             attributes: ['data-test' => 'value'],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('name="email"', $html);
         $this->assertStringContainsString('type="email"', $html);
@@ -331,7 +331,7 @@ class InputTest extends TestCase
             ],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         // Проверяем экранирование
         $this->assertStringContainsString('&quot; onclick=&quot;alert(&apos;xss&apos;)', $html);

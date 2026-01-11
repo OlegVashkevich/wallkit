@@ -18,7 +18,7 @@ class InputRenderingTest extends TestCase
             id: 'username-field',
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringStartsWith('<input', $html);
         $this->assertStringContainsString('name="username"', $html);
@@ -36,7 +36,7 @@ class InputRenderingTest extends TestCase
             id: 'email-field',
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('required', $html);
         $this->assertStringContainsString('name="email"', $html);
@@ -49,7 +49,7 @@ class InputRenderingTest extends TestCase
             disabled: true,
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('disabled', $html);
         $this->assertStringContainsString('name="disabled-field"', $html);
@@ -62,7 +62,7 @@ class InputRenderingTest extends TestCase
             readonly: true,
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('readonly', $html);
         $this->assertStringContainsString('name="readonly-field"', $html);
@@ -75,7 +75,7 @@ class InputRenderingTest extends TestCase
             autoFocus: true,
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('autofocus', $html);
         $this->assertStringContainsString('name="search"', $html);
@@ -88,7 +88,7 @@ class InputRenderingTest extends TestCase
             placeholder: 'Поиск...',
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('placeholder="Поиск..."', $html);
     }
@@ -100,7 +100,7 @@ class InputRenderingTest extends TestCase
             value: 'JohnDoe',
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('value="JohnDoe"', $html);
     }
@@ -116,7 +116,7 @@ class InputRenderingTest extends TestCase
             ],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('data-custom="value"', $html);
         $this->assertStringContainsString('aria-label="Custom input"', $html);
@@ -130,7 +130,7 @@ class InputRenderingTest extends TestCase
             classes: ['custom-class', 'another-class', 'mb-3'],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('custom-class', $html);
         $this->assertStringContainsString('another-class', $html);
@@ -151,7 +151,7 @@ class InputRenderingTest extends TestCase
             ],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         // Проверяем экранирование в значениях
         $this->assertStringContainsString('&quot; onclick=&quot;alert(&apos;xss&apos;)', $html);
@@ -179,7 +179,7 @@ class InputRenderingTest extends TestCase
             ],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         // Проверяем, что опасные атрибуты фильтруются
         $this->assertStringNotContainsString('onclick=', $html);
@@ -202,7 +202,7 @@ class InputRenderingTest extends TestCase
             ],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         // Проверяем, что javascript: URL фильтруются
         $this->assertStringNotContainsString('javascript:', $html);
@@ -237,17 +237,17 @@ class InputRenderingTest extends TestCase
                 type: $type,
             );
 
-            $html = (string)$input;
+            $html = (string) $input;
 
             $this->assertStringContainsString(
-                'type="'.$type.'"',
+                'type="' . $type . '"',
                 $html,
                 "Failed for type: $type",
             );
 
             if ($testValue !== '' && $type !== 'file') {
                 $this->assertStringContainsString(
-                    'value="'.$testValue.'"',
+                    'value="' . $testValue . '"',
                     $html,
                     "Failed to render value for type: $type",
                 );
@@ -267,7 +267,7 @@ class InputRenderingTest extends TestCase
             step: '0.5',
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('pattern="[A-Za-z]{3,}"', $html);
         $this->assertStringContainsString('min="1"', $html);
@@ -285,7 +285,7 @@ class InputRenderingTest extends TestCase
             spellcheck: true,
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('autocomplete="email"', $html);
         $this->assertStringContainsString('spellcheck="true"', $html);
@@ -297,7 +297,7 @@ class InputRenderingTest extends TestCase
     {
         $input = new Input(name: 'test');
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         // Должен быть только один input элемент
         $this->assertStringStartsWith('<input', $html);
@@ -314,7 +314,7 @@ class InputRenderingTest extends TestCase
     {
         $input = new Input(name: 'test');
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         // Проверяем, что null атрибуты не рендерятся
         $this->assertStringNotContainsString('id="', $html);
@@ -355,7 +355,7 @@ class InputRenderingTest extends TestCase
             spellcheck: false,
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         // Проверяем, что все атрибуты рендерятся
         $this->assertStringContainsString('id="test-id"', $html);
@@ -384,7 +384,7 @@ class InputRenderingTest extends TestCase
             classes: ['additional-class'],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('wallkit-input__field', $html);
         $this->assertStringContainsString('additional-class', $html);
@@ -402,7 +402,7 @@ class InputRenderingTest extends TestCase
             ],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('data-custom="value"', $html);
         $this->assertStringContainsString('aria-label="Custom"', $html);
@@ -420,7 +420,7 @@ class InputRenderingTest extends TestCase
             ],
         );
 
-        $html = (string)$input;
+        $html = (string) $input;
 
         $this->assertStringContainsString('type="tel"', $html);
         $this->assertStringNotContainsString('type="email"', $html);

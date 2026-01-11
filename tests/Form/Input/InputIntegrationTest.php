@@ -198,7 +198,7 @@ class InputIntegrationTest extends TestCase
                 name: "field_$i",
                 value: "Значение $i",
             );
-            $result = (string)$input;
+            $result = (string) $input;
         }
 
         $endTime = microtime(true);
@@ -217,14 +217,14 @@ class InputIntegrationTest extends TestCase
         // Первый рендер (с компиляцией)
         $firstStart = microtime(true);
         $input = new Input(name: 'test');
-        $firstRender = (string)$input;
+        $firstRender = (string) $input;
         $firstEnd = microtime(true);
         $firstTime = $firstEnd - $firstStart;
 
         // Второй рендер (из кэша)
         $secondStart = microtime(true);
         $sameInput = new Input(name: 'test2'); // Другой экземпляр, тот же класс
-        $secondRender = (string)$sameInput;
+        $secondRender = (string) $sameInput;
         $secondEnd = microtime(true);
         $secondTime = $secondEnd - $secondStart;
 
