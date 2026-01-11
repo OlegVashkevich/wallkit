@@ -2,6 +2,9 @@ parameters:
   level: max
   paths:
     - src
+  excludePaths:
+    analyse:
+      - src/Content/Markdown/ParsedownEx.php #thirdparty
   strictRules:
     disallowedLooseComparison: true
     booleansInConditions: true

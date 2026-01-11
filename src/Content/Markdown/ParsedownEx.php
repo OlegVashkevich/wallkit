@@ -19,33 +19,10 @@ use Parsedown;
  * - Поддержка безопасного режима Parsedown
  * - Сохранение всех стандартных возможностей Parsedown
  *
- * ## Пример использования
- *
- * ```php
- * $parser = new ParsedownEx();
- * $html = $parser->text($markdownContent);
- * ```
- *
- * Будет преобразовано:
- * ```markdown
- * ```php
- * echo "Hello World";
- * ```
- * ```
- *
- * В:
- * ```html
- * <div class="wallkit-code">
- *   <!-- Рендеринг через компонент Code -->
- * </div>
- * ```
- *
  * @package OlegV\WallKit\Content\Markdown
  * @author OlegV
  * @since 1.0.0
  * @version 1.0.0
- *
- * @extends Parsedown
  */
 class ParsedownEx extends Parsedown
 {

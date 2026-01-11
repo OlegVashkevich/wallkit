@@ -70,7 +70,7 @@ readonly class Markdown extends Base
      *
      * @param  string  $content  Markdown-контент для преобразования
      * @param  bool  $safeMode  Безопасный режим (экранирование HTML, по умолчанию true)
-     * @param  array  $options  Дополнительные опции для парсера Parsedown
+     * @param  array<string, mixed>  $options  Дополнительные опции для парсера Parsedown
      *
      * @throws RuntimeException Если библиотека Parsedown не установлена
      */
@@ -78,7 +78,10 @@ readonly class Markdown extends Base
         public string $content,
         public bool $safeMode = true,
         public array $options = [],
-    ) {}
+    ) {
+        // Создаем парсер
+        $this->parser = $this->createParser();
+    }
 
     /**
      * Подготовка компонента к рендерингу.
@@ -100,9 +103,6 @@ readonly class Markdown extends Base
                 'Parsedown library is required. Install it with: composer require erusev/parsedown',
             );
         }
-
-        // Создаем парсер
-        $this->parser = $this->createParser();
     }
 
     /**
@@ -129,6 +129,7 @@ readonly class Markdown extends Base
      * Применить дополнительные опции к парсеру.
      *
      * @param  ParsedownEx  $parser  Экземпляр парсера для настройки
+     *
      * @return void
      */
     private function applyOptions(ParsedownEx $parser): void
@@ -136,8 +137,10 @@ readonly class Markdown extends Base
         foreach ($this->options as $option => $value) {
             if (method_exists($parser, $option)) {
                 if (is_array($value)) {
+                    // @phpstan-ignore method.dynamicName
                     $parser->$option(...$value);
                 } else {
+                    // @phpstan-ignore method.dynamicName
                     $parser->$option($value);
                 }
             }
@@ -152,11 +155,16 @@ readonly class Markdown extends Base
     public function toHtml(): string
     {
         try {
-            return $this->parser->text($this->content);
+            $out = $this->parser->text($this->content);
+            if (is_string($out)) {
+                return $out;
+            } else {
+                return $this->fallback();
+            }
         } catch (Exception $e) {
             trigger_error("Failed to parse inline Markdown: ".$e->getMessage(), E_USER_WARNING);
             // В случае ошибки парсинга возвращаем экранированный контент
-            return htmlspecialchars($this->content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            return $this->fallback();
         }
     }
 
@@ -171,10 +179,20 @@ readonly class Markdown extends Base
     public function toInlineHtml(): string
     {
         try {
-            return $this->parser->line($this->content);
+            $out = $this->parser->line($this->content);
+            if (is_string($out)) {
+                return $out;
+            } else {
+                return $this->fallback();
+            }
         } catch (Exception $e) {
             trigger_error("Failed to parse inline Markdown: ".$e->getMessage(), E_USER_WARNING);
-            return htmlspecialchars($this->content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            return $this->fallback();
         }
+    }
+
+    private function fallback(): string
+    {
+        return htmlspecialchars($this->content, ENT_QUOTES | ENT_HTML5, 'UTF-8');
     }
 }
