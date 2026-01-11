@@ -48,10 +48,10 @@ echo BrickManager::getInstance()->renderAssets();
 - **[Input](/src/Form/Input/README.md)** — Поле ввода (text, email, password, search, number, tel, url и т.д.) ✅
 - **[Textarea](/src/Form/Textarea/README.md)** — Многострочное текстовое поле с авторазмером ✅
 - **[Field](/src/Form/Field/README.md)** — Обёртка поля (label + input + help + error) ✅
-- **[Button](/src/Form/Button/README.md)** — Кнопка с вариантами ⚠️
-- **[Select](/src/Form/Select/README.md)** — Выпадающий список (single/multiple) ⚠️
-- **[Form](/src/Form/Form/README.md)** — Форма
-- **[FileUpload](/src/Form/FileUpload/README.md)** — Поле загрузки файлов с валидацией и drag & drop
+- **[Button](/src/Form/Button/README.md)** — Кнопка с вариантами ✅
+- **[Select](/src/Form/Select/README.md)** — Выпадающий список (single/multiple)  ✅
+- **[Form](/src/Form/Form/README.md)** — Форма ✅
+- **[FileUpload](/src/Form/FileUpload/README.md)** — Поле загрузки файлов с валидацией и drag & drop ✅
 - *Toggle* — Переключатель On/Off (запланировано)
 - *Range* — Ползунок (ценовой диапазон) (запланировано)
 
@@ -88,9 +88,9 @@ echo BrickManager::getInstance()->renderAssets();
 - *Drawer* — Выдвижная панель (запланировано)
 
 ### Контент (Content)
-- **[TagCloud](/src/Content/TagCloud/README.md)** — Облако тегов для фильтрации и навигации ⚠️
-- **[Code](/src/Content/Code/README.md)** — Блок кода с подсветкой синтаксиса ⚠️
-- **[Markdown](/src/Content/Markdown/README.md)** — Markdown в HTML с использованием Parsedown ⚠️
+- **[TagCloud](/src/Content/TagCloud/README.md)** — Облако тегов для фильтрации и навигации ✅
+- **[Code](/src/Content/Code/README.md)** — Блок кода с подсветкой синтаксиса ✅️
+- **[Markdown](/src/Content/Markdown/README.md)** — Markdown в HTML с использованием Parsedown ✅
 - *Avatar* — Аватар пользователя (запланировано)
 - *Icon* — Иконка (SVG, спрайты) (запланировано)
 - *Image* — Изображение (lazy loading) (запланировано)
@@ -103,7 +103,7 @@ echo BrickManager::getInstance()->renderAssets();
 - *Search* — Поиск по данным (запланировано)
 - *Sorting* — Сортировка данных (запланировано)
 - *Layout* — Компоненты макета (Container, Row, Col) (запланировано)
-- **[ApiResponse](/src/Utilities/ApiResponse/README.md)** - JSON-ответ для API с фильтрацией конфиденциальных данных
+- **[ApiResponse](/src/Utilities/ApiResponse/README.md)** - JSON-ответ для API с фильтрацией конфиденциальных данных ⚠️
 
 ---
 
