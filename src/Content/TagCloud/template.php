@@ -24,14 +24,14 @@ use OlegV\WallKit\Content\TagCloud\TagCloud;
     <?php
     foreach ($this->getProcessedTags() as $tag): ?>
         <?php
-        if ($tag['url']): ?>
-            <a href="<?= $this->e($tag['url']) ?>"
-               class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass']) ?>">
-                <?= $this->e($tag['label']) ?>
-            </a>
+        if ($this->hasString($tag['url'])): ?>
+          <a href="<?= $this->e($tag['url']) ?>"
+             class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass'] ?? '') ?>">
+              <?= $this->e($tag['label']) ?>
+          </a>
         <?php
         else: ?>
-            <span class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass']) ?>">
+          <span class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass'] ?? '') ?>">
                 <?= $this->e($tag['label']) ?>
             </span>
         <?php

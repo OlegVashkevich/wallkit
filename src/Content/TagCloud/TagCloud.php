@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace OlegV\WallKit\Content\TagCloud;
 
 use OlegV\Traits\WithInheritance;
+use OlegV\Traits\WithStrictHelpers;
 use OlegV\WallKit\Base\Base;
 
 /**
@@ -58,6 +59,7 @@ use OlegV\WallKit\Base\Base;
 readonly class TagCloud extends Base
 {
     use WithInheritance;
+    use WithStrictHelpers;
 
     /**
      * Создаёт новый экземпляр компонента TagCloud.
@@ -111,11 +113,10 @@ readonly class TagCloud extends Base
      *   label: string,
      *   url: string|null,
      *   weight: int,
-     *   sizeClass: string
+     *   sizeClass?: string
      * }> Массив тегов с нормализованными данными и CSS-классами размера
      *
      * @see TagCloud::normalizeTag() Для деталей нормализации
-     * @see TagCloud::sortAndAssignClasses() Для логики сортировки и назначения классов
      */
     public function getProcessedTags(): array
     {
@@ -131,7 +132,7 @@ readonly class TagCloud extends Base
                 } elseif (is_array($data)) {
                     // Массив без строкового ключа: ['url' => '/tags/php', 'weight' => 5]
                     // Нужно извлечь label из массива или создать из url
-                    $label = $data['label'] ?? basename($data['url'] ?? 'tag') ?? 'Тег';
+                    $label = $data['label'] ?? basename($data['url'] ?? 'tag');
                     $normalized[] = $this->normalizeTag($label, $data);
                 }
             } else {
@@ -163,22 +164,14 @@ readonly class TagCloud extends Base
      * - Массив → тег с URL и/или весом
      *
      * @param  string  $label  Название тега
-     * @param  mixed  $data  Данные тега (string|array|null)
+     * @param  null|array{label?: string, url?: string|null, weight?: int}|string  $data  Данные тега
+     *
      * @return array{label: string, url: string|null, weight: int} Нормализованный тег
      *
      * @internal
      */
-    private function normalizeTag(string $label, mixed $data): array
+    private function normalizeTag(string $label, null|array|string $data): array
     {
-        // Если $data === null, значит это простая строка без данных
-        if ($data === null) {
-            return [
-                'label' => $label,
-                'url' => null,
-                'weight' => 1,
-            ];
-        }
-
         // Если данные - строка, это URL
         if (is_string($data)) {
             return [
@@ -206,42 +199,10 @@ readonly class TagCloud extends Base
     }
 
     /**
-     * Сортирует теги и назначает CSS-классы для размера.
-     *
-     * Выполняет сортировку в зависимости от `$sortBy`, нормализует веса
-     * и назначает один из 5 CSS-классов размера на основе относительного веса тега.
-     *
-     * @param  array  $tags  Массив нормализованных тегов
-     * @return array<array{
-     *   label: string,
-     *   url: string|null,
-     *   weight: int,
-     *   sizeClass: string
-     * }> Отсортированные теги с назначенными CSS-классами
-     *
-     * @internal
-     */
-    private function sortAndAssignClasses(array $tags): array
-    {
-        // Сортировка
-        $sortedTags = $this->sortTags($tags);
-
-        if ($this->autoSize) {
-            return $this->assignSizeClasses($sortedTags);
-        }
-
-        // Если авто-размер отключен, добавляем базовый класс
-        foreach ($sortedTags as &$tag) {
-            $tag['sizeClass'] = 'wallkit-tagcloud__tag--base';
-        }
-
-        return $sortedTags;
-    }
-
-    /**
      * Сортирует массив тегов в соответствии с выбранным методом.
      *
      * @param  array<array{label: string, url: string|null, weight: int}>  $tags  Массив тегов для сортировки
+     *
      * @return array<array{label: string, url: string|null, weight: int}> Отсортированный массив тегов
      *
      * @internal
@@ -266,7 +227,9 @@ readonly class TagCloud extends Base
      * xs, sm, base, lg, xl.
      *
      * @param  array<array{label: string, url: string|null, weight: int}>  $tags  Массив тегов
-     * @return array<array{label: string, url: string|null, weight: int, sizeClass: string}> Теги с назначенными классами размера
+     *
+     * @return array<array{label: string, url: string|null, weight: int, sizeClass?: string}> Теги с назначенными
+     *     классами размера
      *
      * @internal
      */
@@ -284,7 +247,7 @@ readonly class TagCloud extends Base
         $weights = array_column($tags, 'weight');
         $minWeight = min($weights);
         $maxWeight = max($weights);
-        $weightRange = $maxWeight - $minWeight ?: 1;
+        $weightRange = max($maxWeight - $minWeight, 1);
 
         // Используем все доступные размеры из нашей системы
         $sizeClasses = [
