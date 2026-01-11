@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace OlegV\WallKit\Tests\Form\Input;
 
-use InvalidArgumentException;
+use OlegV\Exceptions\RenderException;
 use OlegV\WallKit\Form\Input\Input;
 use PHPUnit\Framework\TestCase;
 
@@ -73,10 +73,11 @@ class InputTest extends TestCase
 
     public function testThrowsExceptionForInvalidType(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Неподдерживаемый тип: invalid');
+        $invalid = new Input(name: 'test', type: 'invalid');
 
-        new Input(name: 'test', type: 'invalid');
+        $this->expectException(RenderException::class);
+        $this->expectExceptionMessage('Неподдерживаемый тип: invalid');
+        $invalid->renderOriginal();
     }
 
     // ==================== ТЕСТЫ МЕТОДОВ КЛАССА ====================
@@ -183,8 +184,6 @@ class InputTest extends TestCase
         $this->assertTrue($input->isValidType('number'));
 
         $this->assertFalse($input->isValidType('invalid'));
-        $this->assertFalse($input->isValidType('checkbox')); // Не поддерживается
-        $this->assertFalse($input->isValidType('radio'));    // Не поддерживается
     }
 
     // ==================== ТЕСТЫ ПОВЕДЕНИЯ КОМПОНЕНТА ====================
@@ -237,18 +236,22 @@ class InputTest extends TestCase
 
     public function testEmptyNameThrowsException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $input = new Input(name: '');
+
+        $this->expectException(RenderException::class);
         $this->expectExceptionMessage('Имя поля обязательно и не может состоять только из пробелов');
 
-        new Input(name: '');
+        $input->renderOriginal();
     }
 
     public function testOnlySpacesNameThrowsException(): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $input = new Input(name: '   ');
+
+        $this->expectException(RenderException::class);
         $this->expectExceptionMessage('Имя поля обязательно и не может состоять только из пробелов');
 
-        new Input(name: '   ');
+        $input->renderOriginal();
     }
 
     public function testNullValuesAreAllowed(): void

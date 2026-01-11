@@ -21,8 +21,8 @@ class InputIntegrationTest extends TestCase
 
     public function testRegistersAssetsWithBrickManager(): void
     {
-        $input1 = new Input(name: 'test1');
-        $input2 = new Input(name: 'test2');
+        echo new Input(name: 'test1');
+        echo new Input(name: 'test2');
 
         $manager = BrickManager::getInstance();
         $stats = $manager->getStats();
@@ -32,26 +32,24 @@ class InputIntegrationTest extends TestCase
 
         // Проверяем наличие CSS и JS ассетов
         $this->assertEquals(2, $stats['css_assets']);
-        $this->assertEquals(0, $stats['js_assets']);
+        $this->assertEquals(1, $stats['js_assets']);
     }
 
     public function testRendersAssetsThroughManager(): void
     {
-        new Input(name: 'test');
+        echo new Input(name: 'test');
 
         $manager = BrickManager::getInstance();
         $assets = $manager->renderAssets();
 
         $this->assertStringContainsString('<style>', $assets);
         $this->assertStringContainsString('</style>', $assets);
-        $this->assertStringNotContainsString('<script>', $assets);
-        $this->assertStringNotContainsString('</script>', $assets);
         $this->assertStringContainsString('wallkit-input__field', $assets);
     }
 
     public function testSeparateCssAndJsRendering(): void
     {
-        new Input(name: 'test');
+        echo new Input(name: 'test');
 
         $manager = BrickManager::getInstance();
         $css = $manager->renderCss();
@@ -61,8 +59,6 @@ class InputIntegrationTest extends TestCase
         $this->assertStringContainsString('</style>', $css);
         $this->assertStringNotContainsString('<script>', $css);
 
-        $this->assertStringNotContainsString('<script>', $js);
-        $this->assertStringNotContainsString('</script>', $js);
         $this->assertStringNotContainsString('<style>', $js);
     }
 
@@ -76,7 +72,7 @@ class InputIntegrationTest extends TestCase
         // Первый экземпляр должен закэшировать компонент
         $this->assertFalse($manager->isComponentMemoized($className));
 
-        new Input(name: 'test');
+        echo new Input(name: 'test');
 
         $this->assertTrue($manager->isComponentMemoized($className));
 
@@ -91,13 +87,13 @@ class InputIntegrationTest extends TestCase
 
     public function testMultipleInstancesUseSameCache(): void
     {
-        $className = Input::class;
+        echo Input::class;
         $manager = BrickManager::getInstance();
 
         // Создаем несколько экземпляров
-        $input1 = new Input(name: 'first');
-        $input2 = new Input(name: 'second');
-        $input3 = new Input(name: 'third');
+        echo new Input(name: 'first');
+        echo new Input(name: 'second');
+        echo new Input(name: 'third');
 
         // Все должны быть зарегистрированы два компонента Input и родитель - Base
         $stats = $manager->getStats();
