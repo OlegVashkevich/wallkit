@@ -21,10 +21,8 @@ use OlegV\WallKit\Content\TagCloud\TagCloud;
 
 ?>
 <div class="wallkit-tagcloud">
-    <?php
-    foreach ($this->getProcessedTags() as $tag): ?>
-        <?php
-        if ($this->hasString($tag['url'])): ?>
+    <?php foreach ($this->getProcessedTags() as $tag): ?>
+        <?php if ($this->hasString($tag['url'])): ?>
           <a href="<?= $this->e($tag['url']) ?>"
              class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass'] ?? '') ?>">
               <?= $this->e($tag['label']) ?>
@@ -33,8 +31,6 @@ use OlegV\WallKit\Content\TagCloud\TagCloud;
           <span class="wallkit-tagcloud__tag <?= $this->e($tag['sizeClass'] ?? '') ?>">
                 <?= $this->e($tag['label']) ?>
             </span>
-        <?php
-        endif; ?>
-    <?php
-    endforeach; ?>
+        <?php endif?>
+    <?php endforeach?>
 </div>

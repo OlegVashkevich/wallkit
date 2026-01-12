@@ -16,44 +16,30 @@ use OlegV\WallKit\Form\FileUpload\FileUpload;
 
 ?>
 <div class="wallkit-fileupload">
-    <?php
-    if ($this->hasString($this->label)): ?>
-      <label for="<?= $this->e($this->getId()) ?>" class="wallkit-fileupload__label">
-          <?= $this->e($this->label) ?>
-          <?php
-          if ($this->required): ?>
-            <span class="wallkit-fileupload__required" aria-hidden="true">*</span>
-          <?php
-          endif; ?>
-      </label>
-    <?php
-    endif; ?>
-
+  <?php if ($this->hasString($this->label)): ?>
+    <label for="<?= $this->e($this->getId()) ?>" class="wallkit-fileupload__label">
+        <?= $this->e($this->label) ?>
+        <?php if ($this->required): ?>
+          <span class="wallkit-fileupload__required" aria-hidden="true">*</span>
+        <?php endif?>
+    </label>
+  <?php endif?>
   <div class="wallkit-fileupload__wrapper">
     <input <?= $this->attr($this->getInputAttributes()) ?>>
-
-      <?php
-      if ($this->hasString($this->placeholder)): ?>
+      <?php if ($this->hasString($this->placeholder)): ?>
         <div class="wallkit-fileupload__placeholder">
             <?= $this->e($this->placeholder) ?>
         </div>
-      <?php
-      endif; ?>
+      <?php endif?>
   </div>
-
-    <?php
-    if ($this->hasString($this->helpText)): ?>
-      <div class="wallkit-fileupload__help">
-          <?= $this->e($this->helpText) ?>
-      </div>
-    <?php
-    endif; ?>
-
-    <?php
-    if ($this->hasString($this->error)): ?>
-      <div class="wallkit-fileupload__error">
-          <?= $this->e($this->error) ?>
-      </div>
-    <?php
-    endif; ?>
+  <?php if ($this->hasString($this->helpText)): ?>
+    <div class="wallkit-fileupload__help">
+        <?= $this->e($this->helpText) ?>
+    </div>
+  <?php endif?>
+  <?php if ($this->hasString($this->error)): ?>
+    <div class="wallkit-fileupload__error">
+        <?= $this->e($this->error) ?>
+    </div>
+  <?php endif?>
 </div>

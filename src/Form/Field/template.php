@@ -27,10 +27,8 @@ $fieldType = $this->getFieldType();
 $isCheckable = $this->isCheckable();
 ?>
 <div class="<?= $this->e($this->classList($this->getWrapperClasses())) ?>">
-    <?php
-    if ($this->hasString($this->label)): ?>
-        <?php
-        if ($isCheckable): ?>
+    <?php if ($this->hasString($this->label)): ?>
+        <?php if ($isCheckable): ?>
           <!-- Radio/Checkbox: label оборачивает всё -->
           <label class="wallkit-field__label wallkit-field--<?= $this->e($fieldType) ?>">
               <?= $this->input ?>
@@ -49,45 +47,35 @@ $isCheckable = $this->isCheckable();
             </span>
             <span class="wallkit-field__wrapper">
               <?= $this->input ?>
-                <?php
-                if ($this->shouldShowPasswordToggle()): ?>
+                <?php if ($this->shouldShowPasswordToggle()): ?>
                   <button type="button" class="wallkit-field__toggle-password"
                           aria-label="Показать/скрыть пароль">
                   👁️
                 </button>
-                <?php
-                endif; ?>
+                <?php endif?>
           </span>
           </label>
-        <?php
-    endif; ?>
+        <?php endif?>
     <?php else: ?>
       <!-- Поле без label -->
       <div class="wallkit-field__wrapper">
-          <?= $this->input ?>
-          <?php
-      if ($this->shouldShowPasswordToggle()): ?>
-            <button type="button" class="wallkit-field__toggle-password"
-                    aria-label="Показать/скрыть пароль">
-              👁️
-            </button>
-          <?php
-      endif; ?>
+      <?= $this->input ?>
+      <?php if ($this->shouldShowPasswordToggle()): ?>
+        <button type="button" class="wallkit-field__toggle-password"
+                aria-label="Показать/скрыть пароль">
+          👁️
+        </button>
+      <?php endif?>
       </div>
-    <?php
-    endif; ?>
+    <?php endif?>
 
-    <?php
-    if ($this->hasString($this->helpText) && !$this->hasString($this->error)): ?>
+    <?php if ($this->hasString($this->helpText) && !$this->hasString($this->error)): ?>
       <div class="wallkit-field__help"><?= $this->e($this->helpText) ?></div>
-    <?php
-    endif; ?>
+    <?php endif?>
 
-    <?php
-    if ($this->hasString($this->error)): ?>
+    <?php if ($this->hasString($this->error)): ?>
       <div class="wallkit-field__error" role="alert">
         <span>⚠️</span><span><?= $this->e($this->error) ?></span>
       </div>
-    <?php
-    endif; ?>
+    <?php endif?>
 </div>

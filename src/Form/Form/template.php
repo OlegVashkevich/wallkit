@@ -16,22 +16,16 @@ use OlegV\WallKit\Form\Form\Form;
 
 ?>
 <form <?= $this->attr($this->getFormAttributes()) ?>>
-    <?php
-    if ($this->hasString($this->csrfToken) && in_array(
-        strtoupper($this->method),
-        ['POST', 'PUT', 'PATCH', 'DELETE'],
-        true,
-    )): ?>
-      <input type="hidden" name="_token" value="<?= $this->e($this->csrfToken) ?>">
-    <?php
-    endif; ?>
-
-    <?php
-    foreach ($this->fields as $field): ?>
-        <?= $field ?>
-    <?php
-    endforeach; ?>
-
+  <?php if ($this->hasString($this->csrfToken) && in_array(
+    strtoupper($this->method),
+    ['POST', 'PUT', 'PATCH', 'DELETE'],
+    true,
+  )): ?>
+    <input type="hidden" name="_token" value="<?= $this->e($this->csrfToken) ?>">
+  <?php endif?>
+  <?php foreach ($this->fields as $field): ?>
+    <?= $field ?>
+  <?php endforeach?>
   <!-- Место для динамических сообщений (заполняется JS) -->
   <div class="wallkit-form__messages"></div>
 </form>

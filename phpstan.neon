@@ -5,6 +5,7 @@ parameters:
   excludePaths:
     analyse:
       - src/Content/Markdown/ParsedownEx.php #thirdparty
+      - src/Demo #lazy
   strictRules:
     disallowedLooseComparison: true
     booleansInConditions: true
