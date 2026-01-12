@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace OlegV\WallKit\Content\Code;
 
+use DomainException;
 use Exception;
 use Highlight\Highlighter;
 use InvalidArgumentException;
@@ -114,50 +115,13 @@ readonly class Code extends Base
      */
     protected function prepare(): void
     {
-        // Валидация языка (только для подсветки)
-        if ($this->highlight && !in_array($this->language, ['plaintext', 'text'], true)) {
-            $this->ensureHighlightLibrary();
-        }
-
         // Проверка, установлена ли библиотека подсветки
         if ($this->highlight && !class_exists('Highlight\HighlightResult')) {
             trigger_error(
                 'WallKit: Библиотека scrivo/highlight.php не установлена. Подсветка кода отключена. '
-                . 'Установите: composer require scrivo/highlight.php',
+                .'Установите: composer require scrivo/highlight.php',
                 E_USER_WARNING,
             );
-        }
-    }
-
-    /**
-     * Проверяет поддержку языка библиотекой highlight.php.
-     *
-     * Если библиотека установлена, проверяет, входит ли указанный язык
-     * в список поддерживаемых. Если язык не поддерживается, выбрасывает исключение.
-     *
-     * @return void
-     *
-     * @throws InvalidArgumentException Если язык не поддерживается библиотекой подсветки
-     * @internal
-     */
-    private function ensureHighlightLibrary(): void
-    {
-        // Если библиотека установлена, проверяем поддержку языка
-        if (class_exists('Highlight\Highlighter')) {
-            $highlighter = new Highlighter();
-            try {
-                $highlighter::listBundledLanguages();
-            } catch (Exception) {
-                // Если не можем получить список языков, пропускаем проверку
-                return;
-            }
-
-            if (!in_array($this->language, $highlighter::listBundledLanguages(), true)) {
-                throw new InvalidArgumentException(
-                    "Язык '$this->language' не поддерживается библиотекой highlight.php. "
-                    . "Используйте один из: " . implode(', ', $highlighter::listBundledLanguages()),
-                );
-            }
         }
     }
 
@@ -190,6 +154,8 @@ readonly class Code extends Base
             } else {
                 return htmlspecialchars($this->content);
             }
+        } catch (DomainException $e) {
+            throw new DomainException($e->getMessage());
         } catch (Exception) {
             // В случае ошибки подсветки возвращаем обычный текст
             return htmlspecialchars($this->content);

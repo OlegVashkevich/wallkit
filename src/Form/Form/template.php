@@ -17,9 +17,9 @@ use OlegV\WallKit\Form\Form\Form;
 ?>
 <form <?= $this->attr($this->getFormAttributes()) ?>>
   <?php if ($this->hasString($this->csrfToken) && in_array(
-    strtoupper($this->method),
-    ['POST', 'PUT', 'PATCH', 'DELETE'],
-    true,
+      strtoupper($this->method),
+      ['POST', 'PUT', 'PATCH', 'DELETE'],
+      true,
   )): ?>
     <input type="hidden" name="_token" value="<?= $this->e($this->csrfToken) ?>">
   <?php endif?>
