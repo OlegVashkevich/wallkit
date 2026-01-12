@@ -12,38 +12,22 @@ use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
     <h3 class="wallkit-demo-component-card__title">
         <?= $this->e($this->title) ?>
     </h3>
-    <span class="<?= $this->e($this->classList($this->getBadgeClasses())) ?>">
-            <?= $this->e($this->badgeText) ?>
-        </span>
+    <span class="<?= $this->e($this->classList($this->getBadgeClasses())) ?>"
+      ><?= $this->e($this->badgeText) ?></span>
   </div>
-
-  <div class="wallkit-demo-component-card__preview">
-      <?= $this->getHtml() ?>
+  <div class="wallkit-demo-component-card__preview"
+      ><?= $this->getHtml() ?>
   </div>
-
-  <p class="wallkit-demo-component-card__description">
-      <?= $this->e($this->description) ?>
+  <p class="wallkit-demo-component-card__description"
+      ><?= $this->e($this->description) ?>
   </p>
-
-    <?php
-    if ($this->note): ?>
-      <div class="wallkit-demo-component-card__note">
-        💡 <?= $this->e($this->note) ?>
+  <?php if ($this->note): ?>
+    <div class="wallkit-demo-component-card__note"
+      ><?= $this->e($this->note) ?>
       </div>
-    <?php
-    endif;
-$code = '';
-if (is_array($this->component)) {
-    foreach ($this->component as $component) {
-        $code .= $this->objectToConstructorStringNonDefaults($component) . ',' . PHP_EOL;
-    }
-} else {
-    $code .= $this->objectToConstructorStringNonDefaults($this->component);
-}
-
-//можно пробросить через полноценное свойство, но пока пусть так будет?>
+  <?php endif?>
     <?= new Code(
-        content: $code,
+        content: $this->getCode(),
         language: 'php',
         highlight: true,
         lineNumbers: true,

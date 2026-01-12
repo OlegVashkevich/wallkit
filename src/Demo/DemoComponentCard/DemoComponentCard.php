@@ -147,4 +147,17 @@ readonly class DemoComponentCard extends Base
         $outerIndent = str_repeat('    ', $depth);
         return "[\n" . implode(",\n", $items) . "\n$outerIndent]";
     }
+
+    protected function getCode(): string
+    {
+        $code = '';
+        if (is_array($this->component)) {
+            foreach ($this->component as $component) {
+                $code .= $this->objectToConstructorStringNonDefaults($component) . ',' . PHP_EOL;
+            }
+        } else {
+            $code .= $this->objectToConstructorStringNonDefaults($this->component);
+        }
+        return $code;
+    }
 }
