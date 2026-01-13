@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+  bootstrap="vendor/autoload.php"
+  colors="true"
+  failOnRisky="true"
+  failOnWarning="true"
+  stopOnFailure="false"
+  executionOrder="random"
+  resolveDependencies="true"
+>
+  <php>
+    <ini name="error_reporting" value="-1"/>
+  </php>
+
+  <testsuites>
+    <testsuite name="Wallkit tests">
+      <directory>./tests</directory>
+    </testsuite>
+  </testsuites>
+
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+    <exclude>
+      <directory suffix=".php">./src/Demo</directory>
+    </exclude>
+  </source>
+</phpunit>
