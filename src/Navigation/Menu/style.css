@@ -1,64 +1,83 @@
 /*
- * Стили компонента Menu
- * Определяет layout и компоновку элементов меню
+ * Стили компонента Menu - основное меню
  */
 
 /* Базовые стили меню */
 .wallkit-menu {
   display: flex;
-  flex-direction: column;
   background: var(--wk-color-bg, white);
   border-radius: var(--wk-border-radius, 0.375rem);
   box-shadow: var(--wk-shadow, 0 1px 3px rgba(0, 0, 0, 0.1));
   font-family: var(--wk-font-family, system-ui, -apple-system), sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 /* Ориентация */
 .wallkit-menu--horizontal {
   flex-direction: row;
   align-items: center;
+  gap: var(--wk-spacing-2, 0.5rem);
 }
 
 .wallkit-menu--vertical {
   flex-direction: column;
+  gap: 0;
 }
 
-/* Варианты оформления */
-.wallkit-menu--navbar {
-  padding: 0 var(--wk-spacing-4, 1rem);
+/* Позиционирование */
+.wallkit-menu--position-top {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 
-.wallkit-menu--sidebar {
-  min-width: 250px;
-  height: 100%;
-  padding: var(--wk-spacing-4, 1rem) 0;
+.wallkit-menu--position-left {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 250px;
+  z-index: 40;
 }
 
-.wallkit-menu--dropdown {
-  min-width: 200px;
-  padding: var(--wk-spacing-2, 0.5rem) 0;
-  position: absolute;
-  z-index: 1000;
+.wallkit-menu--position-right {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 250px;
+  z-index: 40;
 }
 
-.wallkit-menu--context {
-  min-width: 180px;
-  padding: var(--wk-spacing-2, 0.5rem) 0;
-  position: absolute;
-  z-index: 1000;
+.wallkit-menu--position-bottom {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
 }
 
-/* Бренд и поиск */
+/* Бренд */
 .wallkit-menu__brand {
   font-size: var(--wk-font-size-lg, 1.125rem);
   font-weight: 700;
   color: var(--wk-color-primary, #3b82f6);
   padding: var(--wk-spacing-3, 0.75rem) var(--wk-spacing-4, 1rem);
   margin-right: auto;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: var(--wk-spacing-2, 0.5rem);
 }
 
+/* Поиск */
 .wallkit-menu__search {
   padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-4, 1rem);
+  flex: 1;
+  max-width: 300px;
 }
 
 .wallkit-menu__search-input {
@@ -67,103 +86,88 @@
   border: 1px solid var(--wk-color-border, #e5e7eb);
   border-radius: var(--wk-border-radius, 0.375rem);
   font-size: var(--wk-font-size-sm, 0.875rem);
+  background: var(--wk-color-bg-secondary, #f9fafb);
 }
 
 .wallkit-menu__search-input:focus {
   outline: 2px solid var(--wk-color-primary, #3b82f6);
   outline-offset: -1px;
+  background: white;
 }
 
 /* Контейнер элементов */
 .wallkit-menu__items {
+  display: flex;
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
 }
 
 .wallkit-menu--horizontal .wallkit-menu__items {
   flex-direction: row;
-  gap: var(--wk-spacing-2, 0.5rem);
+  align-items: center;
+  gap: var(--wk-spacing-1, 0.25rem);
 }
 
 .wallkit-menu--vertical .wallkit-menu__items {
   flex-direction: column;
   gap: 0;
+  padding: var(--wk-spacing-2, 0.5rem) 0;
 }
 
-/* Элементы меню */
-.wallkit-menu__item {
-  margin: 0;
-  padding: 0;
+/* Сворачиваемое меню (мобильная адаптация) */
+.wallkit-menu--collapsible {
+  transition: all 0.3s ease;
 }
 
-.wallkit-menu--horizontal .wallkit-menu__item {
-  display: inline-block;
-}
-
-.wallkit-menu--vertical .wallkit-menu__item {
-  width: 100%;
-}
-
-/* Сворачиваемое меню */
-.wallkit-menu--collapsible .wallkit-menu__items {
-  transition: max-height 0.3s ease;
-  overflow: hidden;
-}
-
-.wallkit-menu--collapsible:not(.wallkit-menu--expanded) .wallkit-menu__items {
-  max-height: 0;
-}
-
-/* Позиционирование */
-.wallkit-menu--position-top {
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-.wallkit-menu--position-left {
-  top: 0;
-  left: 0;
-  bottom: 0;
-}
-
-.wallkit-menu--position-right {
-  top: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.wallkit-menu--position-bottom {
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.wallkit-menu--position-floating {
-  box-shadow: var(--wk-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+.wallkit-menu__toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: var(--wk-spacing-2, 0.5rem);
+  cursor: pointer;
+  font-size: 1.25rem;
+  color: var(--wk-color-text, #1f2937);
+  margin-left: auto;
 }
 
 /* Адаптивность */
 @media (max-width: 768px) {
   .wallkit-menu--horizontal {
     flex-wrap: wrap;
+    padding: var(--wk-spacing-2, 0.5rem);
   }
 
-  .wallkit-menu--horizontal .wallkit-menu__items {
+  .wallkit-menu--horizontal.wallkit-menu--collapsible .wallkit-menu__items {
+    display: none;
     order: 3;
     width: 100%;
     margin-top: var(--wk-spacing-2, 0.5rem);
     flex-direction: column;
-    gap: 0;
   }
 
-  .wallkit-menu--collapsible .wallkit-menu__items {
-    display: none;
-  }
-
-  .wallkit-menu--collapsible.wallkit-menu--expanded .wallkit-menu__items {
+  .wallkit-menu--horizontal.wallkit-menu--collapsible.wallkit-menu--expanded .wallkit-menu__items {
     display: flex;
+  }
+
+  .wallkit-menu__toggle {
+    display: block;
+  }
+
+  .wallkit-menu__search {
+    max-width: none;
+    order: 2;
+    width: 100%;
+    margin-top: var(--wk-spacing-2, 0.5rem);
+  }
+
+  .wallkit-menu--position-left,
+  .wallkit-menu--position-right {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    height: auto;
+    max-height: 100vh;
+    overflow-y: auto;
   }
 }

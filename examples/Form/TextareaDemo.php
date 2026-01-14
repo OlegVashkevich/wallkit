@@ -17,6 +17,7 @@ use OlegV\WallKit\Form\Form\Form;
 use OlegV\WallKit\Form\Input\Input;
 use OlegV\WallKit\Form\Select\Select;
 use OlegV\WallKit\Form\Textarea\Textarea;
+use OlegV\WallKit\Navigation\ContextMenu\ContextMenu;
 use OlegV\WallKit\Navigation\Item\Item;
 use OlegV\WallKit\Navigation\Menu\Menu;
 
@@ -569,7 +570,6 @@ $sizesCards = [
                 Item::action('Войти', 'login', '🔑'),
             ],
             orientation: 'horizontal',
-            variant: 'navbar',
             position: 'top',
             brand: 'WallKit Demo',
         ),
@@ -583,7 +583,11 @@ $sizesCards = [
             items: [
                 Item::link('Дашборд', '/dashboard', '📊', active: true),
                 Item::parent('Контент', [
-                    Item::link('Статьи', '/articles'),
+                    Item::parent('Статьи', [
+                        Item::link('Все пользователи', '/users'),
+                        Item::link('Роли', '/roles'),
+                        Item::link('Разрешения', '/permissions'),
+                    ]),
                     Item::link('Категории', '/categories'),
                     Item::link('Медиа', '/media'),
                 ], '📝'),
@@ -596,9 +600,9 @@ $sizesCards = [
                 Item::header('Настройки'),
                 Item::link('Общие настройки', '/settings', '⚙️'),
                 Item::action('Выйти', 'logout', '🚪', danger: true),
+                Item::divider(),
             ],
             orientation: 'vertical',
-            variant: 'sidebar',
             position: 'left',
             collapsible: false,
         ),
@@ -616,9 +620,7 @@ $sizesCards = [
                 Item::action('Выйти', 'logout', '🚪', danger: true),
             ],
             orientation: 'vertical',
-            variant: 'dropdown',
             position: 'bottom',
-            trigger: 'click',
         ),
         description: 'Выпадающее меню',
         badgeText: 'dropdown',
@@ -634,15 +636,21 @@ $sizesCards = [
                 Item::action('Выйти', 'logout', '🚪', danger: true),
             ],
             orientation: 'vertical',
-            variant: 'context',
             position: 'bottom',
-            trigger: 'click',
         ),
         description: 'Выпадающее меню',
         badgeText: 'Context',
         badgeType: 'Context',
     ),
 ];
+
+echo new ContextMenu(
+    items: [
+        Item::action('Копировать', 'copy', '📋'),
+        Item::action('Вставить', 'paste', '📝'),
+    ],
+//target: '.editable-content',
+);
 
 $sizesSection = new DemoSection(
     id: 'sizes',
