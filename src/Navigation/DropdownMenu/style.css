@@ -1,0 +1,117 @@
+/*
+ * Стили компонента DropdownMenu - выпадающее меню
+ */
+
+/* Триггер */
+.wallkit-dropdown-menu__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--wk-spacing-2, 0.5rem);
+  padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-3, 0.75rem);
+  background: var(--wk-color-bg, white);
+  border: 1px solid var(--wk-color-border, #e5e7eb);
+  border-radius: var(--wk-border-radius, 0.375rem);
+  color: var(--wk-color-text, #1f2937);
+  font-family: var(--wk-font-family, system-ui, -apple-system), sans-serif;
+  font-size: var(--wk-font-size-md, 1rem);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wallkit-dropdown-menu__trigger:hover {
+  background: var(--wk-color-bg-hover, #f3f4f6);
+  border-color: var(--wk-color-border-hover, #d1d5db);
+}
+
+.wallkit-dropdown-menu__trigger:focus {
+  outline: 2px solid var(--wk-color-primary, #3b82f6);
+  outline-offset: 2px;
+}
+
+.wallkit-dropdown-menu__trigger--active {
+  background: var(--wk-color-primary-light, #dbeafe);
+  border-color: var(--wk-color-primary, #3b82f6);
+  color: var(--wk-color-primary, #3b82f6);
+}
+
+/* Иконка триггера */
+.wallkit-dropdown-menu__trigger-icon {
+  font-size: 0.875em;
+  transition: transform 0.2s ease;
+}
+
+.wallkit-dropdown-menu__trigger[aria-expanded="true"] .wallkit-dropdown-menu__trigger-icon {
+  transform: rotate(180deg);
+}
+
+/* Выпадающее меню */
+.wallkit-dropdown-menu {
+  position: absolute;
+  min-width: 200px;
+  background: var(--wk-color-bg, white);
+  border: 1px solid var(--wk-color-border, #e5e7eb);
+  border-radius: var(--wk-border-radius, 0.375rem);
+  box-shadow: var(--wk-shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1));
+  z-index: 1000;
+  margin: var(--wk-spacing-1, 0.25rem) 0;
+  padding: var(--wk-spacing-1, 0.25rem) 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+}
+
+.wallkit-dropdown-menu--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.wallkit-dropdown-menu--hidden {
+  display: none;
+}
+
+/* Позиционирование */
+.wallkit-dropdown-menu--position-bottom {
+  top: 100%;
+  left: 0;
+}
+
+.wallkit-dropdown-menu--position-top {
+  bottom: 100%;
+  left: 0;
+}
+
+.wallkit-dropdown-menu--position-left {
+  top: 0;
+  right: 100%;
+}
+
+.wallkit-dropdown-menu--position-right {
+  top: 0;
+  left: 100%;
+}
+
+/* Контейнер элементов */
+.wallkit-dropdown-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Адаптивность */
+@media (max-width: 640px) {
+  .wallkit-dropdown-menu {
+    position: fixed;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(0.95);
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+
+  .wallkit-dropdown-menu--visible {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
