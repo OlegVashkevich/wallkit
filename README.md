@@ -56,6 +56,7 @@ echo BrickManager::getInstance()->renderAssets();
 - *Range* — Ползунок (ценовой диапазон) (запланировано)
 
 ### Навигация (Navigation)
+- **[Item](/src/Navigation/Item/README.md)** - Компонент элемента навигации - базовый строительный блок для меню, хлебных крошек, вкладок ⚠️
 - **[Menu](/src/Navigation/Menu/README.md)** — Меню ⚠️
 - *Breadcrumb* — Хлебные крошки (запланировано)
 - *Pagination* — Пагинация (запланировано)

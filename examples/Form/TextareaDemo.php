@@ -17,6 +17,7 @@ use OlegV\WallKit\Form\Form\Form;
 use OlegV\WallKit\Form\Input\Input;
 use OlegV\WallKit\Form\Select\Select;
 use OlegV\WallKit\Form\Textarea\Textarea;
+use OlegV\WallKit\Navigation\Item\Item;
 use OlegV\WallKit\Navigation\Menu\Menu;
 
 BrickManager::enableDebug();
@@ -554,47 +555,92 @@ $sizesCards = [
         badgeType: 'form',
     ),
     new DemoComponentCard(
-        title: 'Множественная загрузка',
+        title: 'Горизонтальное меню (Navbar)',
         component: new Menu(
             items: [
-                [
-                    'label' => 'Дашборд',
-                    'icon' => '📊',
-                    'url' => '/dashboard',
-                    'active' => true,
-                ],
-                [
-                    'label' => 'Пользователи',
-                    'icon' => '👥',
-                    'children' => [
-                        ['label' => 'Список', 'url' => '/users'],
-                        ['label' => 'Добавить', 'url' => '/users/new'],
-                    ],
-                ],
+                Item::link('Главная', '/', '🏠', active: true),
+                Item::link('О компании', '/about'),
+                Item::parent('Услуги', [
+                    Item::link('Веб-разработка', '/services/web'),
+                    Item::link('Мобильные приложения', '/services/mobile'),
+                    Item::link('UI/UX дизайн', '/services/design'),
+                ], '🎯'),
+                Item::link('Контакты', '/contact'),
+                Item::action('Войти', 'login', '🔑'),
+            ],
+            orientation: 'horizontal',
+            variant: 'navbar',
+            position: 'top',
+            brand: 'WallKit Demo',
+        ),
+        description: 'Горизонтальное меню (Navbar)',
+        badgeText: 'Navbar',
+        badgeType: 'Navbar',
+    ),
+    new DemoComponentCard(
+        title: 'Вертикальное меню (Sidebar)',
+        component: new Menu(
+            items: [
+                Item::link('Дашборд', '/dashboard', '📊', active: true),
+                Item::parent('Контент', [
+                    Item::link('Статьи', '/articles'),
+                    Item::link('Категории', '/categories'),
+                    Item::link('Медиа', '/media'),
+                ], '📝'),
+                Item::parent('Пользователи', [
+                    Item::link('Все пользователи', '/users'),
+                    Item::link('Роли', '/roles'),
+                    Item::link('Разрешения', '/permissions'),
+                ], '👥'),
+                Item::divider(),
+                Item::header('Настройки'),
+                Item::link('Общие настройки', '/settings', '⚙️'),
+                Item::action('Выйти', 'logout', '🚪', danger: true),
             ],
             orientation: 'vertical',
             variant: 'sidebar',
-            collapsible: true,
+            position: 'left',
+            collapsible: false,
         ),
-        description: 'Множественная загрузка',
-        badgeText: 'form',
-        badgeType: 'form',
+        description: 'Вертикальное меню (Sidebar)',
+        badgeText: 'Sidebar',
+        badgeType: 'Sidebar',
     ),
     new DemoComponentCard(
-        title: 'Множественная загрузка',
+        title: 'Выпадающее меню',
         component: new Menu(
             items: [
-                ['label' => 'Главная', 'url' => '/', 'active' => true],
-                ['label' => 'О нас', 'url' => '/about'],
-                ['label' => 'Контакты', 'url' => '/contact'],
+                Item::link('Профиль', '/profile', '👤'),
+                Item::link('Настройки', '/settings', '⚙️'),
+                Item::divider(),
+                Item::action('Выйти', 'logout', '🚪', danger: true),
             ],
-            variant: 'navbar',
-            brand: 'МойСайт',
-            searchPlaceholder: 'Поиск...',
+            orientation: 'vertical',
+            variant: 'dropdown',
+            position: 'bottom',
+            trigger: 'click',
         ),
-        description: 'Множественная загрузка',
-        badgeText: 'form',
-        badgeType: 'form',
+        description: 'Выпадающее меню',
+        badgeText: 'dropdown',
+        badgeType: 'dropdown',
+    ),
+    new DemoComponentCard(
+        title: 'Context меню',
+        component: new Menu(
+            items: [
+                Item::link('Профиль', '/profile', '👤'),
+                Item::link('Настройки', '/settings', '⚙️'),
+                Item::divider(),
+                Item::action('Выйти', 'logout', '🚪', danger: true),
+            ],
+            orientation: 'vertical',
+            variant: 'context',
+            position: 'bottom',
+            trigger: 'click',
+        ),
+        description: 'Выпадающее меню',
+        badgeText: 'Context',
+        badgeType: 'Context',
     ),
 ];
 

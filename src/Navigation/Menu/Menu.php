@@ -9,12 +9,14 @@ use OlegV\Traits\WithHelpers;
 use OlegV\Traits\WithInheritance;
 use OlegV\Traits\WithStrictHelpers;
 use OlegV\WallKit\Base\Base;
+use OlegV\WallKit\Navigation\Item\Item;
 
 /**
  * Компонент Menu — универсальное меню для навигации и действий
  *
  * Поддерживает все варианты меню: горизонтальное (navbar), вертикальное (sidebar),
  * выпадающее (dropdown) и контекстное (context).
+ * Использует Item как компоненты элементов.
  *
  * ## Примеры использования
  *
@@ -22,9 +24,12 @@ use OlegV\WallKit\Base\Base;
  * ```php
  * $menu = new Menu(
  *     items: [
- *         ['label' => 'Главная', 'url' => '/'],
- *         ['label' => 'О нас', 'url' => '/about'],
- *         ['label' => 'Контакты', 'url' => '/contact'],
+ *         Item::link('Главная', '/', '🏠', active: true),
+ *         Item::link('О нас', '/about'),
+ *         Item::parent('Услуги', [
+ *             Item::link('Разработка', '/services/dev'),
+ *             Item::link('Дизайн', '/services/design'),
+ *         ], '🎯'),
  *     ],
  *     orientation: 'horizontal',
  *     variant: 'navbar',
@@ -38,40 +43,21 @@ use OlegV\WallKit\Base\Base;
  * ```php
  * $menu = new Menu(
  *     items: [
- *         [
- *             'label' => 'Дашборд',
- *             'icon' => '📊',
- *             'url' => '/dashboard',
- *             'active' => true,
- *         ],
- *         [
- *             'label' => 'Пользователи',
- *             'icon' => '👥',
- *             'children' => [
- *                 ['label' => 'Список', 'url' => '/users'],
- *                 ['label' => 'Добавить', 'url' => '/users/new'],
- *             ],
- *         ],
+ *         Item::link('Дашборд', '/dashboard', '📊', active: true),
+ *         Item::parent('Пользователи', [
+ *             Item::link('Список', '/users'),
+ *             Item::link('Добавить', '/users/new'),
+ *         ], '👥'),
+ *         Item::divider(),
+ *         Item::header('Настройки'),
+ *         Item::action('Выйти', 'logout', '🚪', danger: true),
  *     ],
  *     orientation: 'vertical',
  *     variant: 'sidebar',
  *     position: 'left',
  *     collapsible: true,
  * );
- * ```
- *
- * ### Выпадающее меню
- * ```php
- * $menu = new Menu(
- *     items: [
- *         ['label' => 'Редактировать', 'action' => 'edit'],
- *         ['label' => 'Удалить', 'action' => 'delete', 'danger' => true],
- *     ],
- *     orientation: 'vertical',
- *     variant: 'dropdown',
- *     position: 'floating',
- *     trigger: 'click',
- * );
+ * echo $menu;
  * ```
  *
  * @package OlegV\WallKit\Navigation\Menu
@@ -90,8 +76,7 @@ readonly class Menu extends Base
     /**
      * Создаёт новый экземпляр компонента Menu.
      *
-     * @param  array<array{label: string, url?: string, action?: string, icon?: string, active?: bool, children?:
-     *     array, danger?: bool, disabled?: bool}>  $items  Элементы меню
+     * @param  array<Item>  $items  Элементы меню (объекты Item)
      * @param  string  $orientation  Ориентация (horizontal|vertical)
      * @param  string  $variant  Вариант оформления (navbar|sidebar|dropdown|context)
      * @param  string  $position  Позиция (top|left|right|bottom|floating)
@@ -127,7 +112,12 @@ readonly class Menu extends Base
      */
     protected function prepare(): void
     {
-        // Только базовые проверки значений
+        // Проверяем что все items - экземпляры Item
+        foreach ($this->items as $item) {
+            if (!$item instanceof Item) {
+                throw new InvalidArgumentException('Все элементы меню должны быть экземплярами Item');
+            }
+        }
 
         if (!$this->isValidOrientation($this->orientation)) {
             throw new InvalidArgumentException("Неподдерживаемая ориентация: $this->orientation");
@@ -146,10 +136,17 @@ readonly class Menu extends Base
         }
 
         // Проверка вложенности (если ограничение задано)
-        if ($this->maxNestingLevel > 0 && !$this->validateNesting($this->items)) {
-            throw new InvalidArgumentException(
-                "Превышен максимальный уровень вложенности: $this->maxNestingLevel",
-            );
+        if ($this->maxNestingLevel > 0) {
+            foreach ($this->items as $item) {
+                $allItems = $item->getAllItems();
+                foreach ($allItems as $itemData) {
+                    if ($itemData['level'] > $this->maxNestingLevel) {
+                        throw new InvalidArgumentException(
+                            "Превышен максимальный уровень вложенности: $this->maxNestingLevel",
+                        );
+                    }
+                }
+            }
         }
     }
 
@@ -183,6 +180,31 @@ readonly class Menu extends Base
     public function isValidTrigger(string $trigger): bool
     {
         return in_array($trigger, ['always', 'hover', 'click', 'context'], true);
+    }
+
+    /**
+     * Рендерит все элементы меню
+     */
+    public function renderItems(): string
+    {
+        $html = '';
+        foreach ($this->items as $item) {
+            $html .= '<li class="wallkit-menu__item">'.$item->render().'</li>';
+        }
+        return $html;
+    }
+
+    /**
+     * Проверяет, есть ли вложенные элементы в меню
+     */
+    public function hasNestedItems(): bool
+    {
+        foreach ($this->items as $item) {
+            if ($item->hasChildren()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -254,89 +276,27 @@ readonly class Menu extends Base
     }
 
     /**
-     * Рекурсивно проверяет уровень вложенности элементов.
-     *
-     * @param  array  $items  Элементы для проверки
-     * @param  int  $currentLevel  Текущий уровень
-     *
-     * @return bool true если вложенность допустима
-     */
-    private function validateNesting(array $items, int $currentLevel = 1): bool
-    {
-        if ($this->maxNestingLevel > 0 && $currentLevel > $this->maxNestingLevel) {
-            return false;
-        }
-
-        foreach ($items as $item) {
-            if (isset($item['children'])) {
-                if (!$this->validateNesting($item['children'], $currentLevel + 1)) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * Возвращает подготовленные элементы для шаблона.
-     *
-     * @return array<array{label: string, url?: string, action?: string, icon?: string, active: bool, children?: array,
-     *     danger?: bool, disabled?: bool}>
-     */
-    public function getPreparedItems(): array
-    {
-        return array_map(function ($item) {
-            return [
-                'label' => $item['label'] ?? '',
-                'url' => $item['url'] ?? null,
-                'action' => $item['action'] ?? null,
-                'icon' => $item['icon'] ?? null,
-                'active' => $item['active'] ?? false,
-                'children' => $item['children'] ?? null,
-                'danger' => $item['danger'] ?? false,
-                'disabled' => $item['disabled'] ?? false,
-            ];
-        }, $this->items);
-    }
-
-    /**
-     * Проверяет, есть ли в меню вложенные элементы.
-     *
-     * @return bool true если есть вложенные элементы
-     */
-    public function hasNestedItems(): bool
-    {
-        foreach ($this->items as $item) {
-            if (!empty($item['children'])) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Возвращает CSS классы для элемента меню.
      *
-     * @param  array  $item  Элемент меню
+     * @param  Item  $item  Элемент меню
      * @param  int  $level  Уровень вложенности
      *
      * @return array<string> Массив CSS классов
      */
-    public function getItemClasses(array $item, int $level = 1): array
+    public function getItemClasses(Item $item, int $level = 1): array
     {
         $classes = ['wallkit-menu__item'];
 
-        if ($item['active']) {
+        if ($item->active) {
             $classes[] = 'wallkit-menu__item--active';
         }
-        if ($item['danger']) {
+        if ($item->danger) {
             $classes[] = 'wallkit-menu__item--danger';
         }
-        if ($item['disabled']) {
+        if ($item->disabled) {
             $classes[] = 'wallkit-menu__item--disabled';
         }
-        if (!empty($item['children'])) {
+        if ($item->hasChildren()) {
             $classes[] = 'wallkit-menu__item--has-children';
         }
         if ($level > 1) {

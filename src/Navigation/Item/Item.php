@@ -94,14 +94,12 @@ readonly class Item extends Base
         public string $type = 'link',
         public array $children = [],
         public array $meta = [],
-    ) {
-        $this->validate();
-    }
+    ) {}
 
     /**
      * Валидация элемента
      */
-    private function validate(): void
+    protected function prepare(): void
     {
         // Проверяем допустимый тип
         if (!in_array($this->type, ['link', 'action', 'divider', 'header', 'custom'])) {
@@ -368,7 +366,7 @@ readonly class Item extends Base
             id: $id,
             badge: $badge,
             hint: $hint,
-            type: 'link',
+            type: 'custom',
             children: $children,
         );
     }
