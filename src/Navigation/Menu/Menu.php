@@ -308,7 +308,7 @@ readonly class Menu extends Base
     public function hasNestedItems(): bool
     {
         foreach ($this->items as $item) {
-            if (isset($item['children']) && !empty($item['children'])) {
+            if (!empty($item['children'])) {
                 return true;
             }
         }

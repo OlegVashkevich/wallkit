@@ -1,0 +1,165 @@
+/*
+ * Стили компонента Item - базового элемента навигации
+ * Использует CSS-переменные из Base/style.css
+ */
+
+/* Базовые стили элемента навигации */
+.wallkit-item__wrapper {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Основной элемент */
+.wallkit-item {
+  display: flex;
+  align-items: center;
+  gap: var(--wk-spacing-2, 0.5rem);
+  padding: var(--wk-spacing-3, 0.75rem) var(--wk-spacing-4, 1rem);
+  text-decoration: none;
+  color: var(--wk-color-text, #1f2937);
+  background: transparent;
+  border: none;
+  border-radius: var(--wk-border-radius, 0.375rem);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: var(--wk-font-family, system-ui, -apple-system), sans-serif;
+  font-size: var(--wk-font-size-md, 1rem);
+  width: 100%;
+  text-align: left;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.wallkit-item:focus {
+  outline: 2px solid var(--wk-color-primary, #3b82f6);
+  outline-offset: 2px;
+}
+
+.wallkit-item:hover:not(.wallkit-item--disabled) {
+  background: var(--wk-color-bg-hover, #f3f4f6);
+}
+
+.wallkit-item--active {
+  background: var(--wk-color-primary-light, #dbeafe);
+  color: var(--wk-color-primary, #3b82f6);
+  font-weight: 500;
+}
+
+.wallkit-item--danger {
+  color: var(--wk-color-danger, #ef4444);
+}
+
+.wallkit-item--danger:hover:not(.wallkit-item--disabled) {
+  background: var(--wk-color-danger-light, #fee2e2);
+}
+
+.wallkit-item--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Разделитель */
+.wallkit-item--divider {
+  height: 1px;
+  background: var(--wk-color-border, #e5e7eb);
+  margin: var(--wk-spacing-2, 0.5rem) 0;
+  padding: 0;
+  cursor: default;
+}
+
+.wallkit-item--divider:focus {
+  outline: none;
+}
+
+/* Заголовок */
+.wallkit-item--header {
+  padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-4, 1rem);
+  color: var(--wk-color-text-muted, #6b7280);
+  font-size: var(--wk-font-size-sm, 0.875rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: default;
+}
+
+.wallkit-item--header:hover {
+  background: transparent;
+}
+
+.wallkit-item--header:focus {
+  outline: none;
+}
+
+/* Вложенные элементы */
+.wallkit-item__children {
+  display: none;
+  padding-left: var(--wk-spacing-4, 1rem);
+}
+
+.wallkit-item__wrapper[data-has-children="true"]:hover .wallkit-item__children,
+.wallkit-item__wrapper[data-has-children="true"].wallkit-item__wrapper--expanded .wallkit-item__children {
+  display: block;
+}
+
+/* Уровни вложенности */
+.wallkit-item__wrapper--level-2 .wallkit-item {
+  padding-left: calc(var(--wk-spacing-4, 1rem) * 2);
+}
+
+.wallkit-item__wrapper--level-3 .wallkit-item {
+  padding-left: calc(var(--wk-spacing-4, 1rem) * 3);
+}
+
+.wallkit-item__wrapper--level-4 .wallkit-item {
+  padding-left: calc(var(--wk-spacing-4, 1rem) * 4);
+}
+
+/* Иконки и бейджи */
+.wallkit-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25em;
+  height: 1.25em;
+  flex-shrink: 0;
+  font-size: 1.125em;
+}
+
+.wallkit-item__badge {
+  margin-left: auto;
+  padding: var(--wk-spacing-1, 0.25rem) var(--wk-spacing-2, 0.5rem);
+  background: var(--wk-color-primary, #3b82f6);
+  color: white;
+  border-radius: 999px;
+  font-size: var(--wk-font-size-xs, 0.75rem);
+  font-weight: 600;
+  min-width: 1.5rem;
+  text-align: center;
+}
+
+.wallkit-item__arrow {
+  margin-left: var(--wk-spacing-2, 0.5rem);
+  transition: transform 0.2s ease;
+  font-size: 0.875em;
+  opacity: 0.7;
+}
+
+.wallkit-item__wrapper[data-has-children="true"]:hover .wallkit-item__arrow,
+.wallkit-item__wrapper[data-has-children="true"].wallkit-item__wrapper--expanded .wallkit-item__arrow {
+  transform: rotate(90deg);
+}
+
+/* Адаптивность */
+@media (max-width: 640px) {
+  .wallkit-item {
+    padding: var(--wk-spacing-2, 0.5rem) var(--wk-spacing-3, 0.75rem);
+    font-size: var(--wk-font-size-sm, 0.875rem);
+  }
+
+  .wallkit-item__badge {
+    font-size: var(--wk-font-size-xs, 0.75rem);
+    padding: 0.125rem 0.375rem;
+  }
+}

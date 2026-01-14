@@ -1,422 +1,404 @@
 /**
- * Интерактивность для компонента Menu
- *
- * Обеспечивает работу выпадающих меню, вложенных элементов и адаптивность.
- * Чистый JavaScript без зависимостей.
+ * WallKit Menu Component
+ * Минималистичная реализация функционала меню
  *
  * @version 1.0.0
  */
 
-(function() {
-  'use strict';
-
-  // Конфигурация
-  const CONFIG = {
-    selectors: {
-      menu: '.wallkit-menu',
-      link: '.wallkit-menu__link',
-      itemHasChildren: '.wallkit-menu__item--has-children',
-      submenu: '.wallkit-menu__submenu',
-      toggler: '[data-menu-toggle]',
-      search: '.wallkit-menu__search-input'
-    },
-    classes: {
-      expanded: 'wallkit-menu--expanded',
-      itemExpanded: 'wallkit-menu__item--expanded',
-      open: 'wallkit-menu--open'
-    },
-    events: {
-      click: 'click',
-      mouseenter: 'mouseenter',
-      mouseleave: 'mouseleave',
-      keydown: 'keydown',
-      focusin: 'focusin',
-      focusout: 'focusout'
-    },
-    keys: {
-      escape: 'Escape',
-      enter: 'Enter',
-      space: ' ',
-      arrowUp: 'ArrowUp',
-      arrowDown: 'ArrowDown',
-      arrowLeft: 'ArrowLeft',
-      arrowRight: 'ArrowRight'
-    }
-  };
-
-  /**
-   * Инициализация всех меню на странице
-   */
-  function init() {
-    document.addEventListener('DOMContentLoaded', function() {
-      const menus = document.querySelectorAll(CONFIG.selectors.menu);
-
-      menus.forEach(function(menu) {
-        initMenu(menu);
-      });
-
-      // Закрытие меню при клике вне
-      document.addEventListener('click', function(event) {
-        menus.forEach(function(menu) {
-          if (!menu.contains(event.target)) {
-            closeAllSubmenus(menu);
-            if (menu.classList.contains(CONFIG.classes.expanded) &&
-              !event.target.closest(CONFIG.selectors.toggler)) {
-              menu.classList.remove(CONFIG.classes.expanded);
-            }
-          }
-        });
-      });
-
-      // Закрытие по ESC
-      document.addEventListener('keydown', function(event) {
-        if (event.key === CONFIG.keys.escape) {
-          menus.forEach(function(menu) {
-            closeAllSubmenus(menu);
-            menu.classList.remove(CONFIG.classes.expanded);
-          });
-        }
-      });
-    });
+class WallKitMenu {
+  constructor(menuElement) {
+    this.menu = menuElement;
+    this.variant = menuElement.dataset.variant;
+    this.trigger = menuElement.dataset.trigger;
+    this.init();
   }
 
-  /**
-   * Инициализация конкретного меню
-   */
-  function initMenu(menu) {
-    const trigger = menu.getAttribute('data-trigger') || 'always';
-    const variant = menu.getAttribute('data-variant') || 'navbar';
-
-    // Инициализация элементов
-    initMenuItems(menu);
-
-    // Инициализация тогглера для collapsible
-    const toggler = menu.querySelector(CONFIG.selectors.toggler);
-    if (toggler) {
-      toggler.addEventListener('click', function(event) {
-        event.stopPropagation();
-        menu.classList.toggle(CONFIG.classes.expanded);
-        updateTogglerIcon(toggler, menu.classList.contains(CONFIG.classes.expanded));
-      });
-    }
-
-    // Настройка поведения по trigger
-    switch (trigger) {
-      case 'hover':
-        setupHoverTrigger(menu);
-        break;
-      case 'click':
-        setupClickTrigger(menu);
-        break;
+  init() {
+    // Инициализация в зависимости от варианта
+    switch (this.variant) {
+      case 'dropdown':
       case 'context':
-        setupContextTrigger(menu);
+        this.initDropdown();
         break;
-      // 'always' - ничего не настраиваем
+      case 'navbar':
+      case 'sidebar':
+        this.initNavigation();
+        break;
     }
 
-    // Инициализация клавиатурной навигации
-    initKeyboardNavigation(menu);
+    // Инициализация поиска если есть
+    this.initSearch();
+
+    // Инициализация сворачивания если есть
+    this.initCollapsible();
+
+    // Делегирование событий
+    this.setupEventDelegation();
   }
 
-  /**
-   * Инициализация элементов меню
-   */
-  function initMenuItems(menu) {
-    const itemsWithChildren = menu.querySelectorAll(CONFIG.selectors.itemHasChildren);
+  initDropdown() {
+    if (this.trigger === 'always') return;
 
-    itemsWithChildren.forEach(function(item) {
-      const link = item.querySelector(CONFIG.selectors.link);
-      const submenu = item.querySelector(CONFIG.selectors.submenu);
+    const parent = this.menu.parentElement;
+    if (!parent) return;
 
-      if (!link || !submenu) return;
-
-      // Установка начальных ARIA атрибутов
-      link.setAttribute('aria-haspopup', 'true');
-      link.setAttribute('aria-expanded', 'false');
-      submenu.setAttribute('aria-hidden', 'true');
-    });
-  }
-
-  /**
-   * Настройка hover триггера
-   */
-  function setupHoverTrigger(menu) {
-    const items = menu.querySelectorAll(CONFIG.selectors.itemHasChildren);
-
-    items.forEach(function(item) {
-      const link = item.querySelector(CONFIG.selectors.link);
-      const submenu = item.querySelector(CONFIG.selectors.submenu);
-
-      if (!link || !submenu) return;
-
-      item.addEventListener(CONFIG.events.mouseenter, function() {
-        openSubmenu(item, link, submenu);
+    if (this.trigger === 'click') {
+      // Для клика нужен триггер-кнопка
+      const trigger = parent.querySelector('[data-menu-trigger]');
+      if (trigger) {
+        trigger.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggle();
+        });
+      } else if (parent.tagName === 'BUTTON') {
+        parent.addEventListener('click', (e) => {
+          e.stopPropagation();
+          this.toggle();
+        });
+      }
+    } else if (this.trigger === 'hover') {
+      parent.addEventListener('mouseenter', () => this.show());
+      parent.addEventListener('mouseleave', () => this.hide());
+    } else if (this.trigger === 'context') {
+      parent.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        this.showAt(e.clientX, e.clientY);
       });
-
-      item.addEventListener(CONFIG.events.mouseleave, function(event) {
-        // Проверяем, что курсор не перешёл в подменю
-        if (!item.contains(event.relatedTarget)) {
-          closeSubmenu(item, link, submenu);
-        }
-      });
-
-      submenu.addEventListener(CONFIG.events.mouseleave, function(event) {
-        if (!submenu.contains(event.relatedTarget)) {
-          closeSubmenu(item, link, submenu);
-        }
-      });
-    });
-  }
-
-  /**
-   * Настройка click триггера
-   */
-  function setupClickTrigger(menu) {
-    const items = menu.querySelectorAll(CONFIG.selectors.itemHasChildren);
-
-    items.forEach(function(item) {
-      const link = item.querySelector(CONFIG.selectors.link);
-      const submenu = item.querySelector(CONFIG.selectors.submenu);
-
-      if (!link || !submenu) return;
-
-      link.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const isExpanded = link.getAttribute('aria-expanded') === 'true';
-
-        // Закрываем все остальные подменю
-        closeAllSubmenus(menu, item);
-
-        if (!isExpanded) {
-          openSubmenu(item, link, submenu);
-        }
-      });
-    });
-
-    // Закрытие при клике на другой элемент меню
-    menu.querySelectorAll(CONFIG.selectors.link).forEach(function(link) {
-      link.addEventListener('click', function(event) {
-        if (!link.closest(CONFIG.selectors.itemHasChildren)) {
-          closeAllSubmenus(menu);
-        }
-      });
-    });
-  }
-
-  /**
-   * Настройка context триггера (правая кнопка мыши)
-   */
-  function setupContextTrigger(menu) {
-    document.addEventListener('contextmenu', function(event) {
-      event.preventDefault();
-
-      // Позиционируем меню
-      menu.style.left = event.pageX + 'px';
-      menu.style.top = event.pageY + 'px';
-      menu.classList.add(CONFIG.classes.open);
-
-      // Закрытие при клике
-      const closeHandler = function(e) {
-        if (!menu.contains(e.target)) {
-          menu.classList.remove(CONFIG.classes.open);
-          document.removeEventListener('click', closeHandler);
-        }
-      };
-
-      setTimeout(function() {
-        document.addEventListener('click', closeHandler);
-      }, 0);
-    });
-  }
-
-  /**
-   * Открытие подменю
-   */
-  function openSubmenu(item, link, submenu) {
-    item.classList.add(CONFIG.classes.itemExpanded);
-    link.setAttribute('aria-expanded', 'true');
-    submenu.setAttribute('aria-hidden', 'false');
-
-    // Позиционирование для горизонтального меню
-    if (item.closest('.wallkit-menu--horizontal')) {
-      positionSubmenu(submenu, item);
     }
 
-    // Событие
-    dispatchMenuEvent(item, 'wallkit:menu:submenu:open', { item, submenu });
+    // Закрытие при клике вне меню
+    document.addEventListener('click', (e) => {
+      if (!this.menu.contains(e.target) && !parent.contains(e.target)) {
+        this.hide();
+      }
+    });
+
+    // ESC для закрытия
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') this.hide();
+    });
   }
 
-  /**
-   * Закрытие подменю
-   */
-  function closeSubmenu(item, link, submenu) {
-    item.classList.remove(CONFIG.classes.itemExpanded);
-    link.setAttribute('aria-expanded', 'false');
-    submenu.setAttribute('aria-hidden', 'true');
+  initNavigation() {
+    // Активация элементов при клике
+    this.menu.addEventListener('click', (e) => {
+      const link = e.target.closest('.wallkit-menu__link');
+      if (link && !link.hasAttribute('aria-disabled')) {
+        this.deactivateAllItems();
+        this.activateItem(link.parentElement);
 
-    // Событие
-    dispatchMenuEvent(item, 'wallkit:menu:submenu:close', { item, submenu });
-  }
+        // Для вложенных меню - переключение
+        if (link.hasAttribute('aria-haspopup')) {
+          e.preventDefault();
+          this.toggleSubmenu(link);
+        }
+      }
+    });
 
-  /**
-   * Закрытие всех подменю в меню
-   */
-  function closeAllSubmenus(menu, exceptItem = null) {
-    const items = menu.querySelectorAll(CONFIG.selectors.itemHasChildren);
+    // Клавиатурная навигация
+    this.menu.addEventListener('keydown', (e) => {
+      const focused = document.activeElement;
+      if (!this.menu.contains(focused)) return;
 
-    items.forEach(function(item) {
-      if (item === exceptItem) return;
-
-      const link = item.querySelector(CONFIG.selectors.link);
-      const submenu = item.querySelector(CONFIG.selectors.submenu);
-
-      if (link && submenu) {
-        closeSubmenu(item, link, submenu);
+      switch (e.key) {
+        case 'ArrowDown':
+        case 'ArrowRight':
+          e.preventDefault();
+          this.focusNextItem(focused);
+          break;
+        case 'ArrowUp':
+        case 'ArrowLeft':
+          e.preventDefault();
+          this.focusPrevItem(focused);
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          if (focused.hasAttribute('aria-haspopup')) {
+            this.toggleSubmenu(focused);
+          } else {
+            focused.click();
+          }
+          break;
+        case 'Escape':
+          this.closeAllSubmenus();
+          break;
       }
     });
   }
 
-  /**
-   * Позиционирование подменю
-   */
-  function positionSubmenu(submenu, parentItem) {
-    const rect = parentItem.getBoundingClientRect();
-    const submenuRect = submenu.getBoundingClientRect();
-    const viewportWidth = window.innerWidth;
+  initSearch() {
+    const searchInput = this.menu.querySelector('.wallkit-menu__search-input');
+    if (!searchInput) return;
 
-    // Проверка на переполнение справа
-    if (rect.left + submenuRect.width > viewportWidth) {
-      submenu.style.left = 'auto';
-      submenu.style.right = '0';
-    } else {
-      submenu.style.left = '0';
-      submenu.style.right = 'auto';
+    searchInput.addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase().trim();
+      this.filterMenuItems(term);
+    });
+  }
+
+  initCollapsible() {
+    const toggler = this.menu.querySelector('[data-menu-toggle]');
+    if (!toggler) return;
+
+    toggler.addEventListener('click', () => {
+      this.toggleCollapse();
+    });
+
+    // Адаптивное сворачивание на мобильных
+    if (window.innerWidth <= 768) {
+      this.collapse();
     }
 
-    // Проверка на переполнение снизу (для многоуровневых)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 768) {
+        this.collapse();
+      } else {
+        this.expand();
+      }
+    });
+  }
+
+  setupEventDelegation() {
+    // Обработка подменю на hover (если триггер hover)
+    if (this.trigger === 'hover') {
+      this.menu.addEventListener('mouseenter', (e) => {
+        const item = e.target.closest('.wallkit-menu__item--has-children');
+        if (item) {
+          this.showSubmenu(item);
+        }
+      }, true);
+
+      this.menu.addEventListener('mouseleave', (e) => {
+        const item = e.target.closest('.wallkit-menu__item--has-children');
+        if (item && !item.matches(':hover')) {
+          this.hideSubmenu(item);
+        }
+      }, true);
+    }
+  }
+
+  // Основные методы
+  show() {
+    this.menu.style.display = 'block';
+    this.menu.setAttribute('aria-hidden', 'false');
+  }
+
+  hide() {
+    this.menu.style.display = 'none';
+    this.menu.setAttribute('aria-hidden', 'true');
+  }
+
+  toggle() {
+    if (this.menu.style.display === 'none') {
+      this.show();
+    } else {
+      this.hide();
+    }
+  }
+
+  showAt(x, y) {
+    this.menu.style.position = 'fixed';
+    this.menu.style.left = `${x}px`;
+    this.menu.style.top = `${y}px`;
+    this.show();
+  }
+
+  // Методы для подменю
+  toggleSubmenu(link) {
+    const item = link.parentElement;
+    const submenu = item.querySelector('.wallkit-menu__submenu');
+    if (!submenu) return;
+
+    const isExpanded = link.getAttribute('aria-expanded') === 'true';
+
+    // Закрываем другие подменю на том же уровне
+    this.closeSiblingSubmenus(item);
+
+    if (isExpanded) {
+      this.hideSubmenu(item);
+    } else {
+      this.showSubmenu(item);
+    }
+  }
+
+  showSubmenu(item) {
+    const link = item.querySelector('.wallkit-menu__link');
+    const submenu = item.querySelector('.wallkit-menu__submenu');
+
+    if (link && submenu) {
+      link.setAttribute('aria-expanded', 'true');
+      submenu.style.display = 'block';
+
+      // Позиционирование для dropdown
+      if (this.variant === 'dropdown') {
+        this.positionSubmenu(submenu, link);
+      }
+    }
+  }
+
+  hideSubmenu(item) {
+    const link = item.querySelector('.wallkit-menu__link');
+    const submenu = item.querySelector('.wallkit-menu__submenu');
+
+    if (link && submenu) {
+      link.setAttribute('aria-expanded', 'false');
+      submenu.style.display = 'none';
+
+      // Рекурсивно закрываем все вложенные подменю
+      const nestedSubmenus = submenu.querySelectorAll('.wallkit-menu__submenu');
+      nestedSubmenus.forEach(nested => {
+        nested.style.display = 'none';
+        const nestedLink = nested.previousElementSibling;
+        if (nestedLink && nestedLink.classList.contains('wallkit-menu__link')) {
+          nestedLink.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  }
+
+  closeSiblingSubmenus(currentItem) {
+    const siblings = currentItem.parentElement.children;
+    Array.from(siblings).forEach(sibling => {
+      if (sibling !== currentItem && sibling.classList.contains('wallkit-menu__item--has-children')) {
+        this.hideSubmenu(sibling);
+      }
+    });
+  }
+
+  closeAllSubmenus() {
+    const allSubmenus = this.menu.querySelectorAll('.wallkit-menu__submenu');
+    allSubmenus.forEach(submenu => {
+      submenu.style.display = 'none';
+      const link = submenu.previousElementSibling;
+      if (link && link.classList.contains('wallkit-menu__link')) {
+        link.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  positionSubmenu(submenu, trigger) {
+    const rect = trigger.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
-    if (rect.bottom + submenuRect.height > viewportHeight) {
+
+    // Позиционируем вправо по умолчанию
+    submenu.style.position = 'absolute';
+    submenu.style.left = '100%';
+    submenu.style.top = '0';
+
+    // Проверяем, помещается ли в viewport
+    const submenuRect = submenu.getBoundingClientRect();
+
+    if (rect.right + submenuRect.width > window.innerWidth) {
+      // Не помещается справа - показываем слева
+      submenu.style.left = 'auto';
+      submenu.style.right = '100%';
+    }
+
+    if (rect.top + submenuRect.height > viewportHeight) {
+      // Не помещается снизу - показываем сверху
       submenu.style.top = 'auto';
       submenu.style.bottom = '0';
     }
   }
 
-  /**
-   * Обновление иконки тогглера
-   */
-  function updateTogglerIcon(toggler, isExpanded) {
-    const icon = toggler.querySelector('.wallkit-menu__toggler-icon');
-    if (!icon) return;
+  // Методы для навигации
+  deactivateAllItems() {
+    const activeItems = this.menu.querySelectorAll('.wallkit-menu__item--active');
+    activeItems.forEach(item => item.classList.remove('wallkit-menu__item--active'));
+  }
 
-    if (isExpanded) {
-      icon.style.backgroundColor = 'transparent';
-      icon.style.transform = 'rotate(45deg)';
+  activateItem(item) {
+    item.classList.add('wallkit-menu__item--active');
+  }
 
-      icon.style.before = icon.style.before || {};
-      icon.style.before.transform = 'rotate(90deg) translate(6px, 0)';
+  focusNextItem(current) {
+    const allItems = Array.from(this.menu.querySelectorAll('.wallkit-menu__link:not([aria-disabled="true"])'));
+    const currentIndex = allItems.indexOf(current);
+    const nextIndex = (currentIndex + 1) % allItems.length;
+    allItems[nextIndex].focus();
+  }
 
-      icon.style.after = icon.style.after || {};
-      icon.style.after.transform = 'rotate(-90deg) translate(-6px, 0)';
+  focusPrevItem(current) {
+    const allItems = Array.from(this.menu.querySelectorAll('.wallkit-menu__link:not([aria-disabled="true"])'));
+    const currentIndex = allItems.indexOf(current);
+    const prevIndex = (currentIndex - 1 + allItems.length) % allItems.length;
+    allItems[prevIndex].focus();
+  }
+
+  // Методы для поиска
+  filterMenuItems(term) {
+    const items = this.menu.querySelectorAll('.wallkit-menu__item');
+
+    items.forEach(item => {
+      const label = item.querySelector('.wallkit-menu__label');
+      if (!label) return;
+
+      const text = label.textContent.toLowerCase();
+
+      if (term === '' || text.includes(term)) {
+        item.style.display = '';
+
+        // Показываем родительские элементы если найден вложенный
+        let parent = item.parentElement.closest('.wallkit-menu__item');
+        while (parent) {
+          parent.style.display = '';
+          parent = parent.parentElement.closest('.wallkit-menu__item');
+        }
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  }
+
+  // Методы для collapsible
+  toggleCollapse() {
+    if (this.menu.classList.contains('wallkit-menu--collapsed')) {
+      this.expand();
     } else {
-      icon.style.backgroundColor = '';
-      icon.style.transform = '';
-
-      if (icon.style.before) icon.style.before.transform = '';
-      if (icon.style.after) icon.style.after.transform = '';
+      this.collapse();
     }
   }
 
-  /**
-   * Инициализация клавиатурной навигации
-   */
-  function initKeyboardNavigation(menu) {
-    menu.addEventListener(CONFIG.events.keydown, function(event) {
-      const items = Array.from(menu.querySelectorAll(CONFIG.selectors.link));
-      const currentItem = event.target.closest(CONFIG.selectors.link);
-      const currentIndex = items.indexOf(currentItem);
-
-      if (currentIndex === -1) return;
-
-      let nextIndex = currentIndex;
-
-      switch (event.key) {
-        case CONFIG.keys.arrowDown:
-        case CONFIG.keys.arrowRight:
-          event.preventDefault();
-          nextIndex = (currentIndex + 1) % items.length;
-          break;
-
-        case CONFIG.keys.arrowUp:
-        case CONFIG.keys.arrowLeft:
-          event.preventDefault();
-          nextIndex = (currentIndex - 1 + items.length) % items.length;
-          break;
-
-        case CONFIG.keys.enter:
-        case CONFIG.keys.space:
-          event.preventDefault();
-          currentItem.click();
-          break;
-
-        case CONFIG.keys.escape:
-          closeAllSubmenus(menu);
-          break;
-      }
-
-      if (nextIndex !== currentIndex) {
-        items[nextIndex].focus();
-      }
-    });
-  }
-
-  /**
-   * Диспетчеризация событий
-   */
-  function dispatchMenuEvent(element, eventName, detail = {}) {
-    const event = new CustomEvent(eventName, {
-      bubbles: true,
-      detail: detail
-    });
-    element.dispatchEvent(event);
-  }
-
-  // Экспорт API
-  window.WallKitMenu = {
-    init: init,
-    initMenu: initMenu,
-    openSubmenu: function(menu, itemSelector) {
-      const menuEl = typeof menu === 'string' ? document.querySelector(menu) : menu;
-      const item = menuEl.querySelector(itemSelector);
-      if (item) {
-        const link = item.querySelector(CONFIG.selectors.link);
-        const submenu = item.querySelector(CONFIG.selectors.submenu);
-        if (link && submenu) openSubmenu(item, link, submenu);
-      }
-    },
-    closeSubmenu: function(menu, itemSelector) {
-      const menuEl = typeof menu === 'string' ? document.querySelector(menu) : menu;
-      const item = menuEl.querySelector(itemSelector);
-      if (item) {
-        const link = item.querySelector(CONFIG.selectors.link);
-        const submenu = item.querySelector(CONFIG.selectors.submenu);
-        if (link && submenu) closeSubmenu(item, link, submenu);
-      }
-    },
-    toggleMenu: function(menuSelector) {
-      const menu = document.querySelector(menuSelector);
-      if (menu) {
-        menu.classList.toggle(CONFIG.classes.expanded);
-      }
+  collapse() {
+    this.menu.classList.add('wallkit-menu--collapsed');
+    const toggler = this.menu.querySelector('[data-menu-toggle]');
+    if (toggler) {
+      toggler.setAttribute('aria-expanded', 'false');
     }
-  };
-
-  // Автоинициализация
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
   }
 
-})();
+  expand() {
+    this.menu.classList.remove('wallkit-menu--collapsed');
+    const toggler = this.menu.querySelector('[data-menu-toggle]');
+    if (toggler) {
+      toggler.setAttribute('aria-expanded', 'true');
+    }
+  }
+}
+
+// Автоматическая инициализация всех меню на странице
+document.addEventListener('DOMContentLoaded', () => {
+  const menuElements = document.querySelectorAll('.wallkit-menu');
+  const menus = [];
+
+  menuElements.forEach(element => {
+    try {
+      const menu = new WallKitMenu(element);
+      menus.push(menu);
+
+      // Сохраняем ссылку на экземпляр в элементе
+      element.wallkitMenu = menu;
+    } catch (error) {
+      console.error('Failed to initialize WallKit Menu:', error);
+    }
+  });
+
+  // Глобальный метод для доступа к меню
+  window.WallKitMenus = menus;
+});
+
+// Экспорт для использования в модульных системах
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = WallKitMenu;
+}

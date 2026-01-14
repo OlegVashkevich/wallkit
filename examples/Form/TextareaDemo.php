@@ -1,7 +1,7 @@
 <?php
 
 // examples/Form/TextareaDemo.php
-require __DIR__ . '/../../vendor/autoload.php';
+require __DIR__.'/../../vendor/autoload.php';
 
 use OlegV\BrickManager;
 use OlegV\WallKit\Demo\DemoComponentCard\DemoComponentCard;
@@ -17,6 +17,7 @@ use OlegV\WallKit\Form\Form\Form;
 use OlegV\WallKit\Form\Input\Input;
 use OlegV\WallKit\Form\Select\Select;
 use OlegV\WallKit\Form\Textarea\Textarea;
+use OlegV\WallKit\Navigation\Menu\Menu;
 
 BrickManager::enableDebug();
 // 1. Заголовок
@@ -124,7 +125,7 @@ $sizesCards = [
                     value: 'no',
                     type: 'checkbox',
                     required: true,
-                    /*checked: true,*/
+                /*checked: true,*/
                 ),
                 label: 'Я согласен с условиями использования',
                 helpText: 'Обязательно для регистрации',
@@ -153,7 +154,7 @@ $sizesCards = [
                 value: 'no',
                 type: 'checkbox',
                 required: true,
-                /*checked: true,*/
+            /*checked: true,*/
             ),
         ],
         description: 'Обязательный чекбокс с предварительным выбором',
@@ -552,6 +553,49 @@ $sizesCards = [
         badgeText: 'form',
         badgeType: 'form',
     ),
+    new DemoComponentCard(
+        title: 'Множественная загрузка',
+        component: new Menu(
+            items: [
+                [
+                    'label' => 'Дашборд',
+                    'icon' => '📊',
+                    'url' => '/dashboard',
+                    'active' => true,
+                ],
+                [
+                    'label' => 'Пользователи',
+                    'icon' => '👥',
+                    'children' => [
+                        ['label' => 'Список', 'url' => '/users'],
+                        ['label' => 'Добавить', 'url' => '/users/new'],
+                    ],
+                ],
+            ],
+            orientation: 'vertical',
+            variant: 'sidebar',
+            collapsible: true,
+        ),
+        description: 'Множественная загрузка',
+        badgeText: 'form',
+        badgeType: 'form',
+    ),
+    new DemoComponentCard(
+        title: 'Множественная загрузка',
+        component: new Menu(
+            items: [
+                ['label' => 'Главная', 'url' => '/', 'active' => true],
+                ['label' => 'О нас', 'url' => '/about'],
+                ['label' => 'Контакты', 'url' => '/contact'],
+            ],
+            variant: 'navbar',
+            brand: 'МойСайт',
+            searchPlaceholder: 'Поиск...',
+        ),
+        description: 'Множественная загрузка',
+        badgeText: 'form',
+        badgeType: 'form',
+    ),
 ];
 
 $sizesSection = new DemoSection(
@@ -566,7 +610,7 @@ $sizesSection = new DemoSection(
 $formExample = new DemoFormExample(
     title: 'Форма обратной связи',
     description: 'Пример реального использования Textarea в форме обратной связи',
-    formHtml: (string) new Field(
+    formHtml: (string)new Field(
         input: new Textarea(
             name: 'message',
             placeholder: 'Опишите вашу проблему или вопрос...',
@@ -592,7 +636,7 @@ $realWorldSection = new DemoSection(
     title: 'Реальные примеры',
     description: 'Примеры использования в реальных сценариях',
     icon: '🌍',
-    extraContent: (string) $formExample,
+    extraContent: (string)$formExample,
 );
 
 // 6. Собираем контент
@@ -604,7 +648,7 @@ $content = implode('', [
 
 // 7. Создаем layout
 $layout = new DemoLayout(
-    sidebar: (string) $sidebar,
+    sidebar: (string)$sidebar,
     content: $content,
 );
 
