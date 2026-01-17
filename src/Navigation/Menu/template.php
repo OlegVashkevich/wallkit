@@ -3,13 +3,13 @@
 $attrs = $this->getMenuAttributes();
 ?>
 <nav <?= $this->attr($attrs) ?>>
-    <?php if ($this->brand): ?>
+    <?php if ($this->hasString($this->brand)): ?>
         <a href="/" class="wallkit-menu__brand">
             <?= $this->e($this->brand) ?>
         </a>
     <?php endif ?>
 
-    <?php if ($this->searchPlaceholder): ?>
+    <?php if ($this->hasString($this->searchPlaceholder)): ?>
         <div class="wallkit-menu__search">
             <input type="search"
                    class="wallkit-menu__search-input"

@@ -64,7 +64,7 @@ readonly class Menu extends Base
      * @param  string|null  $searchPlaceholder  Плейсхолдер для поиска
      * @param  bool  $collapsible  Можно ли сворачивать меню (актуально для мобильных)
      * @param  array<string>  $classes  Дополнительные CSS классы
-     * @param  array<string, mixed>  $attributes  Дополнительные HTML атрибуты
+     * @param  array<string, string|int|bool|null>  $attributes  Дополнительные HTML атрибуты
      */
     public function __construct(
         public array $items = [],
@@ -84,7 +84,7 @@ readonly class Menu extends Base
     {
         // Проверяем что все items - экземпляры Item
         foreach ($this->items as $item) {
-            if (!$item instanceof Item) {
+            if (!$item instanceof Item) {// @phpstan-ignore instanceof.alwaysTrue
                 throw new InvalidArgumentException('Все элементы меню должны быть экземплярами Item');
             }
         }
@@ -112,6 +112,8 @@ readonly class Menu extends Base
 
     /**
      * Возвращает CSS классы для меню
+     *
+     * @return array<string>
      */
     public function getMenuClasses(): array
     {
@@ -142,6 +144,8 @@ readonly class Menu extends Base
 
     /**
      * Возвращает HTML атрибуты для меню
+     *
+     * @return array<string, string|int|bool|null> Ассоциативный массив атрибутов
      */
     public function getMenuAttributes(): array
     {
@@ -154,7 +158,7 @@ readonly class Menu extends Base
             'data-collapsible' => $this->collapsible ? 'true' : 'false',
         ], $this->attributes);
 
-        return array_filter($attrs, fn ($value) => $value !== null);
+        return array_filter($attrs, fn($value) => $value !== null);
     }
 
     /**
