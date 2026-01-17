@@ -75,7 +75,6 @@ readonly class Item extends Base
      * @param  string|null  $hint  Подсказка/описание
      * @param  string  $type  Тип элемента (link|action|divider|header|custom)
      * @param  array<Item>  $children  Дочерние элементы
-     * @param  array<string, mixed>  $meta  Дополнительные метаданные
      */
     public function __construct(
         public string $label,
@@ -93,7 +92,6 @@ readonly class Item extends Base
         public ?string $hint = null,
         public string $type = 'link',
         public array $children = [],
-        public array $meta = [],
     ) {}
 
     /**
@@ -102,7 +100,7 @@ readonly class Item extends Base
     protected function prepare(): void
     {
         // Проверяем допустимый тип
-        if (!in_array($this->type, ['link', 'action', 'divider', 'header', 'custom'])) {
+        if (!in_array($this->type, ['link', 'action', 'divider', 'header', 'custom'], true)) {
             throw new InvalidArgumentException("Недопустимый тип элемента: $this->type");
         }
 
@@ -121,32 +119,32 @@ readonly class Item extends Base
 
         // Проверяем children
         foreach ($this->children as $child) {
-            if (!$child instanceof self) {
+            if (!$child instanceof self) { // @phpstan-ignore instanceof.alwaysTrue
                 throw new InvalidArgumentException(
-                    'Все children должны быть экземплярами ' . self::class,
+                    'Все children должны быть экземплярами '.self::class,
                 );
             }
         }
 
         // Нельзя иметь и url/action и children одновременно для обычных типов
         $hasContent = ($this->url !== null) || ($this->action !== null);
-        $hasChildren = !empty($this->children);
+        $hasChildren = $this->children !== [];
 
-        if ($hasContent && $hasChildren && !in_array($this->type, ['header', 'custom'])) {
+        if ($hasContent && $hasChildren && !in_array($this->type, ['header', 'custom'], true)) {
             throw new InvalidArgumentException(
                 'Элемент не может одновременно иметь url/action и children',
             );
         }
 
         // Валидация target
-        if ($this->target !== null && !in_array($this->target, ['_blank', '_self', '_parent', '_top'])) {
+        if ($this->target !== null && !in_array($this->target, ['_blank', '_self', '_parent', '_top'], true)) {
             throw new InvalidArgumentException("Недопустимое значение target: $this->target");
         }
 
         // Если есть data, проверяем что это ассоциативный массив строк
         if ($this->data !== null) {
             foreach ($this->data as $key => $value) {
-                if (!is_string($key) || !is_string($value)) {
+                if (!is_string($key) || !is_string($value)) { // @phpstan-ignore-line
                     throw new InvalidArgumentException(
                         'data-атрибуты должны быть массивом строковых ключ=>значение',
                     );
@@ -160,7 +158,7 @@ readonly class Item extends Base
      */
     public function hasChildren(): bool
     {
-        return !empty($this->children);
+        return $this->children !== [];
     }
 
     /**
@@ -168,7 +166,7 @@ readonly class Item extends Base
      */
     public function isInteractive(): bool
     {
-        return !in_array($this->type, ['divider', 'header']);
+        return !in_array($this->type, ['divider', 'header'], true);
     }
 
     /**
@@ -179,11 +177,13 @@ readonly class Item extends Base
         if ($this->type === 'divider' || $this->type === 'header') {
             return 'div';
         }
-        return $this->url ? 'a' : 'button';
+        return $this->hasString($this->url) ? 'a' : 'button';
     }
 
     /**
      * Получить HTML атрибуты для элемента
+     *
+     * @return array<string, string|int|bool|null> Ассоциативный массив атрибутов
      */
     public function getAttributes(): array
     {
@@ -204,22 +204,22 @@ readonly class Item extends Base
             $attrs['aria-disabled'] = $this->disabled ? 'true' : null;
         }
 
-        if ($this->url) {
+        if ($this->hasString($this->url)) {
             $attrs['href'] = $this->url;
             $attrs['target'] = $this->target;
             $attrs['rel'] = $this->rel;
-        } elseif ($this->action && $this->type === 'action') {
+        } elseif ($this->hasString($this->action) && $this->type === 'action') {
             $attrs['type'] = 'button';
             $attrs['data-action'] = $this->action;
         }
 
-        if ($this->data) {
+        if ($this->data !== null) {
             foreach ($this->data as $key => $value) {
                 $attrs["data-$key"] = $value;
             }
         }
 
-        return array_filter($attrs, fn ($value) => $value !== null);
+        return array_filter($attrs, fn($value) => $value !== null);
     }
 
     /**
@@ -243,7 +243,7 @@ readonly class Item extends Base
     /**
      * Создать элемент-разделитель
      */
-    public static function divider(string $id = null): self
+    public static function divider(?string $id = null): self
     {
         return new self(
             label: '',
@@ -255,7 +255,7 @@ readonly class Item extends Base
     /**
      * Создать элемент-заголовок группы
      */
-    public static function header(string $label, ?string $icon = null, string $id = null): self
+    public static function header(string $label, ?string $icon = null, ?string $id = null): self
     {
         return new self(
             label: $label,
@@ -267,12 +267,18 @@ readonly class Item extends Base
 
     /**
      * Создать кастомный элемент
+     *
+     * @param  string  $label
+     * @param  string|null  $icon
+     * @param  string|null  $id
+     * @param  array<Item>  $children
+     *
+     * @return \OlegV\WallKit\Navigation\Item\Item
      */
     public static function custom(
         string $label,
-        array $meta = [],
         ?string $icon = null,
-        string $id = null,
+        ?string $id = null,
         array $children = [],
     ): self {
         return new self(
@@ -281,12 +287,25 @@ readonly class Item extends Base
             id: $id,
             type: 'custom',
             children: $children,
-            meta: array_merge(['type' => 'custom'], $meta),
         );
     }
 
     /**
      * Создать ссылку
+     *
+     * @param  string  $label
+     * @param  string  $url
+     * @param  string|null  $icon
+     * @param  bool  $active
+     * @param  string|null  $target
+     * @param  string|null  $rel
+     * @param  array<string, string>|null  $data
+     * @param  string|null  $id
+     * @param  string|null  $badge
+     * @param  string|null  $hint
+     * @param  array<Item>  $children
+     *
+     * @return \OlegV\WallKit\Navigation\Item\Item
      */
     public static function link(
         string $label,
@@ -296,7 +315,7 @@ readonly class Item extends Base
         ?string $target = null,
         ?string $rel = null,
         ?array $data = null,
-        string $id = null,
+        ?string $id = null,
         ?string $badge = null,
         ?string $hint = null,
         array $children = [],
@@ -319,6 +338,19 @@ readonly class Item extends Base
 
     /**
      * Создать действие
+     *
+     * @param  string  $label
+     * @param  string  $action
+     * @param  string|null  $icon
+     * @param  bool  $danger
+     * @param  bool  $disabled
+     * @param  array<string, string>|null  $data
+     * @param  string|null  $id
+     * @param  string|null  $badge
+     * @param  string|null  $hint
+     * @param  array<Item>  $children
+     *
+     * @return \OlegV\WallKit\Navigation\Item\Item
      */
     public static function action(
         string $label,
@@ -327,7 +359,7 @@ readonly class Item extends Base
         bool $danger = false,
         bool $disabled = false,
         ?array $data = null,
-        string $id = null,
+        ?string $id = null,
         ?string $badge = null,
         ?string $hint = null,
         array $children = [],
@@ -349,13 +381,23 @@ readonly class Item extends Base
 
     /**
      * Создать родительский элемент с детьми
+     *
+     * @param  string  $label
+     * @param  array<Item>  $children
+     * @param  string|null  $icon
+     * @param  bool  $active
+     * @param  string|null  $id
+     * @param  string|null  $badge
+     * @param  string|null  $hint
+     *
+     * @return \OlegV\WallKit\Navigation\Item\Item
      */
     public static function parent(
         string $label,
         array $children,
         ?string $icon = null,
         bool $active = false,
-        string $id = null,
+        ?string $id = null,
         ?string $badge = null,
         ?string $hint = null,
     ): self {

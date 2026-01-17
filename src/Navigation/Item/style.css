@@ -104,15 +104,15 @@
 }
 
 /* Уровни вложенности */
-.wallkit-item__wrapper--level-2 .wallkit-item {
+.wallkit-item__children .wallkit-item {
   padding-left: calc(var(--wk-spacing-4, 1rem) * 2);
 }
 
-.wallkit-item__wrapper--level-3 .wallkit-item {
+.wallkit-item__children .wallkit-item__children .wallkit-item {
   padding-left: calc(var(--wk-spacing-4, 1rem) * 3);
 }
 
-.wallkit-item__wrapper--level-4 .wallkit-item {
+.wallkit-item__children .wallkit-item__children .wallkit-item__children .wallkit-item {
   padding-left: calc(var(--wk-spacing-4, 1rem) * 4);
 }
 
