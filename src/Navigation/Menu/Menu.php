@@ -99,15 +99,6 @@ readonly class Menu extends Base
         if (!in_array($this->position, $validPositions, true)) {
             throw new InvalidArgumentException("Неподдерживаемая позиция: $this->position");
         }
-
-        // Проверяем совместимость ориентации и позиции
-        if ($this->orientation === 'horizontal' && in_array($this->position, ['left', 'right'], true)) {
-            throw new InvalidArgumentException("Горизонтальное меню не может быть позиционировано слева или справа");
-        }
-
-        if ($this->orientation === 'vertical' && in_array($this->position, ['top', 'bottom'], true)) {
-            throw new InvalidArgumentException("Вертикальное меню не может быть позиционировано сверху или снизу");
-        }
     }
 
     /**
