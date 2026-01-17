@@ -69,7 +69,7 @@ readonly class DropdownMenu extends Base
      * @param  string|null  $triggerId  ID триггер-элемента (для связи с JS)
      * @param  bool  $closeOnClick  Закрывать ли меню при клике на пункт
      * @param  array<string>  $classes  Дополнительные CSS классы
-     * @param  array<string, mixed>  $attributes  Дополнительные HTML атрибуты
+     * @param  array<string, string|int|bool|null>  $attributes  Дополнительные HTML атрибуты
      */
     public function __construct(
         public array $items = [],
@@ -85,7 +85,7 @@ readonly class DropdownMenu extends Base
     ) {
         // Генерируем ID если не указан
         if ($triggerId === null) {
-            $this->triggerId = 'dropdown-' . uniqid();
+            $this->triggerId = 'dropdown-'.uniqid();
         } else {
             $this->triggerId = $triggerId;
         }
@@ -98,7 +98,7 @@ readonly class DropdownMenu extends Base
     {
         // Проверяем что все items - экземпляры Item
         foreach ($this->items as $item) {
-            if (!$item instanceof Item) {
+            if (!$item instanceof Item) { //@phpstan-ignore instanceof.alwaysTrue
                 throw new InvalidArgumentException('Все элементы меню должны быть экземплярами Item');
             }
         }
@@ -122,6 +122,8 @@ readonly class DropdownMenu extends Base
 
     /**
      * Возвращает CSS классы для выпадающего меню
+     *
+     * @return array<string>
      */
     public function getMenuClasses(): array
     {
@@ -137,6 +139,8 @@ readonly class DropdownMenu extends Base
 
     /**
      * Возвращает HTML атрибуты для выпадающего меню
+     *
+     * @return array<string, string|int|bool|null> Ассоциативный массив атрибутов
      */
     public function getMenuAttributes(): array
     {
@@ -148,10 +152,10 @@ readonly class DropdownMenu extends Base
             'data-trigger' => $this->trigger,
             'data-position' => $this->position,
             'data-close-on-click' => $this->closeOnClick ? 'true' : 'false',
-            'id' => 'menu-' . $this->triggerId,
+            'id' => 'menu-'.$this->triggerId,
         ], $this->attributes);
 
-        return array_filter($attrs, fn ($value) => $value !== null);
+        return array_filter($attrs, fn($value) => $value !== null);
     }
 
     /**
@@ -163,19 +167,19 @@ readonly class DropdownMenu extends Base
             return $this->triggerElement;
         }
 
-        $icon = $this->triggerIcon
+        $icon = $this->hasString($this->triggerIcon)
             ? '<span class="wallkit-dropdown-menu__trigger-icon">'
-            . $this->e($this->triggerIcon)
-            . '</span>' : '';
+            .$this->e($this->triggerIcon)
+            .'</span>' : '';
 
-        $text = $this->triggerText
+        $text = $this->hasString($this->triggerText)
             ? '<span class="wallkit-dropdown-menu__trigger-text">'
-            . $this->e($this->triggerText)
-            . '</span>' : '';
+            .$this->e($this->triggerText)
+            .'</span>' : '';
 
         $triggerClasses = [
             'wallkit-dropdown-menu__trigger',
-            'wallkit-dropdown-menu__trigger--' . $this->trigger,
+            'wallkit-dropdown-menu__trigger--'.$this->trigger,
         ];
 
         return sprintf(
