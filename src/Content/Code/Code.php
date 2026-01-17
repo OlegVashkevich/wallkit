@@ -119,7 +119,7 @@ readonly class Code extends Base
         if ($this->highlight && !class_exists('Highlight\HighlightResult')) {
             trigger_error(
                 'WallKit: Библиотека scrivo/highlight.php не установлена. Подсветка кода отключена. '
-                .'Установите: composer require scrivo/highlight.php',
+                . 'Установите: composer require scrivo/highlight.php',
                 E_USER_WARNING,
             );
         }

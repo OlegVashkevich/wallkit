@@ -123,7 +123,7 @@ readonly class Item extends Base
         foreach ($this->children as $child) {
             if (!$child instanceof self) {
                 throw new InvalidArgumentException(
-                    'Все children должны быть экземплярами '.self::class,
+                    'Все children должны быть экземплярами ' . self::class,
                 );
             }
         }
@@ -219,7 +219,7 @@ readonly class Item extends Base
             }
         }
 
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 
     /**

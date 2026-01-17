@@ -94,7 +94,7 @@ class CodeTest extends TestCase
             language: 'javascript',
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
 
         $this->assertIsString($result);
         $this->assertStringContainsString('wallkit-code', $result);
@@ -112,7 +112,7 @@ class CodeTest extends TestCase
             highlight: true,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
 
         $this->assertStringContainsString('hljs', $result);
         $this->assertStringContainsString('language-javascript', $result);
@@ -130,7 +130,7 @@ class CodeTest extends TestCase
             lineNumbers: true,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
 
         $this->assertStringContainsString('wallkit-code__lines', $result);
         $this->assertStringContainsString('wallkit-code__line-number', $result);
@@ -150,7 +150,7 @@ class CodeTest extends TestCase
             copyButton: true,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
 
         $this->assertStringContainsString('wallkit-code__copy-button', $result);
         $this->assertStringContainsString('Копировать', $result);
@@ -169,7 +169,7 @@ class CodeTest extends TestCase
             showLanguage: true,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
 
         $this->assertStringContainsString('wallkit-code__language', $result);
         $this->assertStringContainsString('python', $result);
@@ -190,7 +190,7 @@ class CodeTest extends TestCase
             showLanguage: true,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
 
         $this->assertStringContainsString('wallkit-code__header', $result);
         $this->assertStringContainsString('wallkit-code__language', $result);
@@ -212,7 +212,7 @@ class CodeTest extends TestCase
             highlight: true,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
         $this->assertStringContainsString('wallkit-code', $result);
     }
 
@@ -270,7 +270,7 @@ class CodeTest extends TestCase
             highlight: false,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
         $this->assertStringContainsString('wallkit-code', $result);
     }
 
@@ -286,7 +286,7 @@ class CodeTest extends TestCase
             lineNumbers: true,
         );
 
-        $result = (string)$code;
+        $result = (string) $code;
 
         // Проверяем количество номеров строк
         $this->assertEquals(4, substr_count($result, 'wallkit-code__line-number'));
@@ -294,7 +294,7 @@ class CodeTest extends TestCase
         // Проверяем что пустые строки тоже нумеруются
         $lines = explode("\n", $content);
         foreach ($lines as $i => $line) {
-            $this->assertStringContainsString((string)($i + 1), $result);
+            $this->assertStringContainsString((string) ($i + 1), $result);
         }
     }
 
@@ -305,7 +305,7 @@ class CodeTest extends TestCase
     {
         if (!class_exists('Highlight\Highlighter')) {
             eval(
-            '
+                '
                 namespace Highlight;
                 class Highlighter {
                     public static function listBundledLanguages(): array {
@@ -324,7 +324,7 @@ class CodeTest extends TestCase
         );
 
         // Проверяем что render не выбрасывает исключение
-        $result = (string)$code;
+        $result = (string) $code;
         $this->assertStringContainsString('wallkit-code', $result);
     }
 }

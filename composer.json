@@ -41,8 +41,8 @@
     }
   },
   "scripts": {
-    "fix-php": "php-cs-fixer fix --config=.php-cs-fixer.php",
-    "fix-tpl": "php-cs-fixer fix --config=.php-cs-fixer.template.php",
+    "fix-php": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
+    "fix-tpl": "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.template.php",
     "fix": [
       "@fix-php",
       "@fix-tpl"

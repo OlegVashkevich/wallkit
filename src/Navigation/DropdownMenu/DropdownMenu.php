@@ -85,7 +85,7 @@ readonly class DropdownMenu extends Base
     ) {
         // Генерируем ID если не указан
         if ($triggerId === null) {
-            $this->triggerId = 'dropdown-'.uniqid();
+            $this->triggerId = 'dropdown-' . uniqid();
         } else {
             $this->triggerId = $triggerId;
         }
@@ -148,10 +148,10 @@ readonly class DropdownMenu extends Base
             'data-trigger' => $this->trigger,
             'data-position' => $this->position,
             'data-close-on-click' => $this->closeOnClick ? 'true' : 'false',
-            'id' => 'menu-'.$this->triggerId,
+            'id' => 'menu-' . $this->triggerId,
         ], $this->attributes);
 
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 
     /**
@@ -163,19 +163,19 @@ readonly class DropdownMenu extends Base
             return $this->triggerElement;
         }
 
-        $icon = $this->triggerIcon ?
-            '<span class="wallkit-dropdown-menu__trigger-icon">'.
-            $this->e($this->triggerIcon).
-            '</span>' : '';
+        $icon = $this->triggerIcon
+            ? '<span class="wallkit-dropdown-menu__trigger-icon">'
+            . $this->e($this->triggerIcon)
+            . '</span>' : '';
 
-        $text = $this->triggerText ?
-            '<span class="wallkit-dropdown-menu__trigger-text">'.
-            $this->e($this->triggerText).
-            '</span>' : '';
+        $text = $this->triggerText
+            ? '<span class="wallkit-dropdown-menu__trigger-text">'
+            . $this->e($this->triggerText)
+            . '</span>' : '';
 
         $triggerClasses = [
             'wallkit-dropdown-menu__trigger',
-            'wallkit-dropdown-menu__trigger--'.$this->trigger,
+            'wallkit-dropdown-menu__trigger--' . $this->trigger,
         ];
 
         return sprintf(

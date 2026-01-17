@@ -154,7 +154,7 @@ readonly class Menu extends Base
             'data-collapsible' => $this->collapsible ? 'true' : 'false',
         ], $this->attributes);
 
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 
     /**
