@@ -71,7 +71,7 @@ readonly class ContextMenu extends Base
      * @param  bool  $preventDefault  Блокировать стандартное контекстное меню браузера
      * @param  string|null  $menuId  Уникальный ID меню (для связи с JS)
      * @param  array<string>  $classes  Дополнительные CSS классы
-     * @param  array<string, mixed>  $attributes  Дополнительные HTML атрибуты
+     * @param  array<string, string|int|bool|null>  $attributes  Дополнительные HTML атрибуты
      */
     public function __construct(
         public array $items = [],
@@ -83,7 +83,7 @@ readonly class ContextMenu extends Base
     ) {
         // Генерируем ID если не указан
         if ($menuId === null) {
-            $this->menuId = 'context-menu-' . uniqid();
+            $this->menuId = 'context-menu-'.uniqid();
         } else {
             $this->menuId = $menuId;
         }
@@ -96,24 +96,27 @@ readonly class ContextMenu extends Base
     {
         // Проверяем что все items - экземпляры Item
         foreach ($this->items as $item) {
-            if (!$item instanceof Item) {
+            if (!$item instanceof Item) { //@phpstan-ignore instanceof.alwaysTrue
                 throw new InvalidArgumentException('Все элементы меню должны быть экземплярами Item');
             }
         }
 
         // Проверяем target
-        if (empty($this->target)) {
+        if (!$this->hasString($this->target)) {
             throw new InvalidArgumentException('Параметр target обязателен для ContextMenu');
         }
 
         // Проверяем что target - валидный CSS селектор
-        if (!preg_match('/^[a-zA-Z0-9\s.,#\[\]:*^$=+~>_-]+$/', $this->target)) {
+        $matchResult = preg_match('/^[a-zA-Z0-9\s.,#\[\]:*^$=+~>_-]+$/', $this->target);
+        if ($matchResult === 0 || $matchResult === false) {
             throw new InvalidArgumentException("Некорректный CSS селектор: $this->target");
         }
     }
 
     /**
      * Возвращает CSS классы для контекстного меню
+     *
+     * @return array<string>
      */
     public function getMenuClasses(): array
     {
@@ -127,6 +130,8 @@ readonly class ContextMenu extends Base
 
     /**
      * Возвращает HTML атрибуты для контекстного меню
+     *
+     * @return array<string, string|int|bool|null> Ассоциативный массив атрибутов
      */
     public function getMenuAttributes(): array
     {
@@ -139,7 +144,7 @@ readonly class ContextMenu extends Base
             'id' => $this->menuId,
         ], $this->attributes);
 
-        return array_filter($attrs, fn ($value) => $value !== null);
+        return array_filter($attrs, fn($value) => $value !== null);
     }
 
     /**
