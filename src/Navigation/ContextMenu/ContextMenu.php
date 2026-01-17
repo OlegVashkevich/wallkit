@@ -83,7 +83,7 @@ readonly class ContextMenu extends Base
     ) {
         // Генерируем ID если не указан
         if ($menuId === null) {
-            $this->menuId = 'context-menu-'.uniqid();
+            $this->menuId = 'context-menu-' . uniqid();
         } else {
             $this->menuId = $menuId;
         }
@@ -144,7 +144,7 @@ readonly class ContextMenu extends Base
             'id' => $this->menuId,
         ], $this->attributes);
 
-        return array_filter($attrs, fn($value) => $value !== null);
+        return array_filter($attrs, fn ($value) => $value !== null);
     }
 
     /**
